@@ -72,7 +72,7 @@ static int cmd_x(char *args){
     for(j=2;j<strlen(arg);j++){//test Hexadecimal
 		address += (address*16)+(arg[j]-'0');
 	}
-	hwaddr_read(address,num);
+   printf("%u\n",hwaddr_read(address,num));
 	return 0;
 }
 
