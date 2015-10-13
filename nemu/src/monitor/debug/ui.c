@@ -42,6 +42,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -52,11 +54,31 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
     { "si", "Execute N instructions",cmd_si },
 	{"info","Print the information of register",cmd_info },
+	{"x","Scan Memory",cmd_x },
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+static int cmd_x(char *args){
+	char *arg = strtok(NULL," ");
+    int num=0;
+	int i,j;
+	for(i=0;i<strlen(arg);i++){
+		num += (num*10)+arg[i]-'0';
+	}
+	arg=strtok(NULL," ");
+	unsigned int address;
+	address=0;
+    for(j=2;j<strlen(arg);j++){//test Hexadecimal
+		address += (address*16)+(arg[j]-'0');
+	}
+	int *ans=NULL;
+	ans=(int *)address;
+	printf("%d  ",*ans);
+	return 0;
+}
+
 static int cmd_si(char *args){
 	char *arg = strtok(NULL," ");
 	int i,j,step_num=0;
