@@ -63,7 +63,7 @@ static int cmd_si(char *args){
 		i=strlen(arg);
 		for(j=0;j<i;j++)
 		{
-			step_num += (step_num*10)+arg[j];
+			step_num += (step_num*10)+arg[j]-'0';
 		}
 		cpu_exec(step_num);
 		return 0;
