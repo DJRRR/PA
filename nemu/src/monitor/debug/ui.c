@@ -54,7 +54,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
     { "si", "Execute N instructions",cmd_si },
 	{"info","Print the information of register",cmd_info },
-	{"x","Scan Memory",cmd_x },
+	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	/* TODO: Add more commands */
 
 };
@@ -73,8 +73,7 @@ static int cmd_x(char *args){
     for(j=2;j<strlen(arg);j++){//test Hexadecimal
 		address += (address*16)+(arg[j]-'0');
 	}
-	int *ans=NULL;
-	ans=(int *)address;
+	int *ans=(void *)address;
 	printf("%d  ",*ans);
 	return 0;
 }
