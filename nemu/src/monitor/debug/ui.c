@@ -68,11 +68,13 @@ static int cmd_x(char *args){
 		num += (num*10)+arg[i]-'0';
 	}
 	arg=strtok(NULL," ");
-	unsigned int address=0;
-    for(j=0;j<strlen(arg);j++){//test Hexadecimal
-		address += (address*16)+(arg[j]-'0');
+	unsigned address=0;
+	for(j=0;j<strlen(arg);j++){
+		address += address*16+arg[j]-'0';
 	}
-   printf("%x \n",hwaddr_read(address,num));
+	for(j=0;j<num;j++){
+    printf("%u",hwaddr_read(address+j*4,4));
+	}
 	return 0;
 }
 
