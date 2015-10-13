@@ -75,7 +75,7 @@ static int cmd_x(char *args){
 	}
 	printf("test %u\n",address);
 	for(j=0;j<num;j++){
-    printf("%x",hwaddr_read(address+j*4,0));
+    printf("0x%02x",hwaddr_read(address+j*4,0));
 	}
 	return 0;
 }
