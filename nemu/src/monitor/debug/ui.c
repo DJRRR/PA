@@ -77,14 +77,14 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
 	char *arg = strtok(NULL," ");
 	if(arg[0]=='r'){
-		printf("<eax>:	%u\n",cpu.eax);
-		printf("<ecx>:	%u\n",cpu.ecx);
-		printf("<edx>:	%u\n",cpu.edx);
-		printf("<ebx>:	%u\n",cpu.ebx);
-		printf("<esp>:	%u\n",cpu.esp);
-		printf("<ebp>:	%u\n",cpu.ebp);
-		printf("<esi>:	%u\n",cpu.esi);
-		printf("<edi>:	%u\n",cpu.edi);
+		printf("<eax>:	%02X\n",cpu.eax);
+		printf("<ecx>:	%02X\n",cpu.ecx);
+		printf("<edx>:	%02X\n",cpu.edx);
+		printf("<ebx>:	%02X\n",cpu.ebx);
+		printf("<esp>:	%02X\n",cpu.esp);
+		printf("<ebp>:	%02X\n",cpu.ebp);
+		printf("<esi>:	%02X\n",cpu.esi);
+		printf("<edi>:	%02X\n",cpu.edi);
 		return 0;
 	}
     return 0;
