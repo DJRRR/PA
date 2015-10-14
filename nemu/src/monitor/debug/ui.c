@@ -73,7 +73,7 @@ static int cmd_x(char *args){
 		address =(address*16)+arg[j]-'0';
 	}
 	for(j=0;j<num;j++){
-    printf("0x02%x\n",hwaddr_read(address+j*4,0));
+    printf("%02X\n",hwaddr_read(address+j*4,0));
 	}
 	return 0;
 }
