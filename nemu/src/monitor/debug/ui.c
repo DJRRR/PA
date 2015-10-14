@@ -65,13 +65,13 @@ static int cmd_x(char *args){
     int num=0;
 	int i,j;
 	for(i=0;i<strlen(arg);i++){
-		num += (num*10)+arg[i]-'0';
+		num = (num*10)+arg[i]-'0';
 	}
 	printf("test %d\n",num);
 	arg=strtok(NULL," ");
 	unsigned address=0;
 	for(j=0;j<strlen(arg)-1;j++){
-		address +=(address*16)+arg[j]-'0';
+		address =(address*16)+arg[j]-'0';
 	}
 	printf("test %u\n",address);
 	for(j=0;j<num;j++){
@@ -91,7 +91,7 @@ static int cmd_si(char *args){
 		i=strlen(arg);
 		for(j=0;j<i;j++)
 		{
-			step_num += (step_num*10)+arg[j]-'0';
+			step_num = (step_num*10)+arg[j]-'0';
 		}
 		cpu_exec(step_num);
 		return 0;
