@@ -70,7 +70,7 @@ static int cmd_x(char *args){
 	printf("test %d\n",num);
 	arg=strtok(NULL," ");
 	unsigned address=0;
-	for(j=0;j<strlen(arg)-1;j++){
+	for(j=0;j<strlen(arg);j++){
 		address =(address*16)+arg[j]-'0';
 	}
 	printf("test %u\n",address);
