@@ -67,15 +67,13 @@ static int cmd_x(char *args){
 	for(i=0;i<strlen(arg);i++){
 		num = (num*10)+arg[i]-'0';
 	}
-	printf("test %d\n",num);
 	arg=strtok(NULL," ");
 	unsigned address=0;
 	for(j=0;j<strlen(arg);j++){
 		address =(address*16)+arg[j]-'0';
 	}
-	printf("test %u\n",address);
 	for(j=0;j<num;j++){
-    printf("0x%02x",hwaddr_read(address+j*4,0));
+    printf("0x%x\n",hwaddr_read(address+j*4,0));
 	}
 	return 0;
 }
