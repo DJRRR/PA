@@ -70,10 +70,18 @@ static int cmd_x(char *args){
 	arg=strtok(NULL," ");
 	unsigned address=0;
 	for(j=0;j<strlen(arg);j++){
+		if(arg[j]>='0'&&arg[j]<='9'){
 		address =(address*16)+arg[j]-'0';
+		}
+		else if(arg[j]>='a'&&arg[j]<='f'){
+			address=(address*16)+10+arg[j]-'a';
+		}
+		else{
+			address = (address*16)+10+arg[j]-'A';
+		}
 	}
 	for(j=0;j<num;j++){
-    printf("%02X\n",hwaddr_read(address+4*j,16));
+    printf("%02X\n",hwaddr_read(address+4*j,8));
 	}
 	return 0;
 }
