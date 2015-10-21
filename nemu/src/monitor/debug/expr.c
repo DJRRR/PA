@@ -88,15 +88,21 @@ static bool make_token(char *e) {//shibie token
 				switch(rules[i].token_type) {
 					case '+':
 						tokens[i].type='+';
+						nr_token++;
 					case '-':
 						tokens[i].type='-';
+						nr_token++;
 					case '*':
 						tokens[i].type='*';
+						nr_token++;
 					case '/':
 						tokens[i].type='/';
+						nr_token++;
 					case NOTYPE:
-						tokens[i].type=NOTYPE;
+                         continue;//uncompleted
+						//tokens[i].type=NOTYPE;
 					case DECIMAL:
+						 nr_token++;
 						tokens[i].type=DECIMAL;
 		                int j;
 						int size=sizeof(rules[i].regex);
@@ -109,10 +115,13 @@ static bool make_token(char *e) {//shibie token
 							assert(0);
 						}
 					case EQ:
+						nr_token++;
 						tokens[i].type=EQ;
 					case '(':
+                        nr_token++;
 						tokens[i].type='(';
 					case ')':
+						nr_token++;
 						tokens[i].type=')';
 					default: panic("please implement me");
 				}
@@ -127,15 +136,27 @@ static bool make_token(char *e) {//shibie token
 		}
 	}
 
-	return true; 
+	return true;  
 }
-
+void test_tokens(char *e)
+{    
+	 if(make_token(e)==false){
+		 printf("mission failed\n");
+	 }
+     assert(make_token(e)==true);
+	 int i;
+     printf("%d\n",nr_token);
+     for(i=0;i<nr_token;i++){
+		 printf("num[i]:   %c\n%s\n",tokens[i].type,tokens[i].str);
+	 }
+		 
+}
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-
+    
 	/* TODO: Insert codes to evaluate the expression. */
 	panic("please implement me");
 	return 0;
