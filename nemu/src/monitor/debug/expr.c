@@ -7,8 +7,9 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
-
+	NOTYPE = 256, EQ,
+	DECIMAL = 1,
+    
 	/* TODO: Add more token types */
 
 };
@@ -22,15 +23,15 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
+	{" +",	NOTYPE},				// spaces 256
+	{"\\+", '+'},					// plus  43
 	{"==", EQ},                   	// equal
-	{"-",'-'},                   	// minus
-	{"\\*",'*'},                    // multi
-	{"/",'/'},                    // round
-	{"\\(",'('},                    // left
-	{"\\)",')'},                    // right
-
+	{"-",'-'},                   	// minus 45
+	{"\\*",'*'},                    // multi 42
+	{"/",'/'},                    // round 47
+	{"\\(",'('},                    // left 40
+	{"\\)",')'},                    // right 41
+    {"\\d+",DECIMAL},               // decimal integer
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -62,7 +63,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-static bool make_token(char *e) {
+static bool make_token(char *e) {//shibie token
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
