@@ -22,7 +22,7 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 `	 */
 
-	{"\\s",	NOTYPE},				// spaces 256
+	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43
 	{"==", EQ},                   	// equal
 	{"-",'-'},                   	// minus 45
@@ -103,7 +103,7 @@ static bool make_token(char *e) {//shibie token
 						 nr_token++;
 						tokens[i].type='d';
 						int j;
-						for(j=0;j<substr_len;j++){
+						for(j=0;j<substr_len-1;j++){
 							tokens[i].str[j]=substr_start[j];
 						}
 						//int size=sizeof(rules[i].regex);
