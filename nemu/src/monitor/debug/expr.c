@@ -120,7 +120,7 @@ static bool make_token(char *e) {//shibie token
 					default: panic("please implement me");
 				}
 
-			   //	break;
+				break;
 			}
 		}
 
