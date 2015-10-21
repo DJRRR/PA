@@ -30,7 +30,7 @@ static struct rule {
 	{"/",'/'},                    // round 47
 	{"\\(",'('},                    // left 40
 	{"\\)",')'},                    // right 41
-    {"^[0-9]\\d*$",'d'},               // decimal integer
+    {"^[0-9]+$",'d'},               // decimal integer
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -102,11 +102,8 @@ static bool make_token(char *e) {//shibie token
 					case 'd':
 						 nr_token++;
 						tokens[i].type='d';
-		                int j,k=0;
 						//int size=sizeof(rules[i].regex);
-							for(j=position-substr_len;j<position;j++){
-								tokens[i].str[k++]=rules[i].regex[j];
-							}
+					   // tokens[i].str=substr_start;
 					case EQ:
 						nr_token++;
 						tokens[i].type=EQ;

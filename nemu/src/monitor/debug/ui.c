@@ -46,7 +46,7 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
-static int cmd_test_expr();
+static int cmd_test_expr(char *args);
 
 static struct {
 	char *name;
@@ -66,8 +66,10 @@ static struct {
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
-static int cmd_test_expr(){
-	test_tokens("666+222*1/3");
+static int cmd_test_expr(char *args){
+	char *arg=strtok(NULL," ");
+	test_tokens(arg);
+
 	return 0;
 
 }
