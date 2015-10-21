@@ -142,6 +142,7 @@ static bool make_token(char *e) {//shibie token
 void test_tokens(char *e)
 {    
 	 make_token(e);
+	 printf("%s/n",tokens[0].str);
      printf("%d\n",nr_token);
 		 
 }
