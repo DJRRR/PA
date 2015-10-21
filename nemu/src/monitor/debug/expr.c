@@ -86,6 +86,34 @@ static bool make_token(char *e) {//shibie token
 				 */
 
 				switch(rules[i].token_type) {
+					case '+':
+						tokens[i].type='+';
+					case '-':
+						tokens[i].type='-';
+					case '*':
+						tokens[i].type='*';
+					case '/':
+						tokens[i].type='/';
+					case NOTYPE:
+						tokens[i].type=NOTYPE;
+					case DECIMAL:
+						tokens[i].type=DECIMAL;
+		                int j;
+						int size=sizeof(rules[i].regex);
+					    if(size<33){
+							for(j=0;j<size;j++){
+								tokens[j].str[j]=rules[i].regex[j];
+							}
+						}
+						else{
+							assert(0);
+						}
+					case EQ:
+						tokens[i].type=EQ;
+					case '(':
+						tokens[i].type='(';
+					case ')':
+						tokens[i].type=')';
 					default: panic("please implement me");
 				}
 
