@@ -109,7 +109,7 @@ static bool make_token(char *e) {//shibie token
 						for(j=position-substr_len;j<substr_len;j++){
 							tokens[i].str[k++]=e[j];
 						}
-						printf("%d",substr_len);
+						printf("%d",tokens[i].str[0]);
 					   break;
 					case EQ:
 						nr_token++;
