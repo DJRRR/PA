@@ -87,15 +87,19 @@ static bool make_token(char *e) {//shibie token
 					case '+':
 						nr_token++;
 						tokens[i].type='+';
+						break;
 					case '-':
 						tokens[i].type='-';
 						nr_token++;
+						break;
 					case '*':
 						tokens[i].type='*';
 						nr_token++;
+						break;
 					case '/':
 						tokens[i].type='/';
 						nr_token++;
+						break;
 					case NOTYPE:
                          continue;//uncompleted
 						//tokens[i].type=NOTYPE;
@@ -108,15 +112,19 @@ static bool make_token(char *e) {//shibie token
 						}
 						//int size=sizeof(rules[i].regex);
 					   // tokens[i].str=substr_start;
+					   break;
 					case EQ:
 						nr_token++;
 						tokens[i].type=EQ;
+						break;
 					case '(':
                         nr_token++;
 						tokens[i].type='(';
+						break;
 					case ')':
 						nr_token++;
 						tokens[i].type=')';
+						break;
 					default: panic("please implement me");
 				}
 
