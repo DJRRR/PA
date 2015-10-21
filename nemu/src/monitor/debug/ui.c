@@ -46,6 +46,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_test_expr(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -58,11 +60,17 @@ static struct {
 	{"info","Print the information of register",cmd_info },
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	{"p","EXPR",cmd_p },
+	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+static int cmd_test_expr(char *args){
+	char *arg = strtok(NULL," ");
+	test_tokens(arg);
+	return 0;
+}
 static int cmd_p(char *args){
 	return -1;
 }//uncompleted
