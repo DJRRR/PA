@@ -30,7 +30,7 @@ static struct rule {
 	{"/",'/'},                    // round 47
 	{"\\(",'('},                    // left 40
 	{"\\)",')'},                    // right 41
-    {"[1-9]\\d*",'d'},               // decimal integer
+    {"[1-9]\\d+",'d'},               // decimal integer
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -133,14 +133,7 @@ static bool make_token(char *e) {//shibie token
 }
 void test_tokens(char *e)
 {    
-	 if(make_token(e)==false){
-		 printf("mission failed\n");
-	 }
-	 int i;
      printf("%d\n",nr_token);
-     for(i=0;i<nr_token;i++){
-		 printf("num[i]:   %c\n%s\n",tokens[i].type,tokens[i].str);
-	 }
 		 
 }
 uint32_t expr(char *e, bool *success) {
