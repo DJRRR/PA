@@ -103,10 +103,10 @@ static bool make_token(char *e) {//shibie token
 					case 'd':
 						 nr_token++;
 						tokens[i].type='d';
-		                int j;
+		                int j,k=0;
 						//int size=sizeof(rules[i].regex);
-							for(j=0;j<position-i+1;j++){
-								tokens[j].str[j]=rules[i].regex[j];
+							for(j=position-substr_len;j<position;j++){
+								tokens[i].str[k++]=rules[i].regex[j];
 							}
 					case EQ:
 						nr_token++;
