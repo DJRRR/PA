@@ -105,15 +105,10 @@ static bool make_token(char *e) {//shibie token
 						 nr_token++;
 						tokens[i].type=DECIMAL;
 		                int j;
-						int size=sizeof(rules[i].regex);
-					    if(size<33){
-							for(j=0;j<size;j++){
+						//int size=sizeof(rules[i].regex);
+							for(j=0;j<position-i;j++){
 								tokens[j].str[j]=rules[i].regex[j];
 							}
-						}
-						else{
-							assert(0);
-						}
 					case EQ:
 						nr_token++;
 						tokens[i].type=EQ;
