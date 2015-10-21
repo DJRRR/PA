@@ -87,7 +87,6 @@ static bool make_token(char *e) {//shibie token
 				switch(rules[i].token_type) {
 					case '+':
 						tokens[i].type='+';
-						nr_token++;
 					case '-':
 						tokens[i].type='-';
 						nr_token++;
@@ -120,7 +119,7 @@ static bool make_token(char *e) {//shibie token
 					default: panic("please implement me");
 				}
 
-			   //	break;
+			   	break;
 			}
 		}
 
