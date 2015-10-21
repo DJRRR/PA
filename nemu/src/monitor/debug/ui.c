@@ -44,6 +44,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -55,11 +57,16 @@ static struct {
     { "si", "Execute N instructions",cmd_si },
 	{"info","Print the information of register",cmd_info },
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
+	{"p","EXPR",cmd_p },
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+static int cmd_p(char *args){
+	return -1;
+}//uncompleted
+
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
     int num=0;
