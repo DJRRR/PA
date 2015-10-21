@@ -138,7 +138,6 @@ void test_tokens(char *e)
 	 if(make_token(e)==false){
 		 printf("mission failed\n");
 	 }
-     assert(make_token(e)==true);
 	 int i;
      printf("%d\n",nr_token);
      for(i=0;i<nr_token;i++){
