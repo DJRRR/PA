@@ -8,7 +8,6 @@
 
 enum {
 	NOTYPE = 256, EQ,
-	DECIMAL = 255,
     
 	/* TODO: Add more token types */
 
@@ -31,7 +30,7 @@ static struct rule {
 	{"/",'/'},                    // round 47
 	{"\\(",'('},                    // left 40
 	{"\\)",')'},                    // right 41
-    {"[1-9]\\d+",DECIMAL},               // decimal integer
+    {"[1-9]\\d*",'d'},               // decimal integer
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -101,9 +100,9 @@ static bool make_token(char *e) {//shibie token
 					case NOTYPE:
                          continue;//uncompleted
 						//tokens[i].type=NOTYPE;
-					case DECIMAL:
+					case 'd':
 						 nr_token++;
-						tokens[i].type=DECIMAL;
+						tokens[i].type='d';
 		                int j;
 						//int size=sizeof(rules[i].regex);
 							for(j=0;j<position-i+1;j++){
@@ -121,7 +120,7 @@ static bool make_token(char *e) {//shibie token
 					default: panic("please implement me");
 				}
 
-				break;
+			   //	break;
 			}
 		}
 
