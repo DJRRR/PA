@@ -107,7 +107,7 @@ static bool make_token(char *e) {//shibie token
 						tokens[i].type='d';
 						int j,k=0;
 						for(j=position;j<substr_len;j++){
-							tokens[i].str[k++]=substr_start[j];
+							tokens[i].str[k++]=e[j];
 						}
 					   break;
 					case EQ:
