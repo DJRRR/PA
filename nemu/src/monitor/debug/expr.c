@@ -101,8 +101,7 @@ static bool make_token(char *e) {//shibie token
 						nr_token++;
 						break;
 					case NOTYPE:
-                         continue;//uncompleted
-						//tokens[i].type=NOTYPE;
+                        break;
 					case 'd':
 						 nr_token++;
 						tokens[i].type='d';
