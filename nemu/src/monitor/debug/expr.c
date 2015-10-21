@@ -20,7 +20,7 @@ static struct rule {
 
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
-	 */
+`	 */
 
 	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43
@@ -78,7 +78,6 @@ static bool make_token(char *e) {//shibie token
 
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
-
 				/* TODO: Now a new token is recognized with rules[i]. Add codes
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
