@@ -64,6 +64,7 @@ int nr_token;
 static bool make_token(char *e) {//shibie token
 	int position = 0;
 	int i;
+	int j,k;
 	regmatch_t pmatch;
 	
 	nr_token = 0;
@@ -104,7 +105,7 @@ static bool make_token(char *e) {//shibie token
 					case NUM:
 						tokens[nr_token].type=NUM;
 						nr_token++;
-						int j,k=0;
+						j=k=0;
 						if(substr_len<=32){
 							for(j=position-1;j>position-substr_len-1;j--){
 								tokens[nr_token].str[k++]=e[j]+48;
