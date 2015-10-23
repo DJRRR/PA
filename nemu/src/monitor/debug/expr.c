@@ -106,7 +106,7 @@ static bool make_token(char *e) {//shibie token
 						tokens[nr_token].type=NUM;
 						j=k=0;
 						if(substr_len<=32){
-							for(j=position-1;j>position-substr_len;j--){
+							for(j=position-1;j>=position-substr_len;j--){
 								tokens[nr_token].str[k++]=e[j];
 								printf("test%c\n",e[j]);
 							}
