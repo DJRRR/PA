@@ -212,7 +212,7 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	 make_token(e);
-	 printf("%d\n",tokens[0].str[1]);
+	 printf("%c%c%c\n",tokens[0].str[0],tokens[0].str[1],tokens[0].str[2]);
      printf("%d\n",nr_token);
 		 
 }
