@@ -5,10 +5,9 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
 enum {
 	NOTYPE = 256, EQ,
-    
+    NUM=255,
 	/* TODO: Add more token types */
 
 };
@@ -30,7 +29,7 @@ static struct rule {
 	{"/",'/'},                    // round 47
 	{"\\(",'('},                    // left 40
 	{"\\)",')'},                    // right 41
-    {"[0-9x]+",'d'},               // decimal integer
+    {"[0-9x]+",NUM},               // decimal integer
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -71,45 +70,50 @@ static bool make_token(char *e) {//shibie token
 
 	while(e[position] != '\0') {
 		/* Try all rules one by one. */
-		for(i = 0; i < NR_REGEX; i ++) {    //NR_REGEX means the size of expr
-			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+ 		for(i = 0; i < NR_REGEX; i ++) {    //NR_REGEX means the size of expr
+ 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
 				position += substr_len;
-				/* TODO: Now a new token is recognized with rules[i]. Add codes
+ 				/* TODO: Now a new token is recognized with rules[i]. Add codes
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
 				 */
 
-				switch(rules[i].token_type) {
+ 				switch(rules[i].token_type) {
 					case '+':
+						tokens[nr_token].type='+';
 						nr_token++;
-						tokens[i].type='+';
 						break;
 					case '-':
-						tokens[i].type='-';
+						tokens[nr_token].type='-';
 						nr_token++;
 						break;
 					case '*':
-						tokens[i].type='*';
+						tokens[nr_token].type='*';
 						nr_token++;
 						break;
 					case '/':
-						tokens[i].type='/';
+						tokens[nr_token].type='/';
 						nr_token++;
 						break;
 					case NOTYPE:
                         break;
-					case 'd':
-						 nr_token++;
-						tokens[i].type='d';
+					case NUM:
+						tokens[nr_token].type=NUM;
+						nr_token++;
 						int j,k=0;
-						for(j=position-substr_len;j<substr_len;j++){
-							tokens[i].str[k++]=e[j];
+						if(substr_len<=32){
+							for(j=position;j>position-substr_len;j--){
+								tokens[i].str[k++]=e[j]+48;
+							}
 						}
-						printf("%d",tokens[i].str[2]);
+						else{
+							printf("Decimal integer exceed!\n");
+							assert(0);
+						}
 					   break;
 					case EQ:
 						nr_token++;
@@ -138,6 +142,71 @@ static bool make_token(char *e) {//shibie token
 
 	return true;  
 }
+bool check_parentheses(){//unchecked
+	int i,count=0;
+	if(tokens[0].type!='(')
+	{
+		return false;
+	}
+    for(i=1;i<32;){
+		 if(i!=31&&tokens[i+1].type==0){
+			 break;
+		 }
+	}
+	if(tokens[i].type!=')'){
+		return false;
+	}
+	for(i=0;i<32;i++){
+		if(tokens[i].type=='('){
+			count++;
+		}
+		if(tokens[i].type==')'){
+			count--;
+		}
+	    if(i!=31&&tokens[i+1].type==0){
+			break;
+		}
+		if(count<=0){
+			return false;
+		}
+	}
+	if(count==0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+int eval(int p,int q){//uncompleted
+   if(p>q){
+	printf("Error1:Bad expression!\n");
+	return -1;
+   }
+   else if(p==q){
+	if(tokens[p].type!=NUM){
+	  printf("Error2:Bad expression!\n");
+	  return -1;
+	}
+	else{
+	int result=0,i;
+	for(i=0;i<32;i++){
+		result = result*10+(tokens[p].str[i]-'0');
+	}
+	return result;
+	}
+   }
+   else{
+	   return -1;
+   }
+}
+
+
+
+
+
+
 void test_tokens(char *e)
 {    
 	 make_token(e);
