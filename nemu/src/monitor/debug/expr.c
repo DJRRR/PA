@@ -104,7 +104,6 @@ static bool make_token(char *e) {//shibie token
                         break;
 					case NUM:
 						tokens[nr_token].type=NUM;
-						nr_token++;
 						j=k=0;
 						if(substr_len<=32){
 							for(j=position-1;j>position-substr_len-1;j--){
@@ -116,6 +115,7 @@ static bool make_token(char *e) {//shibie token
 							printf("Decimal integer exceed!\n");
 							assert(0);
 						}
+						nr_token++;
 					   break;
 					case EQ:
 						nr_token++;
