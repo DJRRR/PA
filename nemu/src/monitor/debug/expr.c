@@ -166,37 +166,35 @@ static bool make_token(char *e) {//shibie token
 
 	return true;  
 }
-bool check_parentheses(int p,int q){//unchecked
+int check_parentheses(int p,int q){//1 means true 0 means can expr -1 means
 	int i,count=0;
+	int result=1;
 	if(tokens[p].type!='(')
 	{
-	//	printf("the first\n");
-		return false;
+		result=0;
 	}
 	if(tokens[q].type!=')'){
 	//	printf("the last\n");
-		return false;
+		result=0;
 	}
-	for(i=p;i<q+1;i++){
+	for(i=p;i<=q;i++){
 		if(tokens[i].type=='('){
 			count++;
 		}
 		if(tokens[i].type==')'){
 			count--;
 		}
-	    if(i!=q&&tokens[i+1].type==0){
+	    if(i!=q&&tokens[i+1].type==0){//???
 			break;
 		}
-		if(i!=q&&count<=0){
-			return false;
+		if(count==0&&i!=q){
+			result=0;
+		}
+		if(count<0){
+			return -1;
 		}
 	}
-	if(count==0){
-		return true;
-	}
-	else{
-		return false;
-	}
+	return result;
 }
 
 int eval(int p,int q){//uncompleted
@@ -224,7 +222,7 @@ int eval(int p,int q){//uncompleted
 	return result;
 	}
    }
-   else if(check_parentheses(p,q)==true){
+   else if(check_parentheses(p,q)==1){
 	   return eval(p+1,q-1);
    }
    else{
