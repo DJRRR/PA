@@ -273,9 +273,9 @@ long int eval(int p,int q){//uncompleted
    }
    else{
 	   if(tokens[p].size==2&&tokens[p].type=='-'){
-		   puts("here");
-		   int xmy=0-eval(p+1,q);
-		   printf("dadad: %d        %d\n",xmy,p);
+		 //  puts("here");
+		 //  int xmy=0-eval(p+1,q);
+		 //  printf("dadad: %d        %d\n",xmy,p);
 		   return 0-eval(p+1,q);
 
 	   }
@@ -309,12 +309,13 @@ long int eval(int p,int q){//uncompleted
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
 			 }*/
-		 }
-		     printf("test:%d\n",pos);
+		 }   
+		 if(max_level==7){
+		     printf("test:%d\n",pos);}
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
-			 if(pos==2){
-             printf("test:    %ld\n%ld\n",val1,val2);}
+			// if(pos==2){
+            // printf("test:    %ld\n%ld\n",val1,val2);}
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
 				 case '-':return val1-val2;
