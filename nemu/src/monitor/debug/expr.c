@@ -231,6 +231,7 @@ int eval(int p,int q){//uncompleted
 		   else{
 			   temp_level=-1;
 		   }
+		   if(j==5){printf("%d\n",tokens[j].level);}
 		   if(temp_level>=max_level){
 			   max_level=temp_level;
 			   pos=j;
