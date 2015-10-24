@@ -121,8 +121,24 @@ static bool make_token(char *e) {//shibie token
 						break;
 					case NOTYPE:
                         break;
-					case NUM:
 					case HEX:
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=0;
+						tokens[nr_token].size=substr_len-2;
+						j=k=0;
+						if(substr_len<=34){
+							for(j=position-substr_len+2;j<=position-1;j++){
+								tokens[nr_token].str[k++]=e[j];
+							}
+						}
+						else{
+							printf("HEX EXCEED!\n");
+							assert(0);
+						}
+						nr_token++;
+						break;
+
+					case NUM:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
 						tokens[nr_token].size=substr_len;
