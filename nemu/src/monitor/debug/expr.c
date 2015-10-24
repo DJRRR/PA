@@ -224,7 +224,7 @@ int eval(int p,int q){//uncompleted
    else{
 	   puts("here\n");
 	   for(j=p;j<q+1;j++){
-		   if(tokens[j].level!=1&&tokens[j].type!=NUM){
+		   if(tokens[j].level>1){
 			   temp_level=tokens[j].level;
 		   }
 		   if(temp_level>=max_level){
