@@ -232,10 +232,10 @@ long int eval(int p,int q){//uncompleted
 				result = result*16+(tokens[p].str[i]-'0');
 			}
 			else if(tokens[p].str[i]>='A'&&tokens[p].str[i]<='F'){
-				result = result*16+(tokens[p].str[i]-'A');
+				result = result*16+(tokens[p].str[i]-'A'+10);
 			}
 			else{
-				result = result*16+(tokens[p].str[i]-'a');
+				result = result*16+(tokens[p].str[i]-'a'+10);
 			}
 		}
 		for(i=0;i<tokens[p].size-32;i++){
@@ -312,7 +312,7 @@ long int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,6);
+	 long int result=eval(0,0);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
