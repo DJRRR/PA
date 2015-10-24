@@ -218,6 +218,7 @@ int eval(int p,int q){//uncompleted
 	   return eval(p+1,q-1);
    }
    else{
+	   puts("here\n");
 	   int j,max_level=0;
 	   int pos=0;
 	   int temp_level=0;
