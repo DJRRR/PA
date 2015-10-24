@@ -55,6 +55,7 @@ void init_regex() {
 
 typedef struct token {
 	int type;
+	int size;
 	int level;
 	char str[32];
 } Token;
@@ -66,7 +67,6 @@ static bool make_token(char *e) {//shibie token
 	int position = 0;
 	int i;
 	int j,k;
-	int p;
 	regmatch_t pmatch;
 	
 	nr_token = 0;
@@ -128,12 +128,10 @@ static bool make_token(char *e) {//shibie token
 						tokens[nr_token].level=0;
 						j=k=0;
 						if(substr_len<=32){
-							for(j=position-1;j>=position-substr_len;j--){
+							for(j=position-substr_len;j<=position-1;j++){
 								tokens[nr_token].str[k++]=e[j];
 							}
-							for(p=k;p<32;p++){
-								tokens[nr_token].str[p]='0';
-							}
+							tokens[nr_token].size=substr_len;
 						}	
 						else{
 							printf("Decimal integer exceed!\n");
