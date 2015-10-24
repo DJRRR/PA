@@ -122,6 +122,7 @@ static bool make_token(char *e) {//shibie token
 					case NOTYPE:
                         break;
 					case NUM:
+					case HEX:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
 						tokens[nr_token].size=substr_len;
@@ -132,12 +133,14 @@ static bool make_token(char *e) {//shibie token
 							}
 						}	
 						else{
-							for(j=position-substr_len;j<position-substr_len+32;j++){
-								tokens[nr_token].str[k++]=e[j];
-							}
-							if(e[j]>='5'){
-								tokens[nr_token].str[31]++;
-							}
+						//	for(j=position-substr_len;j<position-substr_len+32;j++){
+						//		tokens[nr_token].str[k++]=e[j];
+						//	}
+						//	if(e[j]>='5'){
+						//		tokens[nr_token].str[31]++;
+						//	}
+						    printf("NUM EXCEED！\n");
+							assert(0);
 						}
 						nr_token++;
 					   break;
@@ -201,20 +204,43 @@ long int eval(int p,int q){//uncompleted
 	return -1;
    }
    else if(p==q){
-	if(tokens[p].type!=NUM){
-	  printf("Error2:Bad expression!\n");
-	  assert(0);
-	  return -1;
-	}
-	else{
+	//if(tokens[p].type!=NUM){
+	 // printf("Error2:Bad expression!\n");
+	 // assert(0);
+	 // return -1;
+//	}
+	if(tokens[p].type==HEX){
+		result=0;
+		for(i=0;i<tokens[p].size;i++){
+			if(tokens[p].str[i]>='0'&&tokens[p].str[i]<='9'){
+				result = result*16+(tokens[p].str[i]-'0');
+			}
+			else if(tokens[p].str[i]>='A'&&tokens[p].str[i]<='F'){
+				result = result*16+(tokens[p].str[i]-'A');
+			}
+			else{
+				result = result*16+(tokens[p].str[i]-'a');
+			}
+		}
+		for(i=0;i<tokens[p].size-32;i++){
+			result *= 16;
+		}
+		return result;
+	}  
+	if(tokens[p].type==NUM){
 	result=0;
 	for(i=0;i<tokens[p].size;i++){
 		result = result*10+(tokens[p].str[i]-'0');
 	}
-	for(i=0;i<tokens[p].size-32;i++){
+	for(i=0;i<tokens[p].size-32;i++){//uncompleted
 		result *= 10;
 	}
 	return result;
+	}
+	else{
+		printf("Error 2:Bad expression!\n");
+		assert(0);
+		return -1;
 	}
    }
    else if(check_parentheses(p,q)==1){
