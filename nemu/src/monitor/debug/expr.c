@@ -165,7 +165,6 @@ static bool make_token(char *e) {//shibie token
 }
 bool check_parentheses(int p,int q){//unchecked
 	int i,count=0;
-	printf("%d\n",tokens[p].type);
 	if(tokens[p].type!='(')
 	{
 	//	printf("the first\n");
