@@ -275,17 +275,44 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if((temp_level>=max_level&&count==0)||(max_level==2&&tokens[j-1].type!=NUM&&temp_level==2)){
+			 if((temp_level>=max_level&&count==0)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
 			 }
 		 }
-		 if(tokens[pos].size==2){
-			 return eval(pos,pos+1);
-			 printf("test:   %ld\n",eval(pos,pos+1));
+		/* if(tokens[pos].size==2){
+			 if(tokens[pos+1].type=='('){
+				 super=1;
+				 for(z=pos+2;z<32;z++){
+					 if(tokens[z].type=='('){
+						 super++;
+					 }
+					 if(tokens[z].type==')'){
+						 super--;
+					 }
+					 if(super==0){
+						 break;
+					 }
+				 }
+				 if(z-pos<3){
+					 printf("Error 5:Bad expression!\n");
+					 assert(0);
+					 return -1;
+				 }
+				 else{
+					 return 0-eval(pos+1,z);
+				 }
+			 }
+			 else  if(tokens[pos+1].type==NUM){
+				 return 0-eval(pos+1,pos+1);
+			 }
+			 else{
+				 printf("Error 6:Bad expression!\n");
+				 assert(0);				 return -1;
+			 }
 		 }
-		 else{
+		 else{*/
 		 val1=eval(p,pos-1);
 		 val2=eval(pos+1,q);
 		 switch(tokens[pos].type){
@@ -298,7 +325,7 @@ long int eval(int p,int q){//uncompleted
 		 }
 	 }
 	}
-}
+
 
 
 
