@@ -96,7 +96,7 @@ static int cmd_x(char *args){
 		}
 	}
 	for(j=0;j<num;j++){
-    printf("%02X\n",hwaddr_read(address+4*j,8));
+    printf("%02X\n",swaddr_read(address+4*j,8));
 	}
 	return 0;
 }
