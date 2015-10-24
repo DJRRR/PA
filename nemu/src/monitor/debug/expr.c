@@ -218,7 +218,7 @@ void test_tokens(char *e)
 		 printf("No\n");
 	 }
 	 else{
-		 printf("Yes\n");
+		 printf("Yes1\n");
 	 }
      printf("%d\n",nr_token);
 		 
