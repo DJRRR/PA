@@ -218,9 +218,10 @@ int eval(int p,int q){//uncompleted
 	  return -1;
 	}
 	else{
+		result=0;
 	for(i=0;i<32;i++){
 		result = result*10+(tokens[p].str[i]-'0');
-		printf("ssss: %c\n",tokens[p].str[i]);
+		printf("ssss: %d\n",result);
 	}
 	return result;
 	}
