@@ -216,7 +216,7 @@ long int eval(int p,int q){//uncompleted
 	int j,max_level=0;
 	int pos=0;
 	int temp_level=-1;
-	int val1,val2;
+   long	int val1,val2;
 	int count=0;
    if(p>q){
 	printf("Error1:Bad expression![p>q]\n");
@@ -299,12 +299,13 @@ long int eval(int p,int q){//uncompleted
 		 }
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
+             printf("test:    %ld\n%ld\n",val1,val2);
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
 				 case '-':return val1-val2;
 				 case '*':return val1*val2;
 				 case '/':return val1/val2;
-				 case  EQ:return !(val1^val2);
+				 case  EQ:return val1==val2;
 				 case NEQ:return val1!=val2;
 				 default:assert(0);
 				 }
