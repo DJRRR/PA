@@ -24,7 +24,7 @@ static struct rule {
 	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43  level:4
 	{"==", EQ},                   	// equal     level:7
-	{"-",'-'},                   	// minus 45  level:4
+	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu  size:1 means minus
 	{"\\*",'*'},                    // multi 42  level:3
 	{"/",'/'},                    // round 47    level:3
 	{"\\(",'('},                    // left 40   level:1
@@ -87,9 +87,16 @@ static bool make_token(char *e) {//shibie token
 
  				switch(rules[i].token_type) {
 					case '+':
-					case '-':
+					case '-':// qufu unchecked
 						tokens[nr_token].type=rules[i].token_type;
-						tokens[nr_token].level=4;
+						if(nr_token==0||(nr_token>0&&tokens[nr_token-1].type!=NUM&&tokens[nr_token-1].type!=')')){
+							tokens[nr_token].size=2;
+							tokens[nr_token].level=2;
+						}
+						else{
+							tokens[nr_token].size=1;
+							tokens[nr_token].level=4;
+						}
 						nr_token++;
 						break;
 					case '*':
@@ -242,37 +249,49 @@ long int eval(int p,int q){//uncompleted
 	   return -1;
    }
    else{
+	   if(q==p+1){
+		   if(tokens[p].type=='-'&&tokens[p].size==2){
+			   return -eval(p+1,q);
+		   }
+	   else{
+		   printf("Error4:Bad expression!\n");
+		   assert(0);
+	   }
+
+		}
+	   else{	   
 	  // puts("here\n");
-	   for(j=p;j<q+1;j++){
-		   if(tokens[j].level>1){
-			   temp_level=tokens[j].level;
-			 //  printf("test%c\n",tokens[j].type);
-		   }
-		   else{
-		   temp_level=-1;
-		   }
-		   if(tokens[j].type=='('){
-			   count++;
-		   }
-		   if(tokens[j].type==')'){
-			   count--;
-		   }
-		   if(temp_level>=max_level&&count==0){
-			   max_level=temp_level;
-			   pos=j;
-			   printf("num:%d    %d\n",j,pos);
-		   }
-	   }
-	   val1=eval(p,pos-1);
-	   val2=eval(pos+1,q);
-	   switch(tokens[pos].type){
-		   case '+':return val1+val2;
-		   case '-':return val1-val2;
-		   case '*':return val1*val2;
-		   case '/':return val1/val2;
-		   default:assert(0);
-	   }
-   }
+		 for(j=p;j<q+1;j++){
+			  if(tokens[j].level>1){
+				  temp_level=tokens[j].level;
+				 //  printf("test%c\n",tokens[j].type);
+			 }
+			 else{
+			 temp_level=-1;
+			 }
+			 if(tokens[j].type=='('){
+				  count++;
+			 }
+			 if(tokens[j].type==')'){
+				 count--;
+			  }
+			 if(temp_level>=max_level&&count==0){
+				 max_level=temp_level;
+				 pos=j;
+				 printf("num:%d    %d\n",j,pos);
+			 }
+		 }
+		 val1=eval(p,pos-1);
+		 val2=eval(pos+1,q);
+		 switch(tokens[pos].type){
+			 case '+':return val1+val2;
+			 case '-':return val1-val2;
+			 case '*':return val1*val2;
+			 case '/':return val1/val2;
+			 default:assert(0);
+		 }
+	 }
+	}
 }
 
 
@@ -280,7 +299,7 @@ long int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,0);
+	 long int result=eval(0,1);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
