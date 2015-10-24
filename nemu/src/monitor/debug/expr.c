@@ -31,7 +31,7 @@ static struct rule {
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
     {"[0-9]+",NUM},               // decimal integer
-	{"0[xX][0-9a-fA-F]+",HEX},                     // hexadecimal-number
+	{"0x[0-9a-fA-F]+",HEX},                     // hexadecimal-number
 	//{"",REG},                     // reg name
 };
 
