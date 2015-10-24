@@ -145,7 +145,7 @@ static bool make_token(char *e) {//shibie token
 }
 bool check_parentheses(char *e,int p,int q){//unchecked
 	make_token(e);
-	int i,count=1;
+	int i,count=0;
 	printf("%d\n",tokens[p].type);
 	if(tokens[p].type!='(')
 	{
