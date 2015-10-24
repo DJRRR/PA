@@ -215,7 +215,7 @@ long int eval(int p,int q){//uncompleted
 	long int result=0;
 	int j,max_level=0;
 	int pos=0;
-	int temp_level=-1;
+	int temp_level=0;
    long	int val1,val2;
 	int count=0;
    if(p>q){
