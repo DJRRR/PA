@@ -6,9 +6,11 @@
 #include <sys/types.h>
 #include <regex.h>
 enum {
-	NOTYPE = 256, EQ,
-    NUM=255,
-	HEX=250,
+	NOTYPE = 256, 
+    NUM = 255,
+	HEX = 254,
+	EQ = 253,
+	NEQ = 252,
 	/* TODO: Add more token types */
 
 };
@@ -25,13 +27,14 @@ static struct rule {
 	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43  level:4
 	{"==", EQ},                   	// equal     level:7
+	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu  size:1 means minus
 	{"\\*",'*'},                    // multi 42  level:3
-	{"/",'/'},                    // round 47    level:3
+	{"/",'/'},                      // round 47  level:3
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
-	{"0x[0-9a-fA-F]+",HEX},                     // hexadecimal-number
-	{"[0-9]+",NUM},                 //decimal integer
+	{"0x[0-9a-fA-F]+",HEX},         // hexadecimal-number  level:0
+	{"[0-9]+",NUM},                 //decimal integer      level:0
 	//{"",REG},                     // reg name
 };
 
@@ -109,6 +112,7 @@ static bool make_token(char *e) {//shibie token
 						nr_token++;
 						break;
 					case EQ:
+					case NEQ:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=7;
 						nr_token++;
@@ -268,7 +272,7 @@ long int eval(int p,int q){//uncompleted
 	   return -1;
    }
    else{
-	   if(tokens[p].size==2){
+	   if(tokens[p].size==2&&tokens[p].type=='-'){
 		   return 0-eval(p+1,q);
 	   }
 	   else{	   
@@ -294,12 +298,14 @@ long int eval(int p,int q){//uncompleted
 			 }
 		 }
 			 val1=eval(p,pos-1);
-			val2=eval(pos+1,q);
+			 val2=eval(pos+1,q);
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
 				 case '-':return val1-val2;
 				 case '*':return val1*val2;
 				 case '/':return val1/val2;
+				 case  EQ:return val1==val2;
+				 case NEQ:return val1!=val2;
 				 default:assert(0);
 				 }
 	   }
