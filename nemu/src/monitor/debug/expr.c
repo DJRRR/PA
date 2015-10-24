@@ -273,6 +273,7 @@ long int eval(int p,int q){//uncompleted
    }
    else{
 	   if(tokens[p].size==2&&tokens[p].type=='-'){
+		   puts("here");
 		   return 0-eval(p+1,q);
 	   }
 	   else{	
