@@ -235,9 +235,9 @@ int eval(int p,int q){//uncompleted
 			   temp_level=tokens[j].level;
 			 //  printf("test%c\n",tokens[j].type);
 		   }
-		   else{
-			   temp_level=-1;
-		   }
+		  // else{
+			//   temp_level=-1;
+		   //}
 		   if(tokens[j].type=='('){
 			   count++;
 		   }
