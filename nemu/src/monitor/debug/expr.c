@@ -309,7 +309,8 @@ long int eval(int p,int q){//uncompleted
 		     printf("test:%d\n",pos);
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
-             printf("test:    %ld\n%ld\n",val1,val2);
+			 if(pos==2){
+             printf("test:    %ld\n%ld\n",val1,val2);}
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
 				 case '-':return val1-val2;
