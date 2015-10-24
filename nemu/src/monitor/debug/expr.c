@@ -249,16 +249,9 @@ long int eval(int p,int q){//uncompleted
 	   return -1;
    }
    else{
-	   if(q==p+1){
-		   if(tokens[p].type=='-'&&tokens[p].size==2){
-			   return 0-eval(p+1,q);
-		   }
-	   else{
-		   printf("Error4:Bad expression!\n");
-		   assert(0);
+	   if(tokens[p].size==2){
+		   return 0-eval(p+1,q);
 	   }
-
-		}
 	   else{	   
 	   puts("here\n");
 		 for(j=p;j<q+1;j++){
@@ -281,50 +274,18 @@ long int eval(int p,int q){//uncompleted
 				 printf("num:%d    %d\n",j,pos);
 			 }
 		 }
-		/* if(tokens[pos].size==2){
-			 if(tokens[pos+1].type=='('){
-				 super=1;
-				 for(z=pos+2;z<32;z++){
-					 if(tokens[z].type=='('){
-						 super++;
-					 }
-					 if(tokens[z].type==')'){
-						 super--;
-					 }
-					 if(super==0){
-						 break;
-					 }
+			 val1=eval(p,pos-1);
+			val2=eval(pos+1,q);
+				 switch(tokens[pos].type){
+				 case '+':return val1+val2;
+				 case '-':return val1-val2;
+				 case '*':return val1*val2;
+				 case '/':return val1/val2;
+				 default:assert(0);
 				 }
-				 if(z-pos<3){
-					 printf("Error 5:Bad expression!\n");
-					 assert(0);
-					 return -1;
-				 }
-				 else{
-					 return 0-eval(pos+1,z);
-				 }
-			 }
-			 else  if(tokens[pos+1].type==NUM){
-				 return 0-eval(pos+1,pos+1);
-			 }
-			 else{
-				 printf("Error 6:Bad expression!\n");
-				 assert(0);				 return -1;
-			 }
-		 }
-		 else{*/
-		 val1=eval(p,pos-1);
-		 val2=eval(pos+1,q);
-		 switch(tokens[pos].type){
-			 case '+':return val1+val2;
-			 case '-':return val1-val2;
-			 case '*':return val1*val2;
-			 case '/':return val1/val2;
-			 default:assert(0);
-		 }
-		 }
-	 }
-	}
+	   }
+   }
+}
 
 
 
