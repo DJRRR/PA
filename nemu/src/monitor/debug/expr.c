@@ -203,8 +203,9 @@ int check_parentheses(int p,int q){//1 means true 0 means can expr -1 means
 	return result;
 }
 
-int eval(int p,int q){//uncompleted
-	int i,result=0;
+long int eval(int p,int q){//uncompleted
+	int i;
+	long int result=0;
 	int j,max_level=0;
 	int pos=0;
 	int temp_level=-1;
@@ -279,8 +280,8 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 int result=eval(0,0);
-	 printf("test_result:%d\n",result);
+	 long int result=eval(0,0);
+	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
