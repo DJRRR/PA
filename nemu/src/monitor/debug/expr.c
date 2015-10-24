@@ -253,7 +253,7 @@ long int eval(int p,int q){//uncompleted
 		   return 0-eval(p+1,q);
 	   }
 	   else{	   
-	   puts("here\n");
+	  // puts("here\n");
 		 for(j=p;j<q+1;j++){
 			  if(tokens[j].level>1){
 				  temp_level=tokens[j].level;
@@ -271,7 +271,7 @@ long int eval(int p,int q){//uncompleted
 			 if((temp_level>=max_level&&count==0)){
 				 max_level=temp_level;
 				 pos=j;
-				 printf("num:%d    %d\n",j,pos);
+				// printf("num:%d    %d\n",j,pos);
 			 }
 		 }
 			 val1=eval(p,pos-1);
