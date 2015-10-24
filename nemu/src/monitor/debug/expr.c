@@ -215,7 +215,7 @@ long int eval(int p,int q){//uncompleted
 	int val1,val2;
 	int count=0;
    if(p>q){
-	printf("Error1:Bad expression!\n");
+	printf("Error1:Bad expression![p>q]\n");
 	assert(0);
 	return -1;
    }
@@ -254,7 +254,7 @@ long int eval(int p,int q){//uncompleted
 	return result;
 	}
 	else{
-		printf("Error 2:Bad expression!\n");
+		printf("Error 2:Bad expression![when p==q there is no num to calculate]\n");
 		assert(0);
 		return -1;
 	}
@@ -263,7 +263,7 @@ long int eval(int p,int q){//uncompleted
 	   return eval(p+1,q-1);
    }
    else if(check_parentheses(p,q)==-1){
-	   printf("Error3:Bad expression!\n");
+	   printf("Error3:Bad expression![mismatched braces]\n");
 	   assert(0);
 	   return -1;
    }
