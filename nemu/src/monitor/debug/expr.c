@@ -85,7 +85,8 @@ static bool make_token(char *e) {//shibie token
 
  				switch(rules[i].token_type) {
 					case '+':
-						tokens[nr_token].type='+';
+						tokens[nr_token].type=rules[i].token_type;
+						printf("%c\n",tokens[nr_token].type);
 						nr_token++;
 						break;
 					case '-':
@@ -148,16 +149,11 @@ bool check_parentheses(int p,int q){//unchecked
 	printf("%d\n",tokens[p].type);
 	if(tokens[p].type!='(')
 	{
-		printf("the first\n");
+	//	printf("the first\n");
 		return false;
 	}
-   // for(i=p;i<32;){
-		// if(i!=31&&tokens[i+1].type==0){
-			// break;
-		// }
-//	}
 	if(tokens[q].type!=')'){
-		printf("the last\n");
+	//	printf("the last\n");
 		return false;
 	}
 	for(i=p;i<q+1;i++){
