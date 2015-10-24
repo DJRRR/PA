@@ -132,7 +132,7 @@ static bool make_token(char *e) {//shibie token
 								tokens[nr_token].str[k++]=e[j];
 							}
 							for(p=k;p<32;p++){
-								tokens[nr_token].str[p]=0;
+								tokens[nr_token].str[p]='0';
 							}
 						}	
 						else{
