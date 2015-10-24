@@ -119,22 +119,10 @@ static bool make_token(char *e) {//shibie token
 						tokens[nr_token].level=1;
 						nr_token++;
 						break;
-				/*	case '-':
-						tokens[nr_token].type='-';
-						nr_token++;
-						break;
-					case '*':
-						tokens[nr_token].type='*';
-						nr_token++;
-						break;
-					case '/':
-						tokens[nr_token].type='/';
-						nr_token++;
-						break;*/
 					case NOTYPE:
                         break;
 					case NUM:
-						tokens[nr_token].type=NUM;
+						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
 						tokens[nr_token].size=substr_len;
 						j=k=0;
@@ -150,23 +138,9 @@ static bool make_token(char *e) {//shibie token
 							if(e[j]>='5'){
 								tokens[nr_token].str[31]++;
 							}
-						//	printf("Decimal integer exceed!\n");
-						//	assert(0);
 						}
 						nr_token++;
 					   break;
-			/*		case EQ:
-						tokens[nr_token].type=EQ;
-						nr_token++;
-						break;
-					case '(':
-						tokens[nr_token].type='(';
-						nr_token++;
-						break;
-					case ')':
-						tokens[nr_token].type=')';
-						nr_token++;
-						break;*/
 					default: panic("please implement me");
 				}
 
