@@ -227,7 +227,7 @@ int eval(int p,int q){//uncompleted
 		   if(tokens[j].level!=1&&tokens[j].type!=NUM){
 			   temp_level=tokens[j].level;
 		   }
-		   if(temp_level>max_level){
+		   if(temp_level>=max_level){
 			   max_level=temp_level;
 			   pos=j;
 			   printf("num:%d    %d\n",j,pos);
