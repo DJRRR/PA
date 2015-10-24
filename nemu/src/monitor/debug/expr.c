@@ -227,11 +227,11 @@ int eval(int p,int q){//uncompleted
 	   for(j=p;j<q+1;j++){
 		   if(tokens[j].level>1){
 			   temp_level=tokens[j].level;
+			   printf("test%c\n",tokens[j].type);
 		   }
 		   else{
 			   temp_level=-1;
 		   }
-		   if(j==5){printf("%d\n",tokens[j].level);}
 		   if(temp_level>=max_level){
 			   max_level=temp_level;
 			   pos=j;
