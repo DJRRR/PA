@@ -260,7 +260,7 @@ long int eval(int p,int q){//uncompleted
 
 		}
 	   else{	   
-	  // puts("here\n");
+	   puts("here\n");
 		 for(j=p;j<q+1;j++){
 			  if(tokens[j].level>1){
 				  temp_level=tokens[j].level;
@@ -283,6 +283,7 @@ long int eval(int p,int q){//uncompleted
 		 }
 		 if(tokens[pos].size==2){
 			 return eval(pos,pos+1);
+			 printf("test:   %ld\n",eval(pos,pos+1));
 		 }
 		 else{
 		 val1=eval(p,pos-1);
