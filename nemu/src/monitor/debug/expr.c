@@ -278,9 +278,16 @@ long int eval(int p,int q){//uncompleted
 	   else{	   
 	  // puts("here\n");
 		 for(j=p;j<q+1;j++){
+			 if(tokens[j].level>1){
 			 temp_level=tokens[j].level;
-			 if(j==3){
-				 printf("ddddddddd: %d\n",tokens[j].level);
+			 }
+			 else{
+				 temp_level=-1;
+			 }
+			 if((temp_level>=max_level)&&(count==0)){
+				 max_level=temp_level;
+				 pos=j;
+				 printf("num:%d   %d\n",j,pos);
 			 }
 			 printf("ssssssssssssss:  %d\n",max_level);
 			// else{
@@ -292,11 +299,11 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if((temp_level>=max_level)&&(count==0)){
+			/* if((temp_level>=max_level)&&(count==0)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
-			 }
+			 }*/
 		 }
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
