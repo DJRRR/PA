@@ -275,7 +275,7 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if((temp_level>=max_level&&count==0)||(tokens[j].size==2&&tokens[j].type!=NUM)){
+			 if((temp_level>=max_level&&count==0)||(temp_level==2&&tokens[j-1].type!=NUM)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
