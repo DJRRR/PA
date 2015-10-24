@@ -249,14 +249,9 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-     if(check_parentheses(0,12)==false){
-		 printf("No\n");
-	 }
-	 else{
-		 printf("Yes1\n");
-	 }
-     printf("%d\n",nr_token);
-		 
+	int result=eval(0,10);
+     printf("test_num:%d\n",nr_token);
+	 printf("test_result:%d\n",result);
 }
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
