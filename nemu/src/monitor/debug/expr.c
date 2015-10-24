@@ -66,6 +66,7 @@ static bool make_token(char *e) {//shibie token
 	int position = 0;
 	int i;
 	int j,k;
+	int p;
 	regmatch_t pmatch;
 	
 	nr_token = 0;
@@ -130,7 +131,10 @@ static bool make_token(char *e) {//shibie token
 							for(j=position-1;j>=position-substr_len;j--){
 								tokens[nr_token].str[k++]=e[j];
 							}
-						}
+							for(p=k;p<32;p++){
+								tokens[nr_token].str[p]=0;
+							}
+						}	
 						else{
 							printf("Decimal integer exceed!\n");
 							assert(0);
