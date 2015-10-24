@@ -227,7 +227,7 @@ long int eval(int p,int q){//uncompleted
 //	}
 	if(tokens[p].type==HEX){
 		result=0;
-		for(i=0;i<tokens[p].size;i++){
+		for(i=0;i<tokens[p].size;i++){//unchecked
 			if(tokens[p].str[i]>='0'&&tokens[p].str[i]<='9'){
 				result = result*16+(tokens[p].str[i]-'0');
 			}
