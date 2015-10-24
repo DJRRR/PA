@@ -8,7 +8,7 @@
 enum {
 	NOTYPE = 256, EQ,
     NUM=255,
-	HEX=254,
+	HEX=250,
 	/* TODO: Add more token types */
 
 };
