@@ -30,7 +30,7 @@ static struct rule {
 	{"/",'/'},                    // round 47    level:3
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
-    {"[0-9x]+",NUM},               // decimal integer
+    {"[0-9]+",NUM},               // decimal integer
 	{"\\b0[xX][0-9a-fA-F]+\\b",HEX},                     // hexadecimal-number
 	//{"",REG},                     // reg name
 };
