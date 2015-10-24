@@ -282,6 +282,7 @@ long int eval(int p,int q){//uncompleted
 			 if(j==3){
 				 printf("ddddddddd: %d\n",tokens[j].level);
 			 }
+			 printf("ssssssssssssss:  %d\n",max_level);
 			// else{
 			// temp_level=-1;
 			// }
@@ -291,7 +292,7 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if((temp_level>=max_level&&count==0)){
+			 if((temp_level>=max_level)&&(count==0)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
