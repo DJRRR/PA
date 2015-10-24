@@ -275,12 +275,16 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if(temp_level>=max_level&&count==0){
+			 if((temp_level>=max_level&&count==0)||(tokens[j].size==2&&tokens[j].type!=NUM)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
 			 }
 		 }
+		 if(tokens[pos].size==2){
+			 return eval(pos,pos+1);
+		 }
+		 else{
 		 val1=eval(p,pos-1);
 		 val2=eval(pos+1,q);
 		 switch(tokens[pos].type){
@@ -289,6 +293,7 @@ long int eval(int p,int q){//uncompleted
 			 case '*':return val1*val2;
 			 case '/':return val1/val2;
 			 default:assert(0);
+		 }
 		 }
 	 }
 	}
