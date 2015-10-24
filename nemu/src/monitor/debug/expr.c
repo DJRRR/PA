@@ -216,7 +216,7 @@ int eval(int p,int q){//uncompleted
 	else{
 	for(i=0;i<32;i++){
 		result = result*10+(tokens[p].str[i]-'0');
-		printf("ssss: %c\n",tokens[p].str[0]);
+		printf("ssss: %c\n",tokens[p].str[i]);
 	}
 	return result;
 	}
