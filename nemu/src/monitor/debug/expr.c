@@ -228,6 +228,9 @@ int eval(int p,int q){//uncompleted
 		   if(tokens[j].level>1){
 			   temp_level=tokens[j].level;
 		   }
+		   else{
+			   temp_level=-1;
+		   }
 		   if(temp_level>=max_level){
 			   max_level=temp_level;
 			   pos=j;
@@ -251,7 +254,6 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-     printf("test_num:%d\n",nr_token);
 	 int result=eval(0,10);
 	 printf("test_result:%d\n",result);
 }
