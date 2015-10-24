@@ -246,7 +246,7 @@ int eval(int p,int q){//uncompleted
 		   if(temp_level>=max_level&&count==0){
 			   max_level=temp_level;
 			   pos=j;
-			  // printf("num:%d    %d\n",j,pos);
+			   printf("num:%d    %d\n",j,pos);
 		   }
 	   }
 	   val1=eval(p,pos-1);
