@@ -248,8 +248,8 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	int result=eval(0,10);
      printf("test_num:%d\n",nr_token);
+	 int result=eval(0,10);
 	 printf("test_result:%d\n",result);
 }
 uint32_t expr(char *e, bool *success) {
