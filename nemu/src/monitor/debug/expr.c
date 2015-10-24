@@ -108,7 +108,6 @@ static bool make_token(char *e) {//shibie token
 						if(substr_len<=32){
 							for(j=position-1;j>=position-substr_len;j--){
 								tokens[nr_token].str[k++]=e[j];
-								printf("test%c\n",e[j]);
 							}
 						}
 						else{
@@ -218,7 +217,6 @@ void test_tokens(char *e)
 	 else{
 		 printf("Yes\n");
 	 }
-	 printf("%c%c%c\n",tokens[0].str[0],tokens[0].str[1],tokens[0].str[2]);
      printf("%d\n",nr_token);
 		 
 }
