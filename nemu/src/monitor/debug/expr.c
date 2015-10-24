@@ -206,11 +206,13 @@ int eval(int p,int q){//uncompleted
 	int count=0;
    if(p>q){
 	printf("Error1:Bad expression!\n");
+	assert(0);
 	return -1;
    }
    else if(p==q){
 	if(tokens[p].type!=NUM){
 	  printf("Error2:Bad expression!\n");
+	  assert(0);
 	  return -1;
 	}
 	else{
