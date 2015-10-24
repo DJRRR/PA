@@ -198,6 +198,7 @@ bool check_parentheses(int p,int q){//unchecked
 }
 
 int eval(int p,int q){//uncompleted
+	int i,result=0;
 	int j,max_level=0;
 	int pos=0;
 	int temp_level=-1;
@@ -213,9 +214,9 @@ int eval(int p,int q){//uncompleted
 	  return -1;
 	}
 	else{
-	int result=0,i;
 	for(i=0;i<32;i++){
 		result = result*10+(tokens[p].str[i]-'0');
+		printf("ssss: %c\n",tokens[p].str[0]);
 	}
 	return result;
 	}
