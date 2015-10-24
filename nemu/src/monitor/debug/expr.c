@@ -85,11 +85,16 @@ static bool make_token(char *e) {//shibie token
 
  				switch(rules[i].token_type) {
 					case '+':
+					case '-':
+					case '*':
+					case '/':
+					case EQ:
+					case '(':
+					case ')':
 						tokens[nr_token].type=rules[i].token_type;
-						printf("%c\n",tokens[nr_token].type);
 						nr_token++;
 						break;
-					case '-':
+				/*	case '-':
 						tokens[nr_token].type='-';
 						nr_token++;
 						break;
@@ -100,7 +105,7 @@ static bool make_token(char *e) {//shibie token
 					case '/':
 						tokens[nr_token].type='/';
 						nr_token++;
-						break;
+						break;*/
 					case NOTYPE:
                         break;
 					case NUM:
@@ -117,7 +122,7 @@ static bool make_token(char *e) {//shibie token
 						}
 						nr_token++;
 					   break;
-					case EQ:
+			/*		case EQ:
 						tokens[nr_token].type=EQ;
 						nr_token++;
 						break;
@@ -128,7 +133,7 @@ static bool make_token(char *e) {//shibie token
 					case ')':
 						tokens[nr_token].type=')';
 						nr_token++;
-						break;
+						break;*/
 					default: panic("please implement me");
 				}
 
