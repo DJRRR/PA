@@ -197,6 +197,10 @@ bool check_parentheses(int p,int q){//unchecked
 }
 
 int eval(int p,int q){//uncompleted
+	int j,max_level=0;
+	int pos=0;
+	int temp_level=0;
+	int val1,val2;
    if(p>q){
 	printf("Error1:Bad expression!\n");
 	return -1;
@@ -219,17 +223,14 @@ int eval(int p,int q){//uncompleted
    }
    else{
 	   puts("here\n");
-	   int j,max_level=0;
-	   int pos=0;
-	   int temp_level=0;
-	   int val1,val2;
-	   for(j=p;j<=q;j++){
+	   for(j=p;j<q+1;j++){
 		   if(tokens[j].level!=1&&tokens[j].type!=NUM){
 			   temp_level=tokens[j].level;
 		   }
 		   if(temp_level>max_level){
 			   max_level=temp_level;
 			   pos=j;
+			   printf("num:%d    %d\n",j,pos);
 		   }
 	   }
 	   val1=eval(p,pos-1);
