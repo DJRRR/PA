@@ -278,11 +278,9 @@ long int eval(int p,int q){//uncompleted
 	   else{	   
 	  // puts("here\n");
 		 for(j=p;j<q+1;j++){
-			  if(tokens[j].level>1){
-				  temp_level=tokens[j].level;
-				  if(j==2){
-					  printf("ddddddddd: %d\n",tokens[j].level);
-				  }
+			 temp_level=tokens[j].level;
+			 if(j==2){
+				 printf("ddddddddd: %d\n",tokens[j].level);
 			 }
 			// else{
 			// temp_level=-1;
