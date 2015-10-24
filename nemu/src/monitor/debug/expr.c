@@ -143,8 +143,7 @@ static bool make_token(char *e) {//shibie token
 
 	return true;  
 }
-bool check_parentheses(char *e,int p,int q){//unchecked
-	make_token(e);
+bool check_parentheses(int p,int q){//unchecked
 	int i,count=0;
 	printf("%d\n",tokens[p].type);
 	if(tokens[p].type!='(')
@@ -184,7 +183,7 @@ bool check_parentheses(char *e,int p,int q){//unchecked
 }
 
 
-int eval(char *e,int p,int q){//uncompleted
+int eval(int p,int q){//uncompleted
    if(p>q){
 	printf("Error1:Bad expression!\n");
 	return -1;
@@ -202,8 +201,8 @@ int eval(char *e,int p,int q){//uncompleted
 	return result;
 	}
    }
-   else if(check_parentheses(e,p,q)==true){
-	   return eval(e,p+1,q-1);
+   else if(check_parentheses(p,q)==true){
+	   return eval(p+1,q-1);
    }
    else{
 	   return -1;
@@ -214,7 +213,8 @@ int eval(char *e,int p,int q){//uncompleted
 
 void test_tokens(char *e)
 {    
-     if(check_parentheses(e,0,4)==false){
+	make_token(e);
+     if(check_parentheses(0,4)==false){
 		 printf("No\n");
 	 }
 	 else{
