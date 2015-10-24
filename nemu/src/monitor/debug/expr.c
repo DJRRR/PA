@@ -22,13 +22,13 @@ static struct rule {
 `	 */
 
 	{" +",	NOTYPE},				// spaces 256
-	{"\\+", '+'},					// plus  43
-	{"==", EQ},                   	// equal
-	{"-",'-'},                   	// minus 45
-	{"\\*",'*'},                    // multi 42
-	{"/",'/'},                    // round 47
-	{"\\(",'('},                    // left 40
-	{"\\)",')'},                    // right 41
+	{"\\+", '+'},					// plus  43  level:4
+	{"==", EQ},                   	// equal     level:7
+	{"-",'-'},                   	// minus 45  level:4
+	{"\\*",'*'},                    // multi 42  level:3
+	{"/",'/'},                    // round 47    level:3
+	{"\\(",'('},                    // left 40   level:1
+	{"\\)",')'},                    // right 41  level:1
     {"[0-9x]+",NUM},               // decimal integer
 };
 
@@ -55,6 +55,7 @@ void init_regex() {
 
 typedef struct token {
 	int type;
+	int level;
 	char str[32];
 } Token;
 
@@ -86,12 +87,25 @@ static bool make_token(char *e) {//shibie token
  				switch(rules[i].token_type) {
 					case '+':
 					case '-':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=4;
+						nr_token++;
+						break;
 					case '*':
 					case '/':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=3;
+						nr_token++;
+						break;
 					case EQ:
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=7;
+						nr_token++;
+						break;
 					case '(':
 					case ')':
 						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=1;
 						nr_token++;
 						break;
 				/*	case '-':
@@ -183,7 +197,6 @@ bool check_parentheses(int p,int q){//unchecked
 	}
 }
 
-
 int eval(int p,int q){//uncompleted
    if(p>q){
 	printf("Error1:Bad expression!\n");
@@ -206,7 +219,28 @@ int eval(int p,int q){//uncompleted
 	   return eval(p+1,q-1);
    }
    else{
-	   return -1;
+	   int j,max_level=0;
+	   int pos=0;
+	   int temp_level=0;
+	   int val1,val2;
+	   for(j=p;j<=q;j++){
+		   if(tokens[j].level!=1&&tokens[j].type!=NUM){
+			   temp_level=tokens[j].level;
+		   }
+		   if(temp_level>max_level){
+			   max_level=temp_level;
+			   pos=j;
+		   }
+	   }
+	   val1=eval(p,pos-1);
+	   val2=eval(pos+1,q);
+	   switch(tokens[pos].type){
+		   case '+':return val1+val2;
+		   case '-':return val1-val2;
+		   case '*':return val1+val2;
+		   case '/':return val1/val2;
+		   default:assert(0);
+	   }
    }
 }
 
