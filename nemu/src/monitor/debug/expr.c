@@ -251,7 +251,7 @@ long int eval(int p,int q){//uncompleted
    else{
 	   if(q==p+1){
 		   if(tokens[p].type=='-'&&tokens[p].size==2){
-			   return -eval(p+1,q);
+			   return 0-eval(p+1,q);
 		   }
 	   else{
 		   printf("Error4:Bad expression!\n");
@@ -275,7 +275,7 @@ long int eval(int p,int q){//uncompleted
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			 if((temp_level>=max_level&&count==0)||(temp_level==2&&tokens[j-1].type!=NUM)){
+			 if((temp_level>=max_level&&count==0)||(max_level==2&&tokens[j-1].type!=NUM&&temp_level==2)){
 				 max_level=temp_level;
 				 pos=j;
 				 printf("num:%d    %d\n",j,pos);
