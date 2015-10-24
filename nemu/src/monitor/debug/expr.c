@@ -215,7 +215,7 @@ int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-     if(check_parentheses(0,10)==false){
+     if(check_parentheses(0,12)==false){
 		 printf("No\n");
 	 }
 	 else{
