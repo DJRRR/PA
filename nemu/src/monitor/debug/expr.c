@@ -117,16 +117,16 @@ static bool make_token(char *e) {//shibie token
 						nr_token++;
 					   break;
 					case EQ:
+						tokens[nr_token].type=EQ;
 						nr_token++;
-						tokens[i].type=EQ;
 						break;
 					case '(':
-                        nr_token++;
-						tokens[i].type='(';
+						tokens[nr_token].type='(';
+						nr_token++;
 						break;
 					case ')':
+						tokens[nr_token].type=')';
 						nr_token++;
-						tokens[i].type=')';
 						break;
 					default: panic("please implement me");
 				}
