@@ -126,16 +126,22 @@ static bool make_token(char *e) {//shibie token
 					case NUM:
 						tokens[nr_token].type=NUM;
 						tokens[nr_token].level=0;
+						tokens[nr_token].size=substr_len;
 						j=k=0;
 						if(substr_len<=32){
 							for(j=position-substr_len;j<=position-1;j++){
 								tokens[nr_token].str[k++]=e[j];
 							}
-							tokens[nr_token].size=substr_len;
 						}	
 						else{
-							printf("Decimal integer exceed!\n");
-							assert(0);
+							for(j=position-substr_len;j<position-substr_len+32;j++){
+								tokens[nr_token].str[k++]=e[j];
+							}
+							if(e[j]>='5'){
+								tokens[nr_token].str[31]++;
+							}
+						//	printf("Decimal integer exceed!\n");
+						//	assert(0);
 						}
 						nr_token++;
 					   break;
@@ -216,10 +222,12 @@ int eval(int p,int q){//uncompleted
 	  return -1;
 	}
 	else{
-		result=0;
+	result=0;
 	for(i=0;i<tokens[p].size;i++){
 		result = result*10+(tokens[p].str[i]-'0');
-	//	printf("ssss: %d\n",result);
+	}
+	for(i=0;i<tokens[p].size-32;i++){
+		result *= 10;
 	}
 	return result;
 	}
