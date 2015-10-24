@@ -67,7 +67,7 @@ static struct {
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 static int cmd_test_expr(){
-	test_tokens("22+3");
+	test_tokens("100000000000000000000000000000001");
 	return 0;
 
 }
