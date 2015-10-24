@@ -299,7 +299,7 @@ long int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,3);
+	 long int result=eval(0,4);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
