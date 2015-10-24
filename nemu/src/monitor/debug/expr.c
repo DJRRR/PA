@@ -144,9 +144,10 @@ static bool make_token(char *e) {//shibie token
 	return true;  
 }
 bool check_parentheses(){//unchecked
-	int i,count=0;
+	int i,count=1;
 	if(tokens[0].type!='(')
 	{
+		printf("the first\n");
 		return false;
 	}
     for(i=1;i<32;){
