@@ -275,7 +275,7 @@ long int eval(int p,int q){//uncompleted
 	   if(tokens[p].size==2&&tokens[p].type=='-'){
 		   puts("here");
 		   int xmy=0-eval(p+1,q);
-		   printf("dadad:   %d\n",xmy);
+		   printf("dadad: %d        %d\n",xmy,p);
 		   return 0-eval(p+1,q);
 
 	   }
