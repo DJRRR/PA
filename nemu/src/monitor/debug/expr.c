@@ -126,6 +126,17 @@ static bool make_token(char *e) {//shibie token
 						nr_token++;
 						break;
 					case '*':
+						tokens[nr_token].type=rules[i].token_type;
+						if(nr_token==0||(nr_token>0&&tokens[nr_token-1].type!=NUM&&tokens[nr_token-1].type!=HEX&&tokens[nr_token-1].type!=')')){
+							tokens[nr_token].size=2;
+							tokens[nr_token].level=2;
+						}
+						else{
+							tokens[nr_token].size=1;
+							tokens[nr_token].level=3;
+						}
+						nr_token++;
+						break;
 					case '/':
 					case '%':
 						tokens[nr_token].type=rules[i].token_type;
@@ -212,7 +223,7 @@ int check_parentheses(int p,int q){//1 means true 0 means can expr -1 means
 		if(tokens[i].type==')'){
 			count--;
 		}
-	    if(i!=q&&tokens[i+1].type==0){//???
+	    if(i!=q&&tokens[i+1].type==0){//necessary?
 			break;
 		}
 		if(count<0){
@@ -248,6 +259,10 @@ long int eval(int p,int q){//temporarily correct
 	   else if(tokens[p].type=='!'){
 		   return !eval(p+1,q);
 	   }
+	   else if(tokens[p].size==2&&tokens[p].type=='*'){//uncompleted
+		   return -1;
+	   }
+
 	   else{
 		   printf("Other situations!\n");
 		   assert(0);
