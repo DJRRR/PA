@@ -34,10 +34,11 @@ static struct rule {
 	{"/",'/'},                      // round 47  level:3
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
-	{"&&",'&'},                     // And operation level:11
-	{"||",'|'},                     // Or operation  level:12
 	{"0x[0-9a-fA-F]+",HEX},         // hexadecimal-number  level:0
 	{"[0-9]+",NUM},                 //decimal integer      level:0
+	{"&&",'&'},                     //AND  level:11
+	{"||",'|'},                     // OR  level:12
+
 	//{"",REG},                     // reg name
 };
 
