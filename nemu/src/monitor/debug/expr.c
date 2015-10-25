@@ -30,6 +30,7 @@ static struct rule {
 	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu  size:1 means minus
 	{"\\*",'*'},                    // multi 42  level:3
+	{"%",'%'},                      // quyu      level:3
 	{"/",'/'},                      // round 47  level:3
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
@@ -107,6 +108,7 @@ static bool make_token(char *e) {//shibie token
 						break;
 					case '*':
 					case '/':
+					case '%':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=3;
 						nr_token++;
@@ -153,13 +155,7 @@ static bool make_token(char *e) {//shibie token
 							}
 						}	
 						else{
-						//	for(j=position-substr_len;j<position-substr_len+32;j++){
-						//		tokens[nr_token].str[k++]=e[j];
-						//	}
-						//	if(e[j]>='5'){
-						//		tokens[nr_token].str[31]++;
-						//	}
-						    printf("NUM EXCEED！\n");
+						    printf("DECIMAL NUM EXCEED！\n");
 							assert(0);
 						}
 						nr_token++;
@@ -210,7 +206,7 @@ int check_parentheses(int p,int q){//1 means true 0 means can expr -1 means
 	return result;
 }
 
-long int eval(int p,int q){//uncompleted
+long int eval(int p,int q){//temporarily correct
 	int i;
 	long int result=0;
 	int j,max_level=0;
@@ -283,14 +279,6 @@ long int eval(int p,int q){//uncompleted
 	   return -1;
    }
    else{
-	  // if(tokens[p].size==2&&tokens[p].type=='-'){
-		 //  puts("here");
-		 //  int xmy=0-eval(p+1,q);
-		 //  printf("dadad: %d        %d\n",xmy,p);
-		//   return 0-eval(p+1,q);
-
-	  // }
-	 //  else{	
 		max_level=-1;
 	   temp_level=-1;	
 	  // puts("here\n");
@@ -320,6 +308,7 @@ long int eval(int p,int q){//uncompleted
 				 case '+':return val1+val2;
 				 case '-':return val1-val2;
 				 case '*':return val1*val2;
+				 case '%':return val1%val2;
 				 case '/':return val1/val2;
 				 case  EQ:return (val1==val2);
 				 case NEQ:return (val1!=val2);
