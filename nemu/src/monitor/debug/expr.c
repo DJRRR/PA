@@ -29,7 +29,8 @@ static struct rule {
 	{"\\+", '+'},					// plus  43  level:4  size:2 means quzheng(level 2) size:1 means plus
 	{"==", EQ},                   	// equal     level:7
 	{"!",'!'},                      // Not       level:2
-	{"\\$[ *]eax",EAX},               // REGISTER EAX level:0
+	{"\\$",'$'},                    // REGISTER  level:2
+	{"eax",EAX},                    //eax        level:0
 	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
@@ -99,9 +100,9 @@ static bool make_token(char *e) {//shibie token
 				 */
 
  				switch(rules[i].token_type) {
-					case EAX:
+					case '$':
 						tokens[nr_token].type=rules[i].token_type;
-						tokens[nr_token].level=0;
+						tokens[nr_token].level=2;
 						nr_token++;
 						break;
 					case '!':
@@ -164,6 +165,12 @@ static bool make_token(char *e) {//shibie token
 						break;
 					case NOTYPE:
                         break;
+					case EAX:
+						tokens[nr_token].type=EAX;
+						tokens[nr_token].level=0;
+						nr_token++;
+						break;
+
 					case HEX:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
@@ -268,6 +275,9 @@ long int eval(int p,int q){//temporarily correct
 	   }
 	   else if(tokens[p].size==2&&tokens[p].type=='*'){//uncompleted
 		   return hwaddr_read(eval(p+1,q),8);
+	   }
+	   else if(tokens[p].type=='$'){
+		   return eval(p+1,q);
 	   }
 	   else{
 		   printf("Other situations!\n");
