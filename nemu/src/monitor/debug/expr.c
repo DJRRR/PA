@@ -358,7 +358,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,8);
+	 long int result=eval(0,15);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
