@@ -25,10 +25,11 @@ static struct rule {
 `	 */
 
 	{" +",	NOTYPE},				// spaces 256
-	{"\\+", '+'},					// plus  43  level:4
+	{"\\+", '+'},					// plus  43  level:4  size:2 means quzheng(level 2) size:1 means plus
 	{"==", EQ},                   	// equal     level:7
+	{"!",'!'},                      // Not       level:2
 	{"!=",NEQ},                     // notequal  level:7
-	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu  size:1 means minus
+	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
 	{"%",'%'},                      // quyu      level:3
 	{"/",'/'},                      // round 47  level:3
@@ -96,14 +97,21 @@ static bool make_token(char *e) {//shibie token
 				 */
 
  				switch(rules[i].token_type) {
+					case '!':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=2;
+						nr_token++;
+                        break;
 					case '&':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=11;
 						nr_token++;
+						break;
 					case '|':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=12;
 						nr_token++;
+						break;
 					case '+':
 					case '-':// qufu temporarily correct
 						tokens[nr_token].type=rules[i].token_type;
@@ -237,6 +245,9 @@ long int eval(int p,int q){//temporarily correct
 	   else if(tokens[p].size==2&&tokens[p].type=='+'){
 		   return eval(p+1,q);
 	   }
+	   else if(tokens[p].type=='!'){
+		   return !eval(p+1,q);
+	   }
 	   else{
 		   printf("Other situations!\n");
 		   assert(0);
@@ -245,14 +256,9 @@ long int eval(int p,int q){//temporarily correct
    }
 
    else if(p==q){
-	//if(tokens[p].type!=NUM){
-	 // printf("Error2:Bad expression!\n");
-	 // assert(0);
-	 // return -1;
-//	}
 	if(tokens[p].type==HEX){
 		result=0;
-		for(i=0;i<tokens[p].size;i++){//unchecked
+		for(i=0;i<tokens[p].size;i++){//unchecked what about range exceed?
 			if(tokens[p].str[i]>='0'&&tokens[p].str[i]<='9'){
 				result = result*16+(tokens[p].str[i]-'0');
 			}
@@ -316,8 +322,6 @@ long int eval(int p,int q){//temporarily correct
 	}
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
-			// if(pos==2){
-            // printf("test:    %ld\n%ld\n",val1,val2);}
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
 				 case '&':return val1&&val2;
@@ -340,7 +344,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,2);
+	 long int result=eval(0,3);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
