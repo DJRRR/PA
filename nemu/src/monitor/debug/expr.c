@@ -223,6 +223,17 @@ long int eval(int p,int q){//uncompleted
 	assert(0);
 	return -1;
    }
+   else if(q==p+1){
+	   if(tokens[p].size==2&&tokens[p].type=='-'){
+		   return 0-eval(p+1,q);
+	   }
+	   else{
+		   printf("Other situations!\n");
+		   assert(0);
+		   return -1;
+	   }
+   }
+
    else if(p==q){
 	//if(tokens[p].type!=NUM){
 	 // printf("Error2:Bad expression!\n");
@@ -272,14 +283,14 @@ long int eval(int p,int q){//uncompleted
 	   return -1;
    }
    else{
-	   if(tokens[p].size==2&&tokens[p].type=='-'){
+	  // if(tokens[p].size==2&&tokens[p].type=='-'){
 		 //  puts("here");
 		 //  int xmy=0-eval(p+1,q);
 		 //  printf("dadad: %d        %d\n",xmy,p);
-		   return 0-eval(p+1,q);
+		//   return 0-eval(p+1,q);
 
-	   }
-	   else{	
+	  // }
+	 //  else{	
 		max_level=-1;
 	   temp_level=-1;	
 	  // puts("here\n");
@@ -293,25 +304,14 @@ long int eval(int p,int q){//uncompleted
 			 if((temp_level>=max_level)&&(count==0)){
 				 max_level=temp_level;
 				 pos=j;
-				// printf("num:%d   %d\n",j,pos);
 			 }
-			// else{
-			// temp_level=-1;
-			// }
 			 if(tokens[j].type=='('){
 				  count++;
 			 }
 			 if(tokens[j].type==')'){
 				 count--;
 			  }
-			/* if((temp_level>=max_level)&&(count==0)){
-				 max_level=temp_level;
-				 pos=j;
-				 printf("num:%d    %d\n",j,pos);
-			 }*/
-		 }   
-		 if(max_level==7){
-		     printf("test:%d\n",pos);}
+	}
 			 val1=eval(p,pos-1);
 			 val2=eval(pos+1,q);
 			// if(pos==2){
@@ -326,7 +326,7 @@ long int eval(int p,int q){//uncompleted
 				 default:assert(0);
 				 }
 	   }
-   }
+ //  }
 }
 
 
