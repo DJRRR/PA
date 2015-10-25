@@ -37,7 +37,7 @@ static struct rule {
 	{"0x[0-9a-fA-F]+",HEX},         // hexadecimal-number  level:0
 	{"[0-9]+",NUM},                 //decimal integer      level:0
 	{"&&",'&'},                     //AND  level:11
-	{"||",'|'},                     // OR  level:12
+	{"\\|\\|",'|'},                     // OR  level:12
 
 	//{"",REG},                     // reg name
 };
@@ -330,7 +330,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,1);
+	 long int result=eval(0,0);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
