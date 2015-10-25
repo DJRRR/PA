@@ -95,7 +95,7 @@ static bool make_token(char *e) {//shibie token
 					case '+':
 					case '-':// qufu unchecked
 						tokens[nr_token].type=rules[i].token_type;
-						if(nr_token==0||(nr_token>0&&tokens[nr_token-1].type!=NUM&&tokens[nr_token-1].type!=')')){
+						if(nr_token==0||(nr_token>0&&tokens[nr_token-1].type!=NUM&&tokens[nr_token-1].type!=HEX&&tokens[nr_token-1].type!=')')){
 							tokens[nr_token].size=2;
 							tokens[nr_token].level=2;
 						}
@@ -335,7 +335,7 @@ long int eval(int p,int q){//uncompleted
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,3);
+	 long int result=eval(0,6);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
