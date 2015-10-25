@@ -96,6 +96,14 @@ static bool make_token(char *e) {//shibie token
 				 */
 
  				switch(rules[i].token_type) {
+					case '&':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=11;
+						nr_token++;
+					case '|':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=12;
+						nr_token++;
 					case '+':
 					case '-':// qufu temporarily correct
 						tokens[nr_token].type=rules[i].token_type;
@@ -312,6 +320,8 @@ long int eval(int p,int q){//temporarily correct
             // printf("test:    %ld\n%ld\n",val1,val2);}
 				 switch(tokens[pos].type){
 				 case '+':return val1+val2;
+				 case '&':return val1&&val2;
+				 case '|':return val1||val2;
 				 case '-':return val1-val2;
 				 case '*':return val1*val2;
 				 case '%':return val1%val2;
@@ -330,7 +340,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,0);
+	 long int result=eval(0,2);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
