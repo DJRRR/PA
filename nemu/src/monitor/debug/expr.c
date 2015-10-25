@@ -11,6 +11,7 @@ enum {
 	HEX = 254,
 	EQ = 253,
 	NEQ = 252,
+	EAX = 251,
 	/* TODO: Add more token types */
 
 };
@@ -28,6 +29,7 @@ static struct rule {
 	{"\\+", '+'},					// plus  43  level:4  size:2 means quzheng(level 2) size:1 means plus
 	{"==", EQ},                   	// equal     level:7
 	{"!",'!'},                      // Not       level:2
+	{"\\$ +eax",EAX},               // REGISTER EAX level:0
 	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
@@ -97,6 +99,11 @@ static bool make_token(char *e) {//shibie token
 				 */
 
  				switch(rules[i].token_type) {
+					case EAX:
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=0;
+						nr_token++;
+						break;
 					case '!':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=2;
@@ -288,7 +295,7 @@ long int eval(int p,int q){//temporarily correct
 		}
 		return result;
 	}  
-	if(tokens[p].type==NUM){
+	else if(tokens[p].type==NUM){
 	result=0;
 	for(i=0;i<tokens[p].size;i++){
 		result = result*10+(tokens[p].str[i]-'0');
@@ -297,6 +304,9 @@ long int eval(int p,int q){//temporarily correct
 		result *= 10;
 	}
 	return result;
+	}
+	else if(tokens[p].type==EAX){//registers
+		return cpu.eax;
 	}
 	else{
 		printf("Error 2:Bad expression![when p==q there is no num to calculate]\n");
@@ -358,7 +368,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,8);
+	 long int result=eval(0,0);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
