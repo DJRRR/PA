@@ -34,6 +34,8 @@ static struct rule {
 	{"/",'/'},                      // round 47  level:3
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
+	{"&&",'&'},                     // And operation level:11
+	{"||",'|'},                     // Or operation  level:12
 	{"0x[0-9a-fA-F]+",HEX},         // hexadecimal-number  level:0
 	{"[0-9]+",NUM},                 //decimal integer      level:0
 	//{"",REG},                     // reg name
@@ -94,7 +96,7 @@ static bool make_token(char *e) {//shibie token
 
  				switch(rules[i].token_type) {
 					case '+':
-					case '-':// qufu unchecked
+					case '-':// qufu temporarily correct
 						tokens[nr_token].type=rules[i].token_type;
 						if(nr_token==0||(nr_token>0&&tokens[nr_token-1].type!=NUM&&tokens[nr_token-1].type!=HEX&&tokens[nr_token-1].type!=')')){
 							tokens[nr_token].size=2;
@@ -223,6 +225,9 @@ long int eval(int p,int q){//temporarily correct
 	   if(tokens[p].size==2&&tokens[p].type=='-'){
 		   return 0-eval(p+1,q);
 	   }
+	   else if(tokens[p].size==2&&tokens[p].type=='+'){
+		   return eval(p+1,q);
+	   }
 	   else{
 		   printf("Other situations!\n");
 		   assert(0);
@@ -324,7 +329,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,4);
+	 long int result=eval(0,1);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
