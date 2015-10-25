@@ -12,6 +12,13 @@ enum {
 	EQ = 253,
 	NEQ = 252,
 	EAX = 251,
+	EBX = 250,
+	EDX = 249,
+	ECX = 248,
+	EBP = 247,
+	ESI = 246,
+	EDI = 245,
+	ESP = 244,
 	/* TODO: Add more token types */
 
 };
@@ -31,6 +38,13 @@ static struct rule {
 	{"!",'!'},                      // Not       level:2
 	{"\\$",'$'},                    // REGISTER  level:2
 	{"eax",EAX},                    //eax        level:0
+	{"ebx",EBX},                    //ebx        level:0
+	{"edx",EDX},
+	{"ecx",ECX},
+	{"ebp",EBP},
+	{"esi",ESI},
+	{"edi",EDI},
+	{"esp",ESP},
 	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
