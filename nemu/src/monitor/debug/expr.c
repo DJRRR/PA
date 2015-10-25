@@ -260,9 +260,8 @@ long int eval(int p,int q){//temporarily correct
 		   return !eval(p+1,q);
 	   }
 	   else if(tokens[p].size==2&&tokens[p].type=='*'){//uncompleted
-		   return -1;
+		   return hwaddr_read(eval(p+1,q),8);
 	   }
-
 	   else{
 		   printf("Other situations!\n");
 		   assert(0);
@@ -359,7 +358,7 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,3);
+	 long int result=eval(0,1);
 	 printf("test_result:%ld\n",result);
 }
 uint32_t expr(char *e, bool *success) {
