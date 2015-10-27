@@ -91,9 +91,9 @@ static int cmd_x(char *args){
 	}
     unsigned address=0;
 	address = expr(e,success);
-	printf("%08x\n",address);
+//	printf("%08x\n",address);
     for(j=0;j<num;j++){
-		printf("at %08X  :  %02X\n",address,hwaddr_read(address+4*j,8));
+		printf("at %08X  :  %02X\n",address+4*j,hwaddr_read(address+4*j,8));
 	}
 	/*for(j=0;j<strlen(arg);j++){// if the address is HEX
 		if(arg[j]>='0'&&arg[j]<='9'){
