@@ -81,13 +81,13 @@ static int cmd_p(char *args){
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
-    int num=0;
-    int i;
+    //int num=0;
+    //int i;
 //	int j;
-	for(i=0;i<strlen(arg);i++){
-		num = (num*10)+arg[i]-'0';
-	}
-	arg=strtok(NULL," ");
+//	for(i=0;i<strlen(arg);i++){
+//		num = (num*10)+arg[i]-'0';
+//	}
+//	arg=strtok(NULL," ");
 	printf("%s\n",arg);
 /*	unsigned address=0;
 	for(j=0;j<strlen(arg);j++){// if the address is HEX
