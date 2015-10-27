@@ -82,7 +82,7 @@ static int cmd_p(char *args){
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
     int size=strlen(arg);
-	char *e=arg+size;
+	char *e=args+size+1;
     //int num=0;
     //int i;
 //	int j;
