@@ -72,7 +72,8 @@ static int cmd_test_expr(){
 
 }
 static int cmd_p(char *args){
-	return -1;
+	printf("%s\n",args);
+	return 0;
 }//uncompleted
 
 static int cmd_x(char *args){
