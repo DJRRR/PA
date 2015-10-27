@@ -325,6 +325,12 @@ uint32_t eval(int p,int q){//temporarily correct
 	int temp_level=0;
     uint32_t val1,val2;
 	int count=0;
+   if(tokens[0].size==2&&tokens[0].type=='-'){
+	   return 0-eval(p+1,q);
+   }
+   if(tokens[0].size==2&&tokens[0].type=='*'){
+	   return hwaddr_read(eval(p+1,q),8);
+   }
    if(p>q){
 	printf("Error1:Bad expression![p>q]\n");
 	assert(0);
@@ -491,20 +497,23 @@ uint32_t eval(int p,int q){//temporarily correct
 				 count--;
 			  }
 	}
-			 val1=eval(p,pos-1);
-			 val2=eval(pos+1,q);
-				 switch(tokens[pos].type){
-				 case '+':return val1+val2;
-				 case '&':return val1&&val2;
-				 case '|':return val1||val2;
-				 case '-':return val1-val2;
-				 case '*':return val1*val2;
-				 case '%':return val1%val2;
-				 case '/':return val1/val2;
-				 case  EQ:return (val1==val2);
-				 case NEQ:return (val1!=val2);
-				 default:assert(0);
-				 }
+				 val1=eval(p,pos-1);
+				 val2=eval(pos+1,q);
+					 switch(tokens[pos].type){
+						 case '+':return val1+val2;
+						 case '&':return val1&&val2;
+						 case '|':return val1||val2;
+						 case '-':
+						     return val1-val2;
+
+						 case '*':return val1*val2;
+						 case '%':return val1%val2;
+						 case '/':return val1/val2;
+						 case  EQ:return (val1==val2);
+						 case NEQ:return (val1!=val2);
+						 default:assert(0);
+					 }
+				 
 	   }
  //  }
 }
