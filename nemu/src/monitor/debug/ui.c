@@ -82,13 +82,15 @@ static int cmd_p(char *args){
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
     int num=0;
-	int i,j;
+    int i;
+//	int j;
 	for(i=0;i<strlen(arg);i++){
 		num = (num*10)+arg[i]-'0';
 	}
 	arg=strtok(NULL," ");
-	unsigned address=0;
-	for(j=0;j<strlen(arg);j++){
+	printf("%s\n",arg);
+/*	unsigned address=0;
+	for(j=0;j<strlen(arg);j++){// if the address is HEX
 		if(arg[j]>='0'&&arg[j]<='9'){
 		address =(address*16)+arg[j]-'0';
 		}
@@ -101,7 +103,7 @@ static int cmd_x(char *args){
 	}
 	for(j=0;j<num;j++){
     printf("%02X\n",hwaddr_read(address+4*j,8));
-	}
+	}*/
 	return 0;
 }
 
