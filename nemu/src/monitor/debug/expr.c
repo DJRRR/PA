@@ -325,12 +325,12 @@ uint32_t eval(int p,int q){//temporarily correct
 	int temp_level=0;
     uint32_t val1,val2;
 	int count=0;
-   if(tokens[0].size==2&&tokens[0].type=='-'){
-	   return 0-eval(p+1,q);
-   }
-   if(tokens[0].size==2&&tokens[0].type=='*'){
-	   return hwaddr_read(eval(p+1,q),8);
-   }
+ //  if(tokens[0].size==2&&tokens[0].type=='-'){
+	//   return 0-eval(p+1,q);
+  // }
+  // if(tokens[0].size==2&&tokens[0].type=='*'){
+//	   return hwaddr_read(eval(p+1,q),8);
+ // }
    if(p>q){
 	printf("Error1:Bad expression![p>q]\n");
 	assert(0);
@@ -476,6 +476,12 @@ uint32_t eval(int p,int q){//temporarily correct
 	   return -1;
    }
    else{
+	   if(tokens[p].type=='-'&&tokens[p].size==2){
+		   return 0-eval(p+1,q);
+	   }
+	   if(tokens[p].type=='*'&&tokens[p].size==2){
+		   return hwaddr_read(eval(p+1,q),8);
+	   }
 		max_level=-1;
 	   temp_level=-1;	
 	  // puts("here\n");
