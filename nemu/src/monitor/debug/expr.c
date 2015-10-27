@@ -317,13 +317,13 @@ int check_parentheses(int p,int q){//1 means true 0 means can expr -1 means
 	return result;
 }
 
-long int eval(int p,int q){//temporarily correct
+uint32_t eval(int p,int q){//temporarily correct
 	int i;
-	long int result=0;
+	uint32_t result=0;
 	int j,max_level=0;
 	int pos=0;
 	int temp_level=0;
-   long	int val1,val2;
+    uint32_t val1,val2;
 	int count=0;
    if(p>q){
 	printf("Error1:Bad expression![p>q]\n");
@@ -515,8 +515,8 @@ long int eval(int p,int q){//temporarily correct
 void test_tokens(char *e)
 {    
 	make_token(e);
-	 long int result=eval(0,1);
-	 printf("test_result:%ld\n",result);
+	uint32_t result=eval(0,1);
+	 printf("test_result:%u\n",result);
 }
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {

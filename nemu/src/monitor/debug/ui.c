@@ -72,7 +72,10 @@ static int cmd_test_expr(){
 
 }
 static int cmd_p(char *args){
-	printf("%s\n",args);
+	bool *success=NULL;
+//	success=true;
+	uint32_t result=expr(args,success);
+	printf("result:   %u\n",result);
 	return 0;
 }//uncompleted
 
