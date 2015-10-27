@@ -50,7 +50,8 @@ static struct rule {
 
 	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43  level:4  size:2 means quzheng(level 2) size:1 means plus
-	{"==", EQ},                   	// equal     level:7
+	{"==", EQ},                  	// equal     level:7
+	{"!=",NEQ},                     // notequal  level:7
 	{"!",'!'},                      // Not       level:2
 	{"\\$",'$'},                    // REGISTER  level:2
 	{"eax",EAX},                    //eax        level:0
@@ -77,7 +78,7 @@ static struct rule {
 	{"dx",DX},
 	{"cx",CX},
 	{"bx",BX},
-	{"!=",NEQ},                     // notequal  level:7
+//	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
 	{"%",'%'},                      // quyu      level:3
