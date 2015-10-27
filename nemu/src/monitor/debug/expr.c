@@ -55,8 +55,8 @@ static struct rule {
 	{"\\$",'$'},                    // REGISTER  level:2
 	{"eax",EAX},                    //eax        level:0
 	{"ebx",EBX},                    //ebx        level:0
-	{"edx",EDX},
-	{"ecx",ECX},
+	{"edx",EDX},                    // ..................
+	{"ecx",ECX},                      
 	{"ebp",EBP},
 	{"esi",ESI},
 	{"edi",EDI},
@@ -212,11 +212,33 @@ static bool make_token(char *e) {//shibie token
 					case NOTYPE:
                         break;
 					case EAX:
-						tokens[nr_token].type=EAX;
+					case EDX:
+					case ECX:
+					case EBX:
+					case EBP:
+					case ESI:
+					case EDI:
+					case ESP:
+					case AH:
+					case DH:
+					case CH:
+					case BH:
+					case AL:
+					case DL:
+					case CL:
+					case BL:
+					case AX:
+					case DX:
+					case CX:
+					case BX:
+					case BP:
+					case SI:
+					case DI:
+					case SP:
+						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
 						nr_token++;
 						break;
-
 					case HEX:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
@@ -233,7 +255,6 @@ static bool make_token(char *e) {//shibie token
 						}
 						nr_token++;
 						break;
-
 					case NUM:
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=0;
@@ -333,41 +354,87 @@ long int eval(int p,int q){//temporarily correct
    }
 
    else if(p==q){
-	if(tokens[p].type==HEX){
-		result=0;
-		for(i=0;i<tokens[p].size;i++){//unchecked what about range exceed?
-			if(tokens[p].str[i]>='0'&&tokens[p].str[i]<='9'){
-				result = result*16+(tokens[p].str[i]-'0');
+	   switch(tokens[p].type){
+		   case HEX:
+				result=0;
+				for(i=0;i<tokens[p].size;i++){//unchecked what about range exceed?
+					if(tokens[p].str[i]>='0'&&tokens[p].str[i]<='9'){
+						result = result*16+(tokens[p].str[i]-'0');
+					}
+					else if(tokens[p].str[i]>='A'&&tokens[p].str[i]<='F'){
+						result = result*16+(tokens[p].str[i]-'A'+10);
+					}
+					else{
+						result = result*16+(tokens[p].str[i]-'a'+10);
+					}
+				}
+				for(i=0;i<tokens[p].size-32;i++){
+					result *= 16;
+				}
+				return result;
+				break;;
+		   case NUM:
+			result=0;
+			for(i=0;i<tokens[p].size;i++){
+				result = result*10+(tokens[p].str[i]-'0');
 			}
-			else if(tokens[p].str[i]>='A'&&tokens[p].str[i]<='F'){
-				result = result*16+(tokens[p].str[i]-'A'+10);
+			for(i=0;i<tokens[p].size-32;i++){//uncompleted
+				result *= 10;
 			}
-			else{
-				result = result*16+(tokens[p].str[i]-'a'+10);
-			}
-		}
-		for(i=0;i<tokens[p].size-32;i++){
-			result *= 16;
-		}
-		return result;
-	}  
-	else if(tokens[p].type==NUM){
-	result=0;
-	for(i=0;i<tokens[p].size;i++){
-		result = result*10+(tokens[p].str[i]-'0');
-	}
-	for(i=0;i<tokens[p].size-32;i++){//uncompleted
-		result *= 10;
-	}
-	return result;
-	}
-	else if(tokens[p].type==EAX){//registers
-		return cpu.eax;
-	}
-	else{
-		printf("Error 2:Bad expression![when p==q there is no num to calculate]\n");
-		assert(0);
-		return -1;
+			return result;
+			break;
+		   case EAX:
+				return cpu.eax;
+				break;
+		   case EBX:
+				return cpu.ebx;
+				break;
+		   case ECX:
+				return cpu.ecx;
+				break;
+		   case EDX:
+				return cpu.edx;
+				break;
+		   case EBP:
+				return cpu.ebp;
+				break;
+		   case ESI:
+				return cpu.esi;
+				break;
+		   case EDI:
+				return cpu.edi;
+				break;
+		   case ESP:
+				return cpu.esp;
+				break;
+		   case AH:
+				return cpu.gpr[0]._8[1];
+				break;
+	       case AL:
+				return cpu.gpr[0]._8[0];
+				break;
+		   case CH:
+				return cpu.gpr[1]._8[1];
+				break;
+		   case CL:
+				return cpu.gpr[1]._8[0];
+				break;
+		   case DH:
+				return cpu.gpr[2]._8[1];
+				break;
+		   case DL:
+				return cpu.gpr[2]._8[0];
+				break;
+		   case BH:
+				return cpu.gpr[3]._8[1];
+				break;
+		   case BL:
+				return cpu.gpr[3]._8[0];
+				break;
+		   default:
+				printf("Error 2:Bad expression![when p==q there is no num to calculate]\n");
+				assert(0);
+				return -1;
 	}
    }
    else if(check_parentheses(p,q)==1){
