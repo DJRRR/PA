@@ -326,7 +326,7 @@ uint32_t eval(int p,int q){//temporarily correct
     uint32_t val1,val2;
 	int count=0;
 	bool flag=false;
-   for(i=0;i<nr_token;i++){
+   for(i=p;i<=q;i++){
 	   if(tokens[i].level!=2&&tokens[i].level!=0){
 		   flag=true;
 		   break;
