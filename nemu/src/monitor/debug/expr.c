@@ -6,19 +6,19 @@
 #include <sys/types.h>
 #include <regex.h>
 enum {
-	NOTYPE = 256, 
-    NUM = 255,
-	HEX = 254,
-	EQ = 253,
-	NEQ = 252,
-	EAX = 251,
-	EBX = 250,
-	EDX = 249,
-	ECX = 248,
-	EBP = 247,
-	ESI = 246,
-	EDI = 245,
-	ESP = 244,
+	NOTYPE = 255, 
+    NUM = 256,
+	HEX = 257,
+	EQ = 258,
+	NEQ = 259,
+	EAX = 260,
+	EBX = 261,
+	EDX = 262,
+	ECX = 263,
+	EBP = 264,
+	ESI = 265,
+	EDI = 266,
+	ESP = 267,
 	/* TODO: Add more token types */
 
 };
