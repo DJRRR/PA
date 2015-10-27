@@ -431,6 +431,30 @@ long int eval(int p,int q){//temporarily correct
 		   case BL:
 				return cpu.gpr[3]._8[0];
 				break;
+		   case AX:
+				return cpu.gpr[0]._16;
+				break;
+		   case CX:
+				return cpu.gpr[1]._16;
+				break;
+		   case DX:
+				return cpu.gpr[2]._16;
+				break;
+		   case BX:
+				return cpu.gpr[3]._16;
+				break;
+		   case SP:
+				return cpu.gpr[4]._16;
+				break;
+		   case BP:
+				return cpu.gpr[5]._16;
+				break;
+		   case SI:
+				return cpu.gpr[6]._16;
+				break;
+		   case DI:
+				return cpu.gpr[7]._16;
+				break;
 		   default:
 				printf("Error 2:Bad expression![when p==q there is no num to calculate]\n");
 				assert(0);
