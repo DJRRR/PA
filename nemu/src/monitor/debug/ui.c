@@ -82,6 +82,7 @@ static int cmd_p(char *args){
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
     int size=strlen(arg);
+	char *e=arg+size;
     //int num=0;
     //int i;
 //	int j;
@@ -90,6 +91,7 @@ static int cmd_x(char *args){
 //	}
 //	arg=strtok(NULL," ");
 	printf("%s   %d\n",arg,size);
+	printf("%s\n",e);
 /*	unsigned address=0;
 	for(j=0;j<strlen(arg);j++){// if the address is HEX
 		if(arg[j]>='0'&&arg[j]<='9'){
