@@ -5,7 +5,6 @@
 
 static WP wp_list[NR_WP];
 static WP *head, *free_;
-
 void init_wp_list() {
 	int i;
 	for(i = 0; i < NR_WP; i ++) {
@@ -19,5 +18,27 @@ void init_wp_list() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
+
+int new_wp(char *e){
+	bool success=true;
+	uint32_t ans;
+	WP *find;
+	ans=expr(e,&success);
+	if(free_==NULL){
+    	printf("There is no free watchpoints\n");
+		assert(0);
+		return -1;
+	}
+	find=free_;
+	free_=free_->next;
+	find->ans=ans;
+	find->expr=e;
+	find->next=head;
+	head=find;
+	return 1;
+}
+
+
+
 
 
