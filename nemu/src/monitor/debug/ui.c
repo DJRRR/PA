@@ -72,12 +72,11 @@ static struct {
 static int cmd_w(char *args){
 	if(new_wp(args)==false){
 		printf("Set watchpoints failed!\n");
-		return 0;
 	}
 	else{
 		printf("Set watchpoints success!");
-		return 0;
 	}
+	return 0;
 }
 
 //static int cmd_test_expr(){
