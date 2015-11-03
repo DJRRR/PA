@@ -148,10 +148,12 @@ bool check_watchpoint(){
 	}
 	else{
 		WP *work;
+		char *temp;
 		bool success=true;
 		uint32_t temp_ans;
 		for(work=head;work!=NULL;work=work->next){
-			temp_ans=expr(work->expr,&success);
+			temp=work->expr;
+			temp_ans=expr(temp,&success);
 			if(temp_ans!=work->ans){
 				printf("Stop at the %d watchpoint!\n",work->NO);
 				printf("The ans changes from %u to %u!",work->ans,temp_ans);
