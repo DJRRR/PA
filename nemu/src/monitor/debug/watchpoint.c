@@ -1,6 +1,6 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
-
+#include<string.h>
 #define NR_WP 32
 
 static WP wp_list[NR_WP];
@@ -65,7 +65,7 @@ bool new_wp(char *e){
 	}
 	WP *find=free_;
 	free_=free_->next;
-	find->expr=e;
+	strcpy(find->expr,e);
 	printf("%s\n",find->expr);
 	find->ans=temp;
 	find->next=head;
