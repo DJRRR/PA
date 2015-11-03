@@ -22,7 +22,7 @@ void init_wp_list() {
 bool new_wp(char *e){
 	bool success=true;
 	uint32_t ans;
-	WP *find=free_;
+	WP* find=free_;
 	ans=expr(e,&success);
 	printf("%u\n",ans);
 	find->ans=ans;
@@ -52,6 +52,7 @@ bool new_wp(char *e){
 	search->next=find;
 	find->next=NULL;
 	return true;
+
 }
 void free_wp(WP *wp){
 	if(wp==head){

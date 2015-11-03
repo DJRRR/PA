@@ -86,9 +86,9 @@ static int cmd_w(char *args){
 
 //}
 static int cmd_p(char *args){
-	bool *success=NULL;
+	bool success=true;
 //	success=true;
-	uint32_t result=expr(args,success);
+	uint32_t result=expr(args,&success);
 	printf("result:   %u\n",result);
 	return 0;
 }//uncompleted
