@@ -66,6 +66,7 @@ bool new_wp(char *e){
 	WP *find=free_;
 	free_=free_->next;
 	find->expr=e;
+	printf("%s\n",find->expr);
 	find->ans=temp;
 	find->next=head;
 	head=find;
