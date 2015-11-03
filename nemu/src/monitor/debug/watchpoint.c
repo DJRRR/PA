@@ -26,7 +26,7 @@ bool new_wp(char *e){
 	ans=expr(e,&success);
 	printf("%u\n",ans);
 	find->ans=ans;
-	strcpy(find->expr,e);
+	find->expr=e;
 	if(!success){
 		printf("EXPR WRONG!\n");
 		return false;
