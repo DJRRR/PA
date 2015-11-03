@@ -36,15 +36,6 @@ WP* new_wp(char *e){
 		assert(0);
 		return NULL;
 	}
-//	find->ans=ans;
-//	find->expr=e;
-//	find=free_;
-//	free_=free_->next;
-//	find->ans=ans;
-//	find->expr=e;
-//	find->next=head;
-//	head=find;
-//	return head;
 	if(head==NULL){
 		find=free_;
 		free_=free_->next;
@@ -131,6 +122,20 @@ bool check_watchpoint(){
 		return flag;
 	}
 }
+void watchpoint_info(){
+	if(head==NULL){
+		printf("There are no watchpoints to print!\n");
+		return ;
+	}
+	else{
+		WP *work;
+		for(work=head;work!=NULL;work=work->next){
+			printf("Watch point %d : %s\n",work->NO,work->expr);
+		}
+		return ;
+	}
+}
+
 
 
 	

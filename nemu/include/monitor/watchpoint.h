@@ -19,5 +19,6 @@ void free_wp(WP* wp);
 
 bool check_watchpoint();
 
+void watchpoint_info();
 
 #endif

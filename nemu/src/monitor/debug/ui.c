@@ -143,7 +143,8 @@ static int cmd_info(char *args){
 		return 0;
 	}
 	else if(arg[0]=='w'){
-		return 0;
+		watchpoint_info();
+
 	}
     return 0;
 
