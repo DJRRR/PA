@@ -74,7 +74,7 @@ bool new_wp(char *e){
 
 
 }
-WP* search_NO(int num){
+WP* search_NO(uint32_t num){
 	bool flag=false;
 	if(head==NULL){
 		return NULL;
