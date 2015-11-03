@@ -75,6 +75,7 @@ static int cmd_w(char *args){
 		printf("Set watchpoints failed!\n");
 	}
 	else{
+		printf("test1\n");
 		printf("Set watchpoints success!");
 	}
 	return 0;
