@@ -170,7 +170,7 @@ void watchpoint_info(){
 	else{
 		WP *work;
 		for(work=head;work!=NULL;work=work->next){
-			printf("Watch point %d : %s\n",work->NO,work->expr);
+			printf("Watch point %d : %u\n",work->NO,work->ans);
 		}
 		return ;
 	}
