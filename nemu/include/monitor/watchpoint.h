@@ -2,7 +2,7 @@
 #define __WATCHPOINT_H__
 
 #include "common.h"
-
+#include<string.h>
 typedef struct watchpoint {
 	int NO;
 	struct watchpoint *next;
