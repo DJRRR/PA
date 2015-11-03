@@ -22,7 +22,7 @@ void init_wp_list() {
 bool new_wp(char *e){
 	bool success=true;
 	uint32_t ans;
-	WP *find=NULL;
+	WP *find=free_;
 	ans=expr(e,&success);
 	find->ans=ans;
 	strcpy(find->expr,e);
