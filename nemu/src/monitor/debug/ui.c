@@ -77,7 +77,7 @@ static int cmd_set(char *args){
 	return 0;
 }
 static int cmd_w(char *args){
-
+    printf("hhhh: %s\n",args);
 	if(new_wp(args)==false){
 		printf("test\n");
 		printf("Set watchpoints failed!\n");
