@@ -39,8 +39,9 @@ bool new_wp(char *e){
 		printf("here");
 		find=free_;
 		free_=free_->next;
+		find->next=head;
 		head=find;
-		head->next=NULL;
+		find->next=NULL;
 		return true;
 	}
 	WP *search;
