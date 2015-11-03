@@ -54,8 +54,8 @@ bool new_wp(char *e){
 	find->next=NULL;
 	return true;*/
 	bool success=true;
-	uint32_t ans;
-	ans=expr(e,&success);
+	uint32_t temp;
+	temp=expr(e,&success);
 	if(!success){
 		printf("EXPR ERROE at watchpoint!\n");
 		return false;
@@ -68,7 +68,7 @@ bool new_wp(char *e){
 	free_=free_->next;
 	strcpy(find->expr,e);
 	printf("test2\n");
-	find->ans=ans;
+	find->ans=temp;
 	find->next=head;
 	head=find;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
