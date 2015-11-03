@@ -53,7 +53,7 @@ bool new_wp(char *e){
 	search->next=find;
 	find->next=NULL;
 	return true;*/
-	printf("sss\n");
+//	printf("sss\n");
 	bool success=true;
 	uint32_t temp;
 	temp=expr(e,&success);
@@ -62,16 +62,16 @@ bool new_wp(char *e){
 		printf("EXPR ERROE at watchpoint!\n");
 		return false;
 	}
-	printf("ddd\n");
+//	printf("ddd\n");
 	if(free_==NULL){
 		printf("There is no free watchpoints!\n");
 		return false;
 	}
-	printf("%d\n",free_->NO);
+//	printf("%d\n",free_->NO);
 	WP *find=free_;
 	free_=free_->next;
 	find->expr=e;
-	printf("test2\n");
+//	printf("test2\n");
 	find->ans=temp;
 	find->next=head;
 	head=find;
