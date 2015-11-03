@@ -53,6 +53,7 @@ bool new_wp(char *e){
 	search->next=find;
 	find->next=NULL;
 	return true;*/
+	printf("sss\n");
 	bool success=true;
 	uint32_t temp;
 	temp=expr(e,&success);
