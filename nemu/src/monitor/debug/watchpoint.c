@@ -84,6 +84,7 @@ WP* search_NO(int num){
 			break;
 		}
 	}
+	printf("test:%d\n",work->NO);
 	return work;
 }
 void free_wp(WP *wp){
