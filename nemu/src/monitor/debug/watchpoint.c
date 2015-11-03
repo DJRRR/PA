@@ -70,7 +70,7 @@ bool new_wp(char *e){
 	printf("%d\n",free_->NO);
 	WP *find=free_;
 	free_=free_->next;
-	strcpy(find->expr,e);
+	find->expr=e;
 	printf("test2\n");
 	find->ans=temp;
 	find->next=head;
