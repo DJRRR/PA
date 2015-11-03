@@ -46,6 +46,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
 //static int cmd_test_expr();
 
 static struct {
@@ -60,12 +62,24 @@ static struct {
 	{"info","Print the information of register or watchpoints",cmd_info },
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	{"p","EXPR",cmd_p },
+	{"w","set watchpoint",cmd_w},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+static int cmd_w(char *args){
+	if(new_wp(args)==false){
+		printf("Set watchpoints failed!\n");
+		return 0;
+	}
+	else{
+		printf("Set watchpoints success!");
+		return 0;
+	}
+}
+
 //static int cmd_test_expr(){
 //	test_tokens("$     ah");
 //	return 0;

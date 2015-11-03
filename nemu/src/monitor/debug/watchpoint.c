@@ -19,7 +19,7 @@ void init_wp_list() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP* new_wp(char *e){
+bool new_wp(char *e){
 	bool success=true;
 	uint32_t ans;
 	WP *find=NULL;
@@ -29,19 +29,19 @@ WP* new_wp(char *e){
 	if(!success){
 		printf("EXPR WRONG!\n");
 		assert(0);
-		return NULL;
+		return false;
 	}
 	if(free_==NULL){
     	printf("There is no free watchpoints\n");
 		assert(0);
-		return NULL;
+		return false;
 	}
 	if(head==NULL){
 		find=free_;
 		free_=free_->next;
 		head=find;
 		head->next=NULL;
-		return head;
+		return true;
 	}
 	WP *search;
 	for(search=head;;search=search->next){
@@ -51,7 +51,7 @@ WP* new_wp(char *e){
 	}
 	search->next=find;
 	find->next=NULL;
-	return find;
+	return true;
 }
 void free_wp(WP *wp){
 	if(wp==head){
