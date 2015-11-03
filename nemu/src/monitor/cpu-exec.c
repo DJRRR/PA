@@ -1,5 +1,7 @@
 #include "monitor/monitor.h"
 #include "cpu/helper.h"
+//#include "monitor/watchpoint.h"
+#include "monitor/watchpoint.h"
 #include <setjmp.h>
 
 /* The assembly code of instructions executed is only output to the screen
@@ -86,6 +88,9 @@ void cpu_exec(volatile uint32_t n) {
 					break;
 				}
 		}*/
+		if(check_watchpoint()==false){
+			nemu_state=STOP;
+		}
 		if(nemu_state != RUNNING) { return; }
 	}
 
