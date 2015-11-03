@@ -22,8 +22,10 @@ void init_wp_list() {
 WP* new_wp(char *e){
 	bool success=true;
 	uint32_t ans;
-	WP *find;
+	WP *find=NULL;
 	ans=expr(e,&success);
+	find->ans=ans;
+	strcpy(find->expr,e);
 	if(!success){
 		printf("EXPR WRONG!\n");
 		assert(0);
@@ -34,46 +36,74 @@ WP* new_wp(char *e){
 		assert(0);
 		return NULL;
 	}
-	find=free_;
-	free_=free_->next;
-	find->ans=ans;
-	find->expr=e;
-	find->next=head;
-	head=find;
-	return head;
+//	find->ans=ans;
+//	find->expr=e;
+//	find=free_;
+//	free_=free_->next;
+//	find->ans=ans;
+//	find->expr=e;
+//	find->next=head;
+//	head=find;
+//	return head;
+	if(head==NULL){
+		find=free_;
+		free_=free_->next;
+		head=find;
+		head->next=NULL;
+		return head;
+	}
+	WP *search;
+	for(search=head;;search=search->next){
+		if(search->next==NULL){
+			break;
+		}
+	}
+	search->next=find;
+	find->next=NULL;
+	return find;
 }
 void free_wp(WP *wp){
 	if(wp==head){
 		head=head->next;
-		wp->next=free_;
-		free_=wp;
-		return ;
+		if(free_==NULL){
+			free_=wp;
+			free_->next=NULL;
+			return ;
+		}
+		else{
+			WP *search2;
+			for(search2=free_;;search2=search2->next){
+				if(search2->next==NULL){
+					break;
+				}
+			}
+			int num;
+			num=search2->NO;
+			wp->NO=num+1;
+			search2->next=wp;
+			wp->next=NULL;
+			return ;
+		}
+
 	}
 	WP *search1;
 	WP *search2;
-	for(search1=head;search1->next!=NULL;search1=search1->next){
+	int num;
+	for(search1=head;;search1=search1->next){
 		if(search1->next==wp){
 			break;
 		}
 	}
-	if(search1==NULL){
-		printf("There is no such watchpoint to free!\n");
-		return ;
-	}
 	search1->next=wp->next;
-	wp->next=NULL;
-	if(wp->NO<free_->NO){
-		wp->next=free_;
-		free_=wp;
-		return ;
-	}
-	for(search2=free_;search2->next!=NULL;search2=search2->next){
-		if(search2->NO<wp->NO){
+	for(search2=free_;;search2=search2->next){
+		if(search2->next==NULL){
 			break;
 		}
 	}
-	wp->next=search2->next;
+	num=search2->NO;
+	wp->NO=num+1;
 	search2->next=wp;
+	wp->next=NULL;
 	return ;
 }
 	

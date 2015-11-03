@@ -46,7 +46,7 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
-static int cmd_test_expr();
+//static int cmd_test_expr();
 
 static struct {
 	char *name;
@@ -57,20 +57,20 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
     { "si", "Execute N instructions",cmd_si },
-	{"info","Print the information of register",cmd_info },
+	{"info","Print the information of register or watchpoints",cmd_info },
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	{"p","EXPR",cmd_p },
-	{"test_expr","function used for test",cmd_test_expr},
+//	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
-static int cmd_test_expr(){
-	test_tokens("$     ah");
-	return 0;
+//static int cmd_test_expr(){
+//	test_tokens("$     ah");
+//	return 0;
 
-}
+//}
 static int cmd_p(char *args){
 	bool *success=NULL;
 //	success=true;
@@ -140,6 +140,9 @@ static int cmd_info(char *args){
 		printf("<ebp>:	0x%02X\n",cpu.ebp);
 		printf("<esi>:	0x%02X\n",cpu.esi);
 		printf("<edi>:	0x%02X\n",cpu.edi);
+		return 0;
+	}
+	else if(arg[0]=='w'){
 		return 0;
 	}
     return 0;

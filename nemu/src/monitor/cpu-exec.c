@@ -73,8 +73,19 @@ void cpu_exec(volatile uint32_t n) {
 #endif
 
 		/* TODO: check watchpoints here. */
-
-
+	    /*WP *work;
+		bool success=true;
+		uint32_t temp_ans;
+		for(work=head;work!=NULL;work=work->next){
+				temp_ans=expr(work->expr,&success);
+				if(temp_ans!=work->ans){
+					printf("Stop at the %d watchpoint!\n",work->NO);
+					printf("The ans changes from %u to %u.\n",work->ans,temp_ans);
+					printf("The expr of this watchpoint is %s\n",work->expr);
+					nemu_state= STOP;
+					break;
+				}
+		}*/
 		if(nemu_state != RUNNING) { return; }
 	}
 
