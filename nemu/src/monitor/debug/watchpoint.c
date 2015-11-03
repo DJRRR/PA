@@ -126,6 +126,7 @@ void free_wp(WP *wp){
 		}
 	}
 	num=search2->NO;
+	printf("asaa:%d\n",num);
 	wp->NO=num+1;
 	search2->next=wp;
 	wp->next=NULL;
