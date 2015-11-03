@@ -26,7 +26,6 @@ bool new_wp(char *e){
 	ans=expr(e,&success);
 	find->ans=ans;
 	find->expr=e;
-	free_=free_->next;
 	if(!success){
 		printf("EXPR WRONG!\n");
 		return false;
@@ -35,12 +34,14 @@ bool new_wp(char *e){
     	printf("There is no free watchpoints\n");
 		return false;
 	}
+	free_=free_->next;
 	if(head==NULL){
 		head=find;
 		find->next=NULL;
 		printf("Watchpoint %d at %s\n",find->NO,find->expr);
 		return true;
 	}
+	else{
 	WP *search;
 	for(search=head;;search=search->next){
 		if(search->next==NULL){
@@ -50,7 +51,7 @@ bool new_wp(char *e){
 	search->next=find;
 	find->next=NULL;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
-	return true;
+	return true;}
 /*	bool success=true;
 	uint32_t temp;
 	temp=expr(e,&success);
@@ -72,6 +73,18 @@ bool new_wp(char *e){
 	return true;*/
 
 
+}
+WP* search_NO(int num){
+	if(head==NULL){
+		return NULL;
+	}
+	WP* work;
+	for(work=head;work!=NULL;work=work->next){
+		if(work->NO==num){
+			break;
+		}
+	}
+	return work;
 }
 void free_wp(WP *wp){
 	if(wp==head){

@@ -23,4 +23,6 @@ bool check_watchpoint();
 
 void watchpoint_info();
 
+WP *search_NO(int num);
+
 #endif

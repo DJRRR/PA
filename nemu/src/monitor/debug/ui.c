@@ -50,6 +50,8 @@ static int cmd_w(char *args);
 
 static int cmd_set(char *args);
 
+static int cmd_d(char *args);
+
 //static int cmd_test_expr();
 
 static struct {
@@ -65,13 +67,26 @@ static struct {
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	{"p","EXPR",cmd_p },
 	{"w","set watchpoint",cmd_w},
-	{"set","init_wp_list",cmd_set},
+	{"set","reset all watchpoints(init_wp_list)",cmd_set},
+	{"d","delete watchpoint",cmd_d},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+static int cmd_d(char *args){
+	bool success=true;
+	uint32_t ans=expr(args,&success);
+	if(search_NO(ans)==NULL){
+		printf("Watchpoint %u not exit!\n",ans);
+		return 0;
+	}
+	else{
+		free_wp(search_NO(ans));
+		return 0;
+	}
+}
 static int cmd_set(char *args){
 	init_wp_list();
 	return 0;
