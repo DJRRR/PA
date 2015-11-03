@@ -52,6 +52,7 @@ bool new_wp(char *e){
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
 	return true;}*/
 	bool success=true;
+	int i;
 	uint32_t temp;
 	temp=expr(e,&success);
 	if(!success){
@@ -63,8 +64,11 @@ bool new_wp(char *e){
 		return false;
 	}
 	WP *find=free_;
-	find->expr=e;
 	free_=free_->next;
+	for( i=0;i<strlen(e);i++){
+		find->expr[i]=e[i];
+	}
+	find->expr[i]='\0';
 	find->ans=temp;
 	find->next=head;
 	if(head!=NULL)
