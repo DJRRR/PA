@@ -36,12 +36,12 @@ bool new_wp(char *e){
 		return false;
 	}
 	if(head==NULL){
-		printf("here");
 		find=free_;
 		free_=free_->next;
 		find->next=head;
 		head=find;
 		find->next=NULL;
+		printf("Watchpoint %d at %s\n",find->NO,find->expr);
 		return true;
 	}
 	WP *search;
@@ -52,6 +52,7 @@ bool new_wp(char *e){
 	}
 	search->next=find;
 	find->next=NULL;
+	printf("Watchpoint %d at %s\n",find->NO,find->expr);
 	return true;
 /*	bool success=true;
 	uint32_t temp;
