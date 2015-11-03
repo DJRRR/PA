@@ -20,7 +20,7 @@ void init_wp_list() {
 /* TODO: Implement the functionality of watchpoint */
 
 bool new_wp(char *e){
-/*	bool success=true;
+	bool success=true;
 	uint32_t ans;
 	WP* find=free_;
 	ans=expr(e,&success);
@@ -52,31 +52,26 @@ bool new_wp(char *e){
 	}
 	search->next=find;
 	find->next=NULL;
-	return true;*/
-//	printf("sss\n");
-	bool success=true;
+	return true;
+/*	bool success=true;
 	uint32_t temp;
 	temp=expr(e,&success);
-//	printf("ddd\n");
 	if(!success){
 		printf("EXPR ERROE at watchpoint!\n");
 		return false;
 	}
-//	printf("ddd\n");
 	if(free_==NULL){
 		printf("There is no free watchpoints!\n");
 		return false;
 	}
-//	printf("%d\n",free_->NO);
 	WP *find=free_;
 	free_=free_->next;
 	find->expr=e;
-//	printf("test2\n");
 	find->ans=temp;
 	find->next=head;
 	head=find;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
-	return true;
+	return true;*/
 
 
 }
