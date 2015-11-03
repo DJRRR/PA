@@ -152,6 +152,7 @@ bool check_watchpoint(){
 		bool success=true;
 		uint32_t temp_ans;
 		for(work=head;work!=NULL;work=work->next){
+			if(work==NULL) break;
 			temp=work->expr;
 			temp_ans=expr(temp,&success);
 			if(temp_ans!=work->ans){
