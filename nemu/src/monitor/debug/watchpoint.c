@@ -24,9 +24,9 @@ bool new_wp(char *e){
 	uint32_t ans;
 	WP* find=free_;
 	ans=expr(e,&success);
-	printf("%u\n",ans);
 	find->ans=ans;
 	find->expr=e;
+	free_=free_->next;
 	if(!success){
 		printf("EXPR WRONG!\n");
 		return false;
@@ -36,9 +36,6 @@ bool new_wp(char *e){
 		return false;
 	}
 	if(head==NULL){
-		find=free_;
-		free_=free_->next;
-		find->next=head;
 		head=find;
 		find->next=NULL;
 		printf("Watchpoint %d at %s\n",find->NO,find->expr);
@@ -50,7 +47,6 @@ bool new_wp(char *e){
 			break;
 		}
 	}
-	free_=free_->next;
 	search->next=find;
 	find->next=NULL;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
