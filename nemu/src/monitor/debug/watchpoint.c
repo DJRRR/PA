@@ -67,7 +67,7 @@ bool new_wp(char *e){
 		printf("There is no free watchpoints!\n");
 		return false;
 	}
-	printf("ddd\n");
+	printf("%d\n",free_->NO);
 	WP *find=free_;
 	free_=free_->next;
 	strcpy(find->expr,e);
