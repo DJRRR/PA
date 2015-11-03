@@ -26,6 +26,7 @@ bool new_wp(char *e){
 	ans=expr(e,&success);
 	find->ans=ans;
 	find->expr=e;
+	free_=free_->next;
 	if(!success){
 		printf("EXPR WRONG!\n");
 		return false;
@@ -34,7 +35,6 @@ bool new_wp(char *e){
     	printf("There is no free watchpoints\n");
 		return false;
 	}
-	free_=free_->next;
 	if(head==NULL){
 		head=find;
 		find->next=NULL;
