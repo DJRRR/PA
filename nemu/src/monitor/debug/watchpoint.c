@@ -65,17 +65,16 @@ bool new_wp(char *e){
 	}
 	WP *find=free_;
 	free_=free_->next;
-	for( i=0;i<strlen(e);i++){
+	for(i=0;i<sizeof(e);i++){
 		find->expr[i]=e[i];
 	}
-	find->expr[i]='\0';
 	find->ans=temp;
 	find->next=head;
 	if(head!=NULL)
-	printf("tststs %d at %s\n",head->NO,head->expr);
+   // printf("tststs %d at %s\n",head->NO,head->expr);
 	head=find;
-	printf("Watchpoint %d at %s\n",find->NO,find->expr);
-	printf("teststst %d at %s\n",head->NO,head->expr);
+//	printf("Watchpoint %d at %s\n",find->NO,find->expr);
+//	printf("teststst %d at %s\n",head->NO,head->expr);
 	return true;
 
 
