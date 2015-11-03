@@ -57,11 +57,12 @@ bool new_wp(char *e){
 	bool success=true;
 	uint32_t temp;
 	temp=expr(e,&success);
-	printf("ddd\n");
+//	printf("ddd\n");
 	if(!success){
 		printf("EXPR ERROE at watchpoint!\n");
 		return false;
 	}
+	printf("ddd\n");
 	if(free_==NULL){
 		printf("There is no free watchpoints!\n");
 		return false;
