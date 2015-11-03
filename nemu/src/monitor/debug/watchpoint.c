@@ -50,6 +50,7 @@ bool new_wp(char *e){
 			break;
 		}
 	}
+	free_=free_->next;
 	search->next=find;
 	find->next=NULL;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
