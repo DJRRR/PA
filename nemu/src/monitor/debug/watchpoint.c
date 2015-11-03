@@ -106,6 +106,33 @@ void free_wp(WP *wp){
 	wp->next=NULL;
 	return ;
 }
+bool check_watchpoint(){
+	bool flag=true;
+	if(head==NULL){
+		printf("There are no watchpoints to check!\n");
+		flag=false;
+		assert(0);
+		return flag;
+	}
+	else{
+		WP *work;
+		bool success=true;
+		uint32_t temp_ans;
+		for(work=head;work!=NULL;work=work->next){
+			temp_ans=expr(work->expr,&success);
+			if(temp_ans!=work->ans){
+				printf("Stop at the %d watchpoint!\n",work->NO);
+				printf("The ans changes from %u to %u!",work->ans,temp_ans);
+				printf("The expr of this watchpoint is %s\n",work->expr);
+				flag=false;
+				break;
+			}
+		}
+		return flag;
+	}
+}
+
+
 	
 
 
