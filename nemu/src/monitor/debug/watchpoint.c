@@ -63,7 +63,7 @@ bool new_wp(char *e){
 		return false;
 	}
 	WP *find=free_;
-	strcpy(find->expr,e);
+	find->expr=e;
 	free_=free_->next;
 	printf("%s\n",find->expr);
 	find->ans=temp;
