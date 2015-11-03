@@ -29,12 +29,10 @@ bool new_wp(char *e){
 	strcpy(find->expr,e);
 	if(!success){
 		printf("EXPR WRONG!\n");
-		assert(0);
 		return false;
 	}
 	if(free_==NULL){
     	printf("There is no free watchpoints\n");
-		assert(0);
 		return false;
 	}
 	if(head==NULL){
