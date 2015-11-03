@@ -37,6 +37,7 @@ bool new_wp(char *e){
 		return false;
 	}
 	if(head==NULL){
+		printf("here");
 		find=free_;
 		free_=free_->next;
 		head=find;
