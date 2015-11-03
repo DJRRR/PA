@@ -75,17 +75,24 @@ bool new_wp(char *e){
 
 }
 WP* search_NO(int num){
+	bool flag=false;
 	if(head==NULL){
 		return NULL;
 	}
 	WP* work;
 	for(work=head;work!=NULL;work=work->next){
 		if(work->NO==num){
+			flag=true;
 			break;
 		}
 	}
-	printf("test:%d\n",work->NO);
-	return work;
+	if(flag==true){
+		printf("test:%d\n",work->NO);
+		return work;
+	}
+	else{
+		return NULL;
+	}
 }
 void free_wp(WP *wp){
 	if(wp==head){
