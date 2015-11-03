@@ -24,6 +24,7 @@ bool new_wp(char *e){
 	uint32_t ans;
 	WP *find=free_;
 	ans=expr(e,&success);
+	printf("%u\n",ans);
 	find->ans=ans;
 	strcpy(find->expr,e);
 	if(!success){
