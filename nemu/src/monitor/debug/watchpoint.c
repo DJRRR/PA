@@ -51,6 +51,10 @@ bool new_wp(char *e){
 	find->next=NULL;
 	printf("Watchpoint %d at %s\n",find->NO,find->expr);
 	return true;}*/
+	if(strlen(e)>=30){
+		printf("The length of expr exceed!\n");
+		return false;
+	}
 	bool success=true;
 	int i;
 	uint32_t temp;
