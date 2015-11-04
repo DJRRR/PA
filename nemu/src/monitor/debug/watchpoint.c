@@ -71,9 +71,7 @@ bool new_wp(char *e){
 	find->expr[i]='\0';
 	find->ans=temp;
 	find->next=head;
-   // printf("tststs %d at %s\n",head->NO,head->expr);
 	head=find;
-//	printf("Watchpoint %d at %s\n",find->NO,find->expr);
 	printf("teststst %d at %s\n",head->NO,head->expr);
 	return true;
 	
@@ -105,6 +103,7 @@ void free_wp(WP *wp){
 		if(free_==NULL){
 			free_=wp;
 			free_->next=NULL;
+			printf("Delete the watchpoint %d at %s\n",wp->NO,wp->expr);
 			return ;
 		}
 		else{
