@@ -114,6 +114,7 @@ void free_wp(WP *wp){
 				}
 			}
 			int num;
+			printf("Delete the watchpoint %d at %s\n",wp->NO,wp->expr);
 			num=search2->NO;
 			wp->NO=num+1;
 			search2->next=wp;
@@ -136,6 +137,7 @@ void free_wp(WP *wp){
 			break;
 		}
 	}
+	printf("Delete the watchpoint %d at %s\n",wp->NO,wp->expr);
 	num=search2->NO;
 	wp->NO=num+1;
 	search2->next=wp;
