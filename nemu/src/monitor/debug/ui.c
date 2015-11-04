@@ -76,6 +76,22 @@ static struct {
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 static int cmd_d(char *args){
+	char input;
+	if(args==NULL){
+		printf("Delete all the watchpoints?(Y/N)\n");
+		scanf("%c",&input);
+		while(input!='y'&&input!='Y'&&input!='N'&&input!='n'){
+			printf("Please input right character!\n");
+		}
+		if(input=='Y'||input=='y'){
+			init_wp_list();
+			return 0;
+		}
+		else{
+			return 0;
+		}
+	}
+		
 	bool success=true;
 	uint32_t ans=expr(args,&success);
 	if(search_NO(ans)==NULL){
