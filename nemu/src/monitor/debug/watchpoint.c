@@ -72,7 +72,7 @@ bool new_wp(char *e){
 	find->ans=temp;
 	find->next=head;
 	head=find;
-	printf("teststst %d at %s\n",head->NO,head->expr);
+	printf("Set watchpoint %d at %s\n",head->NO,head->expr);
 	return true;
 	
 
