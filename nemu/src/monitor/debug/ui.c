@@ -48,7 +48,7 @@ static int cmd_p(char *args);
 
 static int cmd_w(char *args);
 
-static int cmd_set(char *args);
+//static int cmd_set(char *args);
 
 static int cmd_d(char *args);
 
@@ -67,7 +67,7 @@ static struct {
 	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
 	{"p","EXPR",cmd_p },
 	{"w","set watchpoint",cmd_w},
-	{"set","reset all watchpoints(init_wp_list)",cmd_set},
+//	{"set","reset all watchpoints(init_wp_list)",cmd_set},
 	{"d","delete watchpoint",cmd_d},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
@@ -109,10 +109,10 @@ static int cmd_d(char *args){
 		return 0;
 	}
 }
-static int cmd_set(char *args){
+/*static int cmd_set(char *args){
 	init_wp_list();
 	return 0;
-}
+}*/
 static int cmd_w(char *args){
 	if(new_wp(args)==false){
 		printf("Set watchpoints failed!\n");
@@ -130,11 +130,10 @@ static int cmd_w(char *args){
 //}
 static int cmd_p(char *args){
 	bool success=true;
-//	success=true;
 	uint32_t result=expr(args,&success);
 	printf("result:   %u\n",result);
 	return 0;
-}//uncompleted
+}
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL," ");
