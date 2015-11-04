@@ -82,6 +82,7 @@ static int cmd_d(char *args){
 		scanf("%c",&input);
 		while(input!='y'&&input!='Y'&&input!='N'&&input!='n'){
 			printf("Please input right character!\n");
+			scanf("%c",&input);
 		}
 		if(input=='Y'||input=='y'){
 			init_wp_list();
