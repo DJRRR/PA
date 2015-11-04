@@ -71,12 +71,12 @@ bool new_wp(char *e){
 	find->expr[i]='\0';
 	find->ans=temp;
 	find->next=head;
-	if(head!=NULL)
    // printf("tststs %d at %s\n",head->NO,head->expr);
 	head=find;
 //	printf("Watchpoint %d at %s\n",find->NO,find->expr);
-//	printf("teststst %d at %s\n",head->NO,head->expr);
+	printf("teststst %d at %s\n",head->NO,head->expr);
 	return true;
+	
 
 
 }
