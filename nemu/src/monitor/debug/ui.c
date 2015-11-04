@@ -80,9 +80,14 @@ static int cmd_d(char *args){
 	if(args==NULL){
 		printf("Delete all the watchpoints?(Y/N)\n");
 		scanf("%c",&input);
-		while(input!='y'&&input!='Y'&&input!='N'&&input!='n'){
-			printf("Please input right character!\n");
-			scanf("%c",&input);
+		while(1){
+			if(input!='y'&&input!='Y'&&input!='N'&&input!='n'){
+				printf("Please input right character!\n");
+				scanf("%c",&input);
+			}
+			else{
+				break;
+			}
 		}
 		if(input=='Y'||input=='y'){
 			init_wp_list();
