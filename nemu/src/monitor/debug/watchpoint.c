@@ -65,9 +65,10 @@ bool new_wp(char *e){
 	}
 	WP *find=free_;
 	free_=free_->next;
-	for(i=0;i<sizeof(e);i++){
+	for(i=0;i<strlen(e);i++){
 		find->expr[i]=e[i];
 	}
+	find->expr[i]='\0';
 	find->ans=temp;
 	find->next=head;
 	if(head!=NULL)
