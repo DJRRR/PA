@@ -128,7 +128,7 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-static bool make_token(char *e) {//shibie token
+static bool make_token(char *e) {//make token
 	int position = 0;
 	int i;
 	int j,k;
@@ -157,7 +157,7 @@ static bool make_token(char *e) {//shibie token
 						tokens[nr_token].level=6;
 						nr_token++;
 						break;
-					case '$':
+					case '$'://reg
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=2;
 						nr_token++;
