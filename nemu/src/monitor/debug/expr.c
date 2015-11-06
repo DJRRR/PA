@@ -35,6 +35,7 @@ enum {
 	DX = 281,
 	CX = 282,
 	BX = 283,
+	EIP = 284,
 	/* TODO: Add more token types */
 
 };
@@ -62,6 +63,7 @@ static struct rule {
 	{"esi",ESI},
 	{"edi",EDI},
 	{"esp",ESP},
+	{"eip",EIP},
 	{"ah",AH},
 	{"al",AL},
 	{"dh",DH},
@@ -228,6 +230,7 @@ static bool make_token(char *e) {//shibie token
 					case ESI:
 					case EDI:
 					case ESP:
+					case EIP:
 					case AH:
 					case DH:
 					case CH:
@@ -420,6 +423,9 @@ uint32_t eval(int p,int q){//temporarily correct
 				break;
 		   case EDI:
 				return cpu.edi;
+				break;
+		   case EIP:
+				return cpu.eip;
 				break;
 		   case ESP:
 				return cpu.esp;
