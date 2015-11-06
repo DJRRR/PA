@@ -349,7 +349,7 @@ uint32_t eval(int p,int q){//temporarily correct
 		   return !eval(p+1,q);
 	   }
 	   else if(tokens[p].size==2&&tokens[p].type=='*'){//uncompleted
-		   printf("aa\n");
+		  // printf("aa\n");
 		   return hwaddr_read(eval(p+1,q),8);
 	   }
 	   else if(tokens[p].type=='$'){
@@ -483,6 +483,7 @@ uint32_t eval(int p,int q){//temporarily correct
 		   return 0-eval(p+1,q);
 	   }
 	   if(tokens[p].type=='*'&&tokens[p].size==2&&flag==false){
+		   printf("aaaa\n");
 		   return hwaddr_read(eval(p+1,q),8);
 	   }
 		max_level=-1;
