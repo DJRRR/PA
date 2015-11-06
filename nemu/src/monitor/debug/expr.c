@@ -89,6 +89,8 @@ static struct rule {
 	{"[0-9]+",NUM},                 //decimal integer      level:0
 	{"&&",'&'},                     //AND  level:11
 	{"\\|\\|",'|'},                     // OR  level:12
+	{">",'>'},                         // > level:6
+	{"<",'<'},                         // < level:6
 
 	//{"",REG},                     // reg name
 };
@@ -147,6 +149,12 @@ static bool make_token(char *e) {//shibie token
 				 */
 
  				switch(rules[i].token_type) {
+					case '>':
+					case '<':
+						tokens[nr_token].type=rules[i].token_type;
+						tokens[nr_token].level=6;
+						nr_token++;
+						break;
 					case '$':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=2;
@@ -519,6 +527,8 @@ uint32_t eval(int p,int q){//temporarily correct
 						 case '/':return val1/val2;
 						 case  EQ:return (val1==val2);
 						 case NEQ:return (val1!=val2);
+						 case '>':return (val1>val2);
+						 case '<':return (val1<val2);
 						 default:assert(0);
 					 }
 				 
