@@ -488,6 +488,7 @@ uint32_t eval(int p,int q){//temporarily correct
 		   printf("aaaa\n");
 		   return hwaddr_read(eval(p+1,q),8);
 	   }
+	   printf("test\n");
 		max_level=-1;
 	   temp_level=-1;	
 	  // puts("here\n");
