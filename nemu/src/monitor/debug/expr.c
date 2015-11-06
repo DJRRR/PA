@@ -479,19 +479,14 @@ uint32_t eval(int p,int q){//temporarily correct
 	   return -1;
    }
    else{
-	   printf("adadad\n");
 	   if(tokens[p].type=='-'&&tokens[p].size==2&&flag==false){
-		   printf("bbbb\n");
 		   return 0-eval(p+1,q);
 	   }
 	   if(tokens[p].type=='*'&&tokens[p].size==2&&flag==false){
-		   printf("aaaa\n");
 		   return hwaddr_read(eval(p+1,q),8);
 	   }
-	   printf("test\n");
 		max_level=-1;
 	   temp_level=-1;	
-	  // puts("here\n");
 		 for(j=p;j<q+1;j++){
 			 if(tokens[j].level>1){
 			 temp_level=tokens[j].level;
