@@ -481,6 +481,7 @@ uint32_t eval(int p,int q){//temporarily correct
    else{
 	   printf("adadad\n");
 	   if(tokens[p].type=='-'&&tokens[p].size==2&&flag==false){
+		   printf("bbbb\n");
 		   return 0-eval(p+1,q);
 	   }
 	   if(tokens[p].type=='*'&&tokens[p].size==2&&flag==false){
