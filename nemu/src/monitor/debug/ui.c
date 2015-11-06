@@ -63,12 +63,11 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
     { "si", "Execute N instructions",cmd_si },
-	{"info","Print the information of register or watchpoints",cmd_info },
-	{"x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
-	{"p","EXPR",cmd_p },
-	{"w","set watchpoint",cmd_w},
-//	{"set","reset all watchpoints(init_wp_list)",cmd_set},
-	{"d","delete watchpoint",cmd_d},
+	{ "info","Print the information of register or watchpoints",cmd_info },
+	{ "x","Scan Memory with the format of ’ x N EXPR ' ",cmd_x },
+	{ "p","EXPR",cmd_p },
+	{ "w","set watchpoint",cmd_w},
+	{ "d","delete watchpoint",cmd_d},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
@@ -196,6 +195,7 @@ static int cmd_info(char *args){
 		printf("<ebp>:	0x%02X\n",cpu.ebp);
 		printf("<esi>:	0x%02X\n",cpu.esi);
 		printf("<edi>:	0x%02X\n",cpu.edi);
+		printf("<eip>:  0x%02X\n",cpu.eip);
 		return 0;
 	}
 	else if(arg[0]=='w'){
