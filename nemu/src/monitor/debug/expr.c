@@ -328,7 +328,7 @@ uint32_t eval(int p,int q){//temporarily correct
 	int count=0;
 	bool flag=false;
    for(i=p;i<=q;i++){
-	   if(tokens[i].level!=2&&tokens[i].level!=0){
+	   if(tokens[i].level!=2&&tokens[i].level!=0&&tokens[i].type!='('&&tokens[i].type!=')'){
 		   flag=true;
 		   break;
 	   }
