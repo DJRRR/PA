@@ -29,7 +29,7 @@ static void do_execute(){
 		cpu.CF=0;
 	}
 
-	print_asm_template1();
+	print_asm_template2();
 
 }
 
