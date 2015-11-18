@@ -4,10 +4,10 @@
 
 static void do_execute(){
 //	printf("here\n");
-	unsigned int flag_dest=(op_dest->val>>31)&1;
-	unsigned int flag_src=(op_src->val>>31)&1;
+	DATA_TYPE flag_dest=(op_dest->val>>(DATA_BYTE*8-1))&1;
+	unsigned int flag_src=(op_src->val>>(DATA_BYTE*8-1))&1;
 	DATA_TYPE result = op_dest->val - op_src->val;
-	unsigned int flag_res=(result>>31)&1;
+	DATA_TYPE flag_res=(result>>(DATA_BYTE*8-1))&1;
 	unsigned int num=0;
 	while(result>0){
 		if((result&1)==1){
@@ -22,24 +22,30 @@ static void do_execute(){
 		cpu.PF=0;
 	}
 	OPERAND_W(op_dest,result);
-	/*UPDATE EFLAGS*/
     if(result==0){
 		cpu.ZF=1;
 	}
-	if(flag_res==0){
+	else{
+		cpu.ZF=0;
+	}
+	if(flag_res==1){
 		cpu.SF=1;
+	}
+	else{
+		cpu.SF=0;
 	}
 	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
 		cpu.OF=1;
 	}
+	else{
+		cpu.OF=0;
+	}
 	if(op_dest->val<op_src->val){
 		cpu.CF=1;
 	}
-
-
-
-
-	
+	else{
+     	cpu.CF=0;
+	}	
 //	panic("please implement me");
 
 	print_asm_template2();
