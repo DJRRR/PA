@@ -20,6 +20,7 @@
 #include "logic/shl.h"
 #include "logic/shr.h"
 #include "logic/shrd.h"
+#include "logic/cmp.h"
 
 #include "string/rep.h"
 

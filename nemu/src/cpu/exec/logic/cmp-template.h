@@ -1,16 +1,9 @@
 #include "cpu/exec/template-start.h"
 
-#define instr sub
+#define instr cmp
 
 static void do_execute(){
-//	printf("here\n");
-	DATA_TYPE result = op_dest->val - op_src->val;
-	OPERAND_W(op_dest,result);
-	/*UPDATE EFLAGS*/
-
-//	panic("please implement me");
-
-	print_asm_template2();
+	printf("here\n");
 }
 
 make_instr_helper(i2a)
