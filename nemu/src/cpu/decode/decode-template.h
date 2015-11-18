@@ -32,8 +32,13 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 *
 	op_src->simm = ???
 	 */
+	if(DATA_BYTE==2){
+		op_src->simm = (short) op_src->val;
+	}
+	if(DATA_BYTE==4){
+		op_src->simm = (int) op_src->val;
+	}
 	panic("please implement me");
-
 	op_src->val = op_src->simm;
 
 #ifdef DEBUG
