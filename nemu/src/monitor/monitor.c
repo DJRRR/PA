@@ -87,7 +87,7 @@ void restart() {
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
 	cpu.EFLAGS=0x00000002;
-    printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
+  //  printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
 	/* Initialize DRAM. */
 	init_ddr3();
 }
