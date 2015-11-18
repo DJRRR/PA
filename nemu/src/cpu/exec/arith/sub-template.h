@@ -5,7 +5,7 @@
 static void do_execute(){
 	DATA_TYPE result = op_dest->val - op_src->val;
 	OPERAND_W(op_dest,result);
-    printf("TEST:%u\n",result);
+ //   printf("TEST:%u\n",result);
 	/*UPDATE EFLAGS*/
 
 //	panic("please implement me");
