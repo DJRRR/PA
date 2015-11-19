@@ -4,6 +4,19 @@
 
 static void do_execute(){
 	DATA_TYPE result= op_dest->val - op_src->val;
+	unsigned int num=0;
+	while(result>0){
+		if((result&1)==1){
+			++num;
+		}
+		result >>= 1;
+	}
+	if(num%2==0){
+		cpu.PF=1;
+	}
+	else{
+		cpu.PF=0;
+	}
 	if(result==0){
 		cpu.ZF=1;
 	}
