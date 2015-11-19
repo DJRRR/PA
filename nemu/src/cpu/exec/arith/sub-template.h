@@ -3,7 +3,6 @@
 #define instr sub
 
 static void do_execute(){
-//	printf("here\n");
 	DATA_TYPE flag_dest=(op_dest->val>>(DATA_BYTE*8-1))&1;
 	unsigned int flag_src=(op_src->val>>(DATA_BYTE*8-1))&1;
 	DATA_TYPE result = op_dest->val - op_src->val;
@@ -23,7 +22,6 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}
-//	OPERAND_W(op_dest,result);
     if(result==0){
 		cpu.ZF=1;
 	}
@@ -48,7 +46,6 @@ static void do_execute(){
 	else{
      	cpu.CF=0;
 	}	
-//	panic("please implement me");
 
 	print_asm_template2();
 }
