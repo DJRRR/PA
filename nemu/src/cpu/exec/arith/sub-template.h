@@ -7,7 +7,8 @@ static void do_execute(){
 	DATA_TYPE flag_dest=(op_dest->val>>(DATA_BYTE*8-1))&1;
 	unsigned int flag_src=(op_src->val>>(DATA_BYTE*8-1))&1;
 	DATA_TYPE result = op_dest->val - op_src->val;
-	printf("test:%u",result);
+	//printf("test:%u",result);
+	OPERAND_W(op_dest,result);
 	DATA_TYPE flag_res=(result>>(DATA_BYTE*8-1))&1;
 	unsigned int num=0;
 	while(result>0){
@@ -22,7 +23,7 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}
-	OPERAND_W(op_dest,result);
+//	OPERAND_W(op_dest,result);
     if(result==0){
 		cpu.ZF=1;
 	}
