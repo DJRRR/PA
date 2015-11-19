@@ -32,8 +32,13 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 *
 	op_src->simm = ???
 	 */
-    printf("TEST:  %u",op_src->type);
 	op_src->simm = instr_fetch(eip,DATA_BYTE);
+	if(OP_TYPE_IMM==2){
+		op_src->simm=(short) op_src->simm;
+	}
+	if(OP_TYPE_IMM==4){
+		op_src->simm=(int) op_src->simm;
+	}
 //	panic("please implement me");
 	op_src->val = op_src->simm;
 
