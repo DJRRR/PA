@@ -33,7 +33,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	op_src->simm = ???
 	 */
 	op_src->simm = instr_fetch(eip,DATA_BYTE);
-	printf("TEST:   %u",DATA_BYTE);
+	printf("TEST:   %u",op_dest->type);
 	if(OP_TYPE_IMM==2){
 		op_src->simm=(short) op_src->simm;
 	}
