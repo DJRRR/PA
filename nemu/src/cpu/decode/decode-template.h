@@ -39,7 +39,6 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	if(OP_TYPE_IMM==4){
 		op_src->simm=(int) op_src->simm;
 	}
-	printf("TEST:   %u\n",op_src->simm);
 //	panic("please implement me");
 	op_src->val = op_src->simm;
 
