@@ -33,6 +33,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	op_src->simm = ???
 	 */
 	if(DATA_BYTE==2){
+		printf("test:   %u\n",op_src->simm);
 		op_src->simm = (short) op_src->val;
 	}
 	if(DATA_BYTE==4){
