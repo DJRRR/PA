@@ -4,9 +4,12 @@
 
 static void do_execute(){
 	cpu.esp -= 4;
-	MEM_W(cpu.esp,cpu.eip);
+	op_dest->type=OP_TYPE_MEM;
+    op_dest->addr=cpu.esp;
+//	MEM_W(cpu.esp,cpu.eip);
 //	cpu.eip += op_src->val;
-	printf("TEST: %u\n",cpu.eip);
+	OPERAND_W(op_dest,cpu.eip+5);
+	cpu.eip += (DATA_TYPE_S) op_src->val;
     op_src->val=cpu.eip;
     print_asm_template1();
 }
