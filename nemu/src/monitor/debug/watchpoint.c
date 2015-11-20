@@ -151,7 +151,7 @@ void free_wp(WP *wp){
 bool check_watchpoint(){
 	bool flag=true;
 	if(head==NULL){
-		printf("There are no watchpoints to check!\n");
+	//	printf("There are no watchpoints to check!\n");
 		flag=true;
 	//	assert(0);
 		return flag;
