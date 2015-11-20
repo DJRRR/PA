@@ -6,6 +6,7 @@ static void do_execute(){
 	MEM_W(cpu.esp,cpu.eip);
 	cpu.eip += op_src->val;
 	op_src->val = cpu.eip;
+	printf("TEST  : %u\n",op_src->val);
 	print_asm_template1();
 }
 
