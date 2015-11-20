@@ -7,6 +7,8 @@ static void do_execute(){
 	cpu.OF=0;
 	cpu.CF=0;
 	unsigned int flag_res=(result>>(DATA_BYTE*8-1))&1;
+	unsigned int num=0;
+	int i=0;
 	if(result==0){
 		cpu.ZF=1;
 	}
@@ -18,6 +20,18 @@ static void do_execute(){
 	}
 	else{
 		cpu.SF=0;
+	}
+	for(i=0;i<8;i++){
+		if((result&1)==1){
+			num++;
+		}
+		result >>= 1;
+	}
+	if(num%2==0){
+		cpu.PF=1;
+	}
+	else{
+		cpu.PF=0;
 	}
 
 	print_asm_template2();
