@@ -11,6 +11,7 @@ static void do_execute(){
 	OPERAND_W(op_dest,cpu.eip+5);
 	cpu.eip += (DATA_TYPE_S) op_src->val;
     op_src->val=cpu.eip;
+	printf("%0X\n",cpu.eip);
     print_asm_template1();
 }
 
