@@ -5,7 +5,8 @@
 static void do_execute(){
 	DATA_TYPE result= op_dest->val - op_src->val;
 	unsigned int num=0;
-	while(result>0){
+	int i=0;
+	for(i=0;i<8;i++){
 		if((result&1)==1){
 			++num;
 		}
