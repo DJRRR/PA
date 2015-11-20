@@ -11,10 +11,10 @@ static void do_execute(){
 	DATA_TYPE flag_res=(result>>(DATA_BYTE*8-1))&1;
 	unsigned int num=0;
 	while(result>0){
-		if((result&1)==1){
-			++num;
+		if(result&1){
+			num++;
 		}
-		result >>=1;
+		result >>= 1;
 	}
 	if(num%2==0){
 		cpu.PF=1;
@@ -22,6 +22,7 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}
+	printf("TEST:  %u\n",cpu.PF);
     if(result==0){
 		cpu.ZF=1;
 	}
