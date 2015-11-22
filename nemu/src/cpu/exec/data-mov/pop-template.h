@@ -4,13 +4,13 @@
 
 static void do_execute(){
 	if(ops_decoded.is_data_size_16){
-     //   MEM_W(&op_dest,(cpu.esp&0xff));
-	    op_dest->val=(cpu.esp&0xff);
+        MEM_W(op_dest->addr,(cpu.esp&0xff));
+	  //  op_dest->val=(cpu.esp&0xff);
 		cpu.esp += 2;
 	}
 	else{
-	//	MEM_W(&op_dest,cpu.esp);
-	    op_dest->val=cpu.esp;
+		MEM_W(op_dest->addr,cpu.esp);
+	 //   op_dest->val=cpu.esp;
 		cpu.esp += 4;
 	}
     print_asm_template1();

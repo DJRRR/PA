@@ -3,7 +3,7 @@
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
 #include "data-mov/push.h"//PA2.1
-//#include "data-mov/pop.h"//PA2.2
+#include "data-mov/pop.h"//PA2.2
 
 #include "arith/sub.h"//PA2.1
 #include "arith/dec.h"
