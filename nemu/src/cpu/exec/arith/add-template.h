@@ -1,15 +1,13 @@
-
 #include "cpu/exec/template-start.h"
 
-#define instr sub
+#define instr add
 
 static void do_execute(){
-	DATA_TYPE flag_dest=(op_dest->val>>(DATA_BYTE*8-1))&1;
-	DATA_TYPE flag_src=(op_src->val>>(DATA_BYTE*8-1))&1;
-	DATA_TYPE result = op_dest->val - op_src->val;
-	//printf("test:%u",result);
+	DATA_TYPE result = op_dest->val + op_src->val;
 	OPERAND_W(op_dest,result);
-	DATA_TYPE flag_res=(result>>(DATA_BYTE*8-1))&1;
+	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
+	DATA_TYPE flag_src=MSB(op_src->val)&1;
+	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
 	for(i=0;i<8;i++){
@@ -24,8 +22,7 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}
-//	printf("TEST:  %u\n",cpu.PF);
-    if(result==0){
+	if(result==0){
 		cpu.ZF=1;
 	}
 	else{
@@ -37,19 +34,12 @@ static void do_execute(){
 	else{
 		cpu.SF=0;
 	}
-	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
+	if((flag_dest==1&&flag_src==1&&flag_res==0)||(flag_dest==0&&flag_src==0&&flag_res==1)){
 		cpu.OF=1;
 	}
 	else{
 		cpu.OF=0;
 	}
-	if(op_dest->val<op_src->val){
-		cpu.CF=1;
-	}
-	else{
-     	cpu.CF=0;
-	}	
-
 	print_asm_template2();
 }
 
