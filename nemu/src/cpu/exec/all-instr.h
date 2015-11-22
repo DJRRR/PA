@@ -2,9 +2,10 @@
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
-#include "data-mov/push.h"
+#include "data-mov/push.h"//PA2.1
+//#include "data-mov/pop.h"//PA2.2
 
-#include "arith/sub.h"
+#include "arith/sub.h"//PA2.1
 #include "arith/dec.h"
 #include "arith/inc.h"
 #include "arith/neg.h"
@@ -21,10 +22,10 @@
 #include "logic/shl.h"
 #include "logic/shr.h"
 #include "logic/shrd.h"
-#include "logic/cmp.h"
-#include "logic/call.h"
-#include "logic/test.h"
-#include "logic/je.h"
+#include "logic/cmp.h"//PA2.1
+#include "logic/call.h"//PA2.1
+#include "logic/test.h"//PA2.1
+#include "logic/je.h"//PA2.1
 
 #include "string/rep.h"
 
