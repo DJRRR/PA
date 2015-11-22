@@ -5,6 +5,7 @@
 #include "data-mov/push.h"//PA2.1
 #include "data-mov/pop.h"//PA2.2
 #include "data-mov/leave.h"//PA2.2
+#include "data-mov/jmp.h"
 
 #include "arith/sub.h"//PA2.1
 #include "arith/dec.h"
@@ -14,7 +15,7 @@
 #include "arith/mul.h"
 #include "arith/idiv.h"
 #include "arith/div.h"
-#include "arith/add.h"
+#include "arith/add.h"//PA2.2
 
 #include "logic/and.h"
 #include "logic/or.h"
