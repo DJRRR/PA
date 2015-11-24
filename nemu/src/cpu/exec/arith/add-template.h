@@ -5,9 +5,9 @@
 static void do_execute(){
 	DATA_TYPE result = op_dest->val + op_src->val;
 	DATA_TYPE tmp1=op_dest->val;
-	DATA_TYPE tmp2=op_src->val;
+//	DATA_TYPE tmp2=op_src->val;
 	OPERAND_W(op_dest,result);
-//	DATA_TYPE temp=(~op_src->val+1);
+	DATA_TYPE temp=(~op_src->val+1);
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
@@ -26,7 +26,7 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}*/
-	if(tmp1+tmp2<tmp1||tmp1+tmp2<tmp2){//unchecked
+	if(tmp1<temp){//unchecked
 		cpu.CF=1;
 	}
 	else{
