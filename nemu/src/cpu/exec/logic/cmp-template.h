@@ -3,9 +3,10 @@
 #define instr cmp
 
 static void do_execute(){
-	DATA_TYPE result= op_dest->val - op_src->val;
+	DATA_TYPE result= op_dest->val-(DATA_TYPE_S)op_src->val;
 	unsigned int num=0;
 	int i=0;
+	cpu.ZF=!result;
 	for(i=0;i<8;i++){
 		if((result&1)==1){
 			++num;
@@ -19,7 +20,7 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}*/
-	cpu.ZF=!result;
+//	cpu.ZF=!result;
 /*	if(result==0){
 		cpu.ZF=1;
 	}
