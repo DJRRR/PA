@@ -6,7 +6,7 @@ make_helper(ret){
 		if(ops_decoded.is_data_size_16){
 			//OPERAND_W(cpu.eip,cpu.esp&0xff);
 		//	cpu.eip=cpu.esp&0xff;
-		    swaddr_write(cpu.eip,2,cpu.esp&0xffff);
+		    swaddr_write(cpu.eip,2,cpu.esp&0xff);
 			cpu.esp += 2;
 			cpu.eip = cpu.eip & 0xffff;
 			print_asm("ret");
