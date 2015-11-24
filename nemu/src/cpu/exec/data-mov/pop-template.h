@@ -4,7 +4,7 @@
 
 static void do_execute(){
 	if(ops_decoded.is_data_size_16){
-        OPERAND_W(op_dest,(cpu.esp)&0xff);
+        OPERAND_W(op_dest,(cpu.esp)&0xffff);
 	  //  op_dest->val=(cpu.esp&0xff);
 		cpu.esp += 2;
 	}
