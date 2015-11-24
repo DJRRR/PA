@@ -27,9 +27,9 @@ static void do_execute(){
 	if(op_dest->val+op_src->val<op_dest->val||op_dest->val+op_src->val<op_src->val){//unchecked
 		cpu.CF=1;
 	}
-	else{
-		cpu.CF=0;
-	}
+//	else{
+//		cpu.CF=0;
+//	}
 	cpu.ZF=!result;
 	cpu.SF=flag_res;
 	if((flag_dest==1&&flag_src==1&&flag_res==0)||(flag_dest==0&&flag_src==0&&flag_res==1)){
