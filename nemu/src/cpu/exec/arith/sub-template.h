@@ -18,25 +18,27 @@ static void do_execute(){
 		}
 		result >>= 1;
 	}
-	if(num%2==0){
+	cpu.PF=!(num%2);
+/*	if(num%2==0){
 		cpu.PF=1;
 	}
 	else{
 		cpu.PF=0;
-	}
-//	printf("TEST:  %u\n",cpu.PF);
-    if(result==0){
+	}*/
+   /* if(result==0){
 		cpu.ZF=1;
 	}
 	else{
 		cpu.ZF=0;
-	}
-	if(flag_res==1){
+	}*/
+	cpu.ZF=!result;
+	cpu.SF=flag_res;
+/*	if(flag_res==1){
 		cpu.SF=1;
 	}
 	else{
 		cpu.SF=0;
-	}
+	}*/
 	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
 		cpu.OF=1;
 	}

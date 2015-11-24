@@ -5,6 +5,7 @@
 static void do_execute(){
 	DATA_TYPE result = op_dest->val + op_src->val;
 	OPERAND_W(op_dest,result);
+	DATA_TYPE temp=(~op_src->val+1);
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
@@ -16,24 +17,21 @@ static void do_execute(){
 		}
 		result >>= 1;
 	}
-	if(num%2==0){
+	cpu.PF=!(num%2);
+/*	if(num%2==0){
 		cpu.PF=1;
 	}
 	else{
 		cpu.PF=0;
-	}
-	if(result==0){
-		cpu.ZF=1;
-	}
-	else{
-		cpu.ZF=0;
-	}
-	if(flag_res==1){
-		cpu.SF=1;
+	}*/
+	if(op_dest->val<temp){//unchecked
+		cpu.CF=1;
 	}
 	else{
-		cpu.SF=0;
+		cpu.CF=0;
 	}
+	cpu.ZF=!result;
+	cpu.SF=flag_res;
 	if((flag_dest==1&&flag_src==1&&flag_res==0)||(flag_dest==0&&flag_src==0&&flag_res==1)){
 		cpu.OF=1;
 	}

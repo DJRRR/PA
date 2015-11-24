@@ -12,24 +12,28 @@ static void do_execute(){
 		}
 		result >>= 1;
 	}
-	if(num%2==0){
+	cpu.PF=!(num%2);
+/*	if(num%2==0){
 		cpu.PF=1;
 	}
 	else{
 		cpu.PF=0;
-	}
-	if(result==0){
+	}*/
+	cpu.ZF=!result;
+/*	if(result==0){
 		cpu.ZF=1;
 	}
 	else{
 		cpu.ZF=0;
-	}
-	if(MSB(result)==1){
+	}*/
+	cpu.SF=MSB(result);
+/*	if(MSB(result)==1){
 		cpu.SF=1;
 	}
 	else{
 		cpu.SF=0;
-	}
+	}*/
+
 	if((MSB(op_dest->val)==1&&MSB(op_src->val)==0&&MSB(result)==0)||(MSB(op_dest->val)==0&&MSB(op_src->val)==1&&MSB(result)==1)){
 		cpu.CF=1;
 	}
