@@ -3,7 +3,7 @@
 make_helper(leave){
 	cpu.esp=cpu.ebp;
 	if(ops_decoded.is_data_size_16){
-		swaddr_write(cpu.ebp,2,(cpu.esp)&0xff);//wrong
+		cpu.gpr[5]._16=swaddr_read(cpu.esp,2);
 		cpu.esp += 2;
 		print_asm("leave");
 	}
