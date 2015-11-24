@@ -6,6 +6,7 @@
 #include "data-mov/pop.h"//PA2.2
 #include "data-mov/leave.h"//PA2.2
 #include "data-mov/jmp.h"
+#include "data-mov/ret.h"
 
 #include "arith/sub.h"//PA2.1
 #include "arith/dec.h"
