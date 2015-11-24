@@ -8,7 +8,7 @@ make_helper(ret){
 		//	cpu.eip=cpu.esp&0xff;
 		//
 		   // swaddr_write(cpu.eip,2,cpu.esp&0xff);
-			cpu.eip=swaddr_read(cpu.esp&0xff,2)-1;//unchecked
+			cpu.eip=swaddr_read(cpu.esp,2)-1;//unchecked
 			cpu.esp += 2;
 			cpu.eip = cpu.eip & 0xffff;
 			print_asm("ret");
@@ -18,7 +18,7 @@ make_helper(ret){
 		//	swaddr_write(cpu.eip,4,cpu.esp);
 		//	OPERAND_W(cpu.eip,cpu.esp);
 		   // cpu.eip=cpu.esp;
-			cpu.eip=swaddr_read(cpu.esp,4)-1;
+			cpu.eip=swaddr_read(cpu.esp,4);
 			cpu.esp += 4;
 			print_asm("ret");
 		}
