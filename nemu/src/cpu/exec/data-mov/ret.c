@@ -12,6 +12,7 @@ make_helper(ret){
 			print_asm("ret");
 		}
 		else{
+			printf("here\n");
 			swaddr_write(cpu.eip,4,cpu.esp);
 		//	OPERAND_W(cpu.eip,cpu.esp);
 		   // cpu.eip=cpu.esp;
