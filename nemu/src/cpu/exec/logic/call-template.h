@@ -18,6 +18,7 @@ static void do_execute(){
 		else{
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
+			cpu.eip+=op_src->val;
 		}
 	}
 	if(ops_decoded.opcode==0xff){
