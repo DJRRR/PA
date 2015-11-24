@@ -13,19 +13,13 @@ static void do_execute(){
 	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
-	for(i=0;i<8;i++){
+/*	for(i=0;i<8;i++){
 		if(result&1){
 			num++;
 		}
 		result >>= 1;
 	}
-	cpu.PF=!(num%2);
-/*	if(num%2==0){
-		cpu.PF=1;
-	}
-	else{
-		cpu.PF=0;
-	}*/
+	cpu.PF=!(num%2);*/
 	if(tmp1<temp){//unchecked
 		cpu.CF=1;
 	}
@@ -40,6 +34,13 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
+	for(i=0;i<8;i++){
+		if(result&1){
+			num++;
+		}
+		result >>= 1;
+	}
+	cpu.PF=!(num%2);
 	print_asm_template2();
 }
 
