@@ -4,6 +4,8 @@
 
 static void do_execute(){
 	DATA_TYPE result = op_dest->val + op_src->val;
+	DATA_TYPE tmp1=op_dest->val;
+	DATA_TYPE tmp2=op_src->val;
 	OPERAND_W(op_dest,result);
 //	DATA_TYPE temp=(~op_src->val+1);
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
@@ -24,12 +26,12 @@ static void do_execute(){
 	else{
 		cpu.PF=0;
 	}*/
-	if(op_dest->val+op_src->val<op_dest->val||op_dest->val+op_src->val<op_src->val){//unchecked
+	if(tmp1+tmp2<tmp1||tmp1+tmp2<tmp2){//unchecked
 		cpu.CF=1;
 	}
-//	else{
-//		cpu.CF=0;
-//	}
+	else{
+		cpu.CF=0;
+	}
 	cpu.ZF=!result;
 	cpu.SF=flag_res;
 	if((flag_dest==1&&flag_src==1&&flag_res==0)||(flag_dest==0&&flag_src==0&&flag_res==1)){
