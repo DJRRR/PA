@@ -36,6 +36,7 @@ enum {
 	CX = 282,
 	BX = 283,
 	EIP = 284,
+	VAR = 285,
 	/* TODO: Add more token types */
 
 };
@@ -48,7 +49,6 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 `	 */
-
 	{" +",	NOTYPE},				// spaces 256
 	{"\\+", '+'},					// plus  43  level:4  size:2 means quzheng(level 2) size:1 means plus
 	{"==", EQ},                  	// equal     level:7
@@ -88,6 +88,7 @@ static struct rule {
 	{"\\(",'('},                    // left 40   level:1
 	{"\\)",')'},                    // right 41  level:1
 	{"0x[0-9a-fA-F]+",HEX},         // hexadecimal-number  level:0
+	{"[a-zA-Z_][a-zA-Z0-9_]+",VAR},     //variable
 	{"[0-9]+",NUM},                 //decimal integer      level:0
 	{"&&",'&'},                     //AND  level:11
 	{"\\|\\|",'|'},                     // OR  level:12
