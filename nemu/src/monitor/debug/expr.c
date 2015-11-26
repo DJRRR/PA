@@ -362,7 +362,7 @@ uint32_t eval(int p,int q){//temporarily correct
 	   }
 	   else if(tokens[p].size==2&&tokens[p].type=='*'){//uncompleted
 		  // printf("aa\n");
-		   return hwaddr_read(eval(p+1,q),8);
+		   return swaddr_read(eval(p+1,q),4);
 	   }
 	   else if(tokens[p].type=='$'){
 		   return eval(p+1,q);
