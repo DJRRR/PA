@@ -170,6 +170,7 @@ bool check_watchpoint(){
 				printf("The ans changes from %u to %u!",work->ans,temp_ans);
 				printf("The expr of this watchpoint is %s\n",work->expr);
 				printf("\n");
+				work->ans=temp_ans;
 				flag=false;
 			}
 		}
