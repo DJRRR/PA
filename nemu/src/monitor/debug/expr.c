@@ -54,32 +54,32 @@ static struct rule {
 	{"==", EQ},                  	// equal     level:7
 	{"!=",NEQ},                     // notequal  level:7
 	{"!",'!'},                      // Not       level:2
-	{"\\$",'$'},                    // REGISTER  level:2
-	{"eax",EAX},                    //eax        level:0
-	{"ebx",EBX},                    //ebx        level:0
-	{"edx",EDX},                    // ..................
-	{"ecx",ECX},                      
-	{"ebp",EBP},
-	{"esi",ESI},
-	{"edi",EDI},
-	{"esp",ESP},
-	{"eip",EIP},
-	{"ah",AH},
-	{"al",AL},
-	{"dh",DH},
-	{"dl",DL},
-	{"ch",CH},
-	{"cl",CL},
-	{"bh",BH},
-	{"bl",BL},
-	{"bp",BP},
-	{"si",SI},
-	{"di",DI},
-	{"sp",SP},
-	{"ax",AX},
-	{"dx",DX},
-	{"cx",CX},
-	{"bx",BX},
+//	{"\\$",'$'},                    // REGISTER  level:2
+    {"\\$[ ]+eax",EAX},
+	{"\\$[ ]+ebx",EBX},                    //ebx        level:0
+	{"\\$[ ]+edx",EDX},                    // ..................
+	{"\\$[ ]+ecx",ECX},                      
+	{"\\$[ ]+ebp",EBP},
+	{"\\$[ ]+esi",ESI},
+	{"\\$[ ]+edi",EDI},
+	{"\\$[ ]+esp",ESP},
+	{"\\$[ ]+eip",EIP},
+	{"\\$[ ]+ah",AH},
+	{"\\$[ ]+al",AL},
+	{"\\$[ ]+dh",DH},
+	{"\\$[ ]+dl",DL},
+	{"\\$[ ]+ch",CH},
+	{"\\$[ ]+cl",CL},
+	{"\\$[ ]+bh",BH},
+	{"\\$[ ]+bl",BL},
+	{"\\$[ ]+bp",BP},
+	{"\\$[ ]+si",SI},
+	{"\\$[ ]+di",DI},
+	{"\\$[ ]+sp",SP},
+	{"\\$[ ]+ax",AX},
+	{"\\$[ ]+dx",DX},
+	{"\\$[ ]+cx",CX},
+	{"\\$[ ]+bx",BX},
 //	{"!=",NEQ},                     // notequal  level:7
 	{"-",'-'},                   	// minus 45  level:4  size:2 means qufu(level 2)  size:1 means minus 
 	{"\\*",'*'},                    // multi 42  level:3
@@ -158,11 +158,11 @@ static bool make_token(char *e) {//make token
 						tokens[nr_token].level=6;
 						nr_token++;
 						break;
-					case '$'://reg
+				/*	case '$'://reg
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=2;
 						nr_token++;
-						break;
+						break;*/
 					case '!':
 						tokens[nr_token].type=rules[i].token_type;
 						tokens[nr_token].level=2;
@@ -369,9 +369,9 @@ uint32_t eval(int p,int q){//temporarily correct
 		  // printf("aa\n");
 		   return swaddr_read(eval(p+1,q),4);
 	   }
-	   else if(tokens[p].type=='$'){
-		   return eval(p+1,q);
-	   }
+//	   else if(tokens[p].type=='$'){
+//		   return eval(p+1,q);
+//	   }
 	   else{
 		   printf("Other situations!\n");
 		   assert(0);
