@@ -284,6 +284,11 @@ static bool make_token(char *e) {//make token
 						}
 						nr_token++;
 					   break;
+					case VAR://uncompleted
+					   tokens[nr_token].type=rules[i].token_type;
+					   tokens[nr_token].level=0;
+
+					   break;
 					default: panic("please implement me");
 				}
 
@@ -403,6 +408,9 @@ uint32_t eval(int p,int q){//temporarily correct
 				result *= 10;
 			}
 			return result;
+			break;
+		   case VAR:
+			return 0;//uncompleted
 			break;
 		   case EAX:
 				return cpu.eax;
