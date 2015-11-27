@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "monitor/exprelf.h"
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -422,7 +423,7 @@ uint32_t eval(int p,int q){//temporarily correct
 			return result;
 			break;
 		   case VAR:
-			return 0;//uncompleted
+			return give_num(tokens[p].str);;//uncompleted
 			break;
 		   case EAX:
 				return cpu.eax;

@@ -1,6 +1,7 @@
 #include "common.h"
 #include <stdlib.h>
 #include <elf.h>
+#include <monitor/exprelf.h>
 
 char *exec_file = NULL;
 
@@ -74,7 +75,7 @@ void load_elf_tables(int argc, char *argv[]) {
 			assert(ret == 1);
 		}
 	}
-	printf("TEST:%s\n",buf);
+//	printf("TEST:%s\n",buf);
 
 
 //	printf("TEST:%d\n",symtab[2].st_size);
@@ -85,6 +86,17 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	fclose(fp);
 }
-//unsigned int give_num(char *s){
-//	int i=0;
+unsigned int give_num(char *s){
+	int i=0;
+	int pos=0;
+	for(i=0;i<nr_symtab_entry;i++){
+	pos=symtab[i].st_name;
+	if(strcmp(s,strtab+pos)==0){
+		return symtab[i].st_value;
+	 }
+	}
+	printf("Error variable name!\n");
+	return 0;
+}
+
 
