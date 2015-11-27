@@ -289,6 +289,7 @@ static bool make_token(char *e) {//make token
 					   tokens[nr_token].level=0;
 					   tokens[nr_token].size=substr_len;
 					   j=k=0;
+					//   printf("TEST:%s\n",strtab);
 					   if(substr_len<=32){
 						   for(j=position-substr_len;j<=position-1;j++){
 							   tokens[nr_token].str[k++]=e[j];
