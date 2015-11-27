@@ -74,10 +74,10 @@ void load_elf_tables(int argc, char *argv[]) {
 			assert(ret == 1);
 		}
 	}
-//	printf("TEST:%s\n",strtab+16);
+	printf("TEST:%s\n",buf);
 
 
-	printf("TEST:%d\n",symtab[2].st_size);
+//	printf("TEST:%d\n",symtab[2].st_size);
 	free(sh);
 	free(shstrtab);
 
