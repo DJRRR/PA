@@ -287,6 +287,17 @@ static bool make_token(char *e) {//make token
 					case VAR://uncompleted
 					   tokens[nr_token].type=rules[i].token_type;
 					   tokens[nr_token].level=0;
+					   tokens[nr_token].size=substr_len;
+					   j=k=0;
+					   if(substr_len<=32){
+						   for(j=position-substr_len;j<=position-1;j++){
+							   tokens[nr_token].str[k++]=e[j];
+						   }
+					   }
+					   else{
+						   printf("THE LEN OF VAR EXCEED \n");
+						   assert(0);
+					   }
 					  nr_token++;
 					   break;
 					default: panic("please implement me");
