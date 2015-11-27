@@ -55,7 +55,7 @@ static struct rule {
 	{"!=",NEQ},                     // notequal  level:7
 	{"!",'!'},                      // Not       level:2
 //	{"\\$",'$'},                    // REGISTER  level:2
-    {"\\$ +eax",EAX},
+    {"\\$eax",EAX},
 	{"\\$ebx",EBX},                    //ebx        level:0
 	{"\\$edx",EDX},                    // ..................
 	{"\\$ecx",ECX},                      
