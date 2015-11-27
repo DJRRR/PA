@@ -74,10 +74,10 @@ void load_elf_tables(int argc, char *argv[]) {
 			assert(ret == 1);
 		}
 	}
-	printf("TEST:%s\n",strtab+16);
+//	printf("TEST:%s\n",strtab+16);
 
 
-
+	printf("TEST:%d\n",symtab[0].st_name);
 	free(sh);
 	free(shstrtab);
 
@@ -85,4 +85,6 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	fclose(fp);
 }
+//unsigned int give_num(char *s){
+//	int i=0;
 
