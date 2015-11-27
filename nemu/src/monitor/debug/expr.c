@@ -55,13 +55,13 @@ static struct rule {
 	{"!=",NEQ},                     // notequal  level:7
 	{"!",'!'},                      // Not       level:2
 //	{"\\$",'$'},                    // REGISTER  level:2
-    {"\\$[ ]+eax",EAX},
-	{"\\$[ ]+ebx",EBX},                    //ebx        level:0
-	{"\\$[ ]+edx",EDX},                    // ..................
-	{"\\$[ ]+ecx",ECX},                      
-	{"\\$[ ]+ebp",EBP},
-	{"\\$[ ]+esi",ESI},
-	{"\\$[ ]+edi",EDI},
+    {"\\$ +eax",EAX},
+	{"\\$ebx",EBX},                    //ebx        level:0
+	{"\\$edx",EDX},                    // ..................
+	{"\\$ecx",ECX},                      
+	{"\\$ebp",EBP},
+	{"\\$esi",ESI},
+	{"\\$edi",EDI},
 	{"\\$[ ]+esp",ESP},
 	{"\\$[ ]+eip",EIP},
 	{"\\$[ ]+ah",AH},
