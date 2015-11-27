@@ -52,6 +52,8 @@ static int cmd_w(char *args);
 
 static int cmd_d(char *args);
 
+static int cmd_bt(char *args);
+
 //static int cmd_test_expr();
 
 static struct {
@@ -68,6 +70,7 @@ static struct {
 	{ "p","EXPR",cmd_p },
 	{ "w","set watchpoint",cmd_w},
 	{ "d","delete watchpoint",cmd_d},
+	{ "bt","print the backtrace",cmd_bt},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
@@ -166,7 +169,15 @@ static int cmd_x(char *args){
 	}*/
 	return 0;
 }
-
+static int cmd_bt(char *args){
+	char *arg = strtok(NULL," ");
+	if(arg==NULL){
+		return 0;
+	}
+	else{
+		return 0;
+	}
+}
 static int cmd_si(char *args){
 	char *arg = strtok(NULL," ");
 	int i,j,step_num=0;

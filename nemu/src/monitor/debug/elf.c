@@ -105,4 +105,5 @@ unsigned int give_num(char *s){
 	return 0;
 }
 
+//void backtrace(unsigned int ebp){
 
