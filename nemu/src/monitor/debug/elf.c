@@ -74,7 +74,7 @@ void load_elf_tables(int argc, char *argv[]) {
 			assert(ret == 1);
 		}
 	}
-	printf("TEST:%s\n",strtab+2);
+	printf("TEST:%s\n",strtab+5);
 
 	free(sh);
 	free(shstrtab);
