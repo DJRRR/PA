@@ -107,6 +107,7 @@ unsigned int give_num(char *s){
 
 void backtrace(unsigned int ebp){
 	uint32_t work=ebp;
+	printf("TEST1:%u\n",work);
 	int count=0;
 	int i=0;
 	uint32_t ret=0;
