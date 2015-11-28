@@ -121,7 +121,8 @@ void backtrace(unsigned int ebp){
 		//	}
 		}
 	//	work=swaddr_read(work+24,4);
-	    work = swaddr_read(work+8,4);
+	   // work = swaddr_read(work+8,4);
+	      work += 20;
 	}
 	if(count==0){
 		printf("No stack.\n");
