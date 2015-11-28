@@ -92,7 +92,7 @@ unsigned int give_num(char *s){
 	for(i=0;i<nr_symtab_entry;i++){
 	pos=symtab[i].st_name;
 	if(strcmp(s,strtab+pos)==0){
-		if((symtab[i].st_info&0x1111)==1){
+		if((symtab[i].st_info&0x11)==1){
 			return symtab[i].st_value;
 			 }
 		else {
@@ -113,12 +113,12 @@ void backtrace(unsigned int ebp){
 	while(work!=0){
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
-	//		if((symtab[i].st_info&0x1111)==2){
+			if((symtab[i].st_info&0x11)==2){
 				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
 					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
 					break;
 				}
-	//		}
+			}
 		}
 	//	work=swaddr_read(work+24,4);
 	    work += 24;
