@@ -105,17 +105,27 @@ unsigned int give_num(char *s){
 	return 0;
 }
 
-/*void backtrace(){
-	unsigned int work=cpu.ebp;
-	unsigned int pre_addr;
+void backtrace(unsigned int ebp){
+	uint32_t work=ebp;
 	int count=0;
 	int i=0;
-	unsigned int find;
+	uint32_t ret=0;
 	while(work!=0){
-		pre_addr=work+4;
-		find=swaddr_read(pre_addr,4);
+		ret=swaddr_read((work+4),4);
+		for(i=0;i<nr_symtab_entry;i++){
+			if((symtab[i].st_info&0x1111)==2){
+				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
+					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
+					break;
+				}
+			}
+		}
+		work=swaddr_read(work+24,4);
 	}
-}*/
+	if(count==0){
+		printf("No stack.\n");
+	}
+}
 
 
 		

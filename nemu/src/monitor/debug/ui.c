@@ -1,6 +1,7 @@
 #include "monitor/monitor.h"
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
+#include "monitor/exprelf.h"
 #include "nemu.h"
 
 #include <stdlib.h>
@@ -172,9 +173,13 @@ static int cmd_x(char *args){
 static int cmd_bt(char *args){
 	char *arg = strtok(NULL," ");
 	if(arg==NULL){
+		bool *success=NULL;
+		unsigned int ans=expr("$ebp",success);
+		backtrace(ans);
 		return 0;
 	}
 	else{
+		printf("Error input!\n");
 		return 0;
 	}
 }
