@@ -113,13 +113,13 @@ void backtrace(unsigned int ebp){
 	uint32_t ret=0;
 	while(work!=0){
 		ret=swaddr_read((work+4),4);
-		for(i=0;i<nr_symtab_entry;i++){
+	//	for(i=0;i<nr_symtab_entry;i++){
 			if((symtab[i].st_info&0x1111)==2){
 				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
 					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
 					break;
 				}
-			}
+		//	}
 		}
 		work=swaddr_read(work+8,4);
 	}
