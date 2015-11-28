@@ -105,5 +105,19 @@ unsigned int give_num(char *s){
 	return 0;
 }
 
-//void backtrace(unsigned int ebp){
+/*void backtrace(){
+	unsigned int work=cpu.ebp;
+	unsigned int pre_addr;
+	int count=0;
+	int i=0;
+	unsigned int find;
+	while(work!=0){
+		pre_addr=work+4;
+		find=swaddr_read(pre_addr,4);
+	}
+}*/
+
+
+		
+
 

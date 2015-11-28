@@ -4,4 +4,6 @@
 #include "common.h"
 
 unsigned int give_num(char* s);
+
+void backtrace(unsigned int ebp);
 #endif
