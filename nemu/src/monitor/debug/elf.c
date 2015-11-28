@@ -110,7 +110,7 @@ void backtrace(unsigned int ebp){
 	int count=0;
 	int i=0;
 	uint32_t ret=0;
-	while(work!=0){
+	while(1){
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
@@ -122,6 +122,9 @@ void backtrace(unsigned int ebp){
 		}
 	//	work=swaddr_read(work+24,4);
 	   // work = swaddr_read(work+8,4);
+	      if(work==0){
+			  break;
+		  }
 	      work = swaddr_read(work,4);
 	}
 	if(count==0){
