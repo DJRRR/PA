@@ -119,9 +119,9 @@ void backtrace(unsigned int ebp){
 					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
 					break;
 				}
-				if(swaddr_read(work,4)==0){
-					break;
-				}
+			//	if(swaddr_read(work,4)==0){
+			//		break;
+			//	}
 		//	}
 	
 	}
