@@ -117,6 +117,7 @@ void backtrace(unsigned int ebp){
 	}
 	while(work!=0){
 		ret=swaddr_read((work+4),4);
+		printf("ADDR:%u\n",ret);
 		for(i=0;i<nr_symtab_entry;i++){
 			if(flag==0){
 				break;
