@@ -7,8 +7,8 @@ static void do_execute(){
 //	MEM_W(cpu.esp,op_src->val);
 //	print_asm_template1();
 	if(ops_decoded.is_data_size_16){
-		cpu.esp -= 2;
-		MEM_W(cpu.esp,(op_src->val)&0xff);
+		cpu.gpr[4]._16 -= 2;
+		MEM_W(cpu.gpr[4]._16,(op_src->val)&0xffff);
 	}
 	else{
 		cpu.esp -= 4;
