@@ -6,5 +6,5 @@
 
 unsigned int give_num(char* s);
 
-void backtrace(unsigned int ebp);
+void backtrace(unsigned int ebp,unsigned int eip);
 #endif

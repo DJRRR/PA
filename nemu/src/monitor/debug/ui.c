@@ -174,8 +174,9 @@ static int cmd_bt(char *args){
 	char *arg = strtok(NULL," ");
 	if(arg==NULL){
 		bool *success=NULL;
-		unsigned int ans=expr("$ebp",success);
-		backtrace(ans);
+		unsigned int ebp=expr("$ebp",success);
+		unsigned int eip=expr("$eip",success);
+		backtrace(ebp,eip);
 		return 0;
 	}
 	else{
