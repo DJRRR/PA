@@ -109,6 +109,7 @@ void backtrace(unsigned int ebp){
 	uint32_t work=ebp;
 	int count=0;
 	int i=0;
+	int flag=0;
 	uint32_t ret=0;
 	if(work==0){
 		printf("No stack.\n");
@@ -119,6 +120,9 @@ void backtrace(unsigned int ebp){
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
+			if(flag==0){
+				break;
+			}
 				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
 					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
 					break;
@@ -126,6 +130,7 @@ void backtrace(unsigned int ebp){
 		//	}
 		}
 		work=swaddr_read(work,4);
+		flag=1;
 	}
 	if(count==0){
 		printf("No stack.\n");
