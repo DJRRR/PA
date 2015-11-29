@@ -114,11 +114,8 @@ void backtrace(unsigned int ebp){
 		printf("No stack.\n");
 		return ;
 	}
-	while(1){
-		work=swaddr_read(work,4);
-		if(work==0){
-			break;
-		}
+	while(work!=0){
+
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
@@ -128,6 +125,7 @@ void backtrace(unsigned int ebp){
 				}
 		//	}
 		}
+		work=swaddr_read(work,4);
 	}
 	if(count==0){
 		printf("No stack.\n");
