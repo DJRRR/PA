@@ -110,6 +110,10 @@ void backtrace(unsigned int ebp){
 	int count=0;
 	int i=0;
 	uint32_t ret=0;
+	if(work==0){
+		printf("No stack.\n");
+		return ;
+	}
 	while(1){
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
