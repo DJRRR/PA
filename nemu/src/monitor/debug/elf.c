@@ -129,7 +129,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 		ret=swaddr_read(work+4,4);
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
-				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
+				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)&&swaddr_read(work,4)!=0){
 					printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
 					break;
 				}
