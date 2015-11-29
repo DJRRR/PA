@@ -118,7 +118,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 			break;
 		}
 		if(eip>=symtab[i].st_value&&eip<=(symtab[i].st_value+symtab[i].st_size)){
-			printf("# current address:0x%.8X at  %s\n",eip,strtab+symtab[i].st_name);
+			printf("# current address:0x%.8X at %s\n",eip,strtab+symtab[i].st_name);
 			flag=true;
 			break;
 		}
@@ -135,6 +135,9 @@ void backtrace(unsigned int ebp,unsigned int eip){
 	while(work!=0){
 		ret=swaddr_read(work+4,4);
 			for(i=0;i<nr_symtab_entry;i++){
+				if(swaddr_read(work,4)==0){
+					break;
+				};
 			//	if((symtab[i].st_info&0x11)==2){
 					if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
 						printf("# %d: %s\n",count++,strtab+symtab[i].st_name);
