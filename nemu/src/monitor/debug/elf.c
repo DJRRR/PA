@@ -118,7 +118,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 			break;
 		}
 		if(eip>=symtab[i].st_value&&eip<=(symtab[i].st_value+symtab[i].st_size)){
-			printf("# current address: %s\n",strtab+symtab[i].st_name);
+			printf("# current address:0x%.8X at  %s\n",eip,strtab+symtab[i].st_name);
 			flag=true;
 			break;
 		}
