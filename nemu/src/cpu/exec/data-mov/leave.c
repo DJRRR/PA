@@ -8,7 +8,7 @@ make_helper(leave){
 		print_asm("leave");
 	}
 	else{
-		cpu.ebp=swaddr_read(cpu.esp,4)+1;
+		cpu.ebp=swaddr_read(cpu.esp,4);
 		cpu.esp +=4;
 		print_asm("leave");
 	}
