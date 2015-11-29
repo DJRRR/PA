@@ -123,15 +123,15 @@ void backtrace(unsigned int ebp,unsigned int eip){
 			break;
 		}
 	}
-	for(j=1;j<=5;j++){
-		var=swaddr_read(work+4+4*j,4);
-        printf(" i%d : %u ",j,var);
-	}
-	printf("\n");	
 	if(flag==false){
 		printf("No stack.\n");
 		return ;
 	}
+	for(j=1;j<=5;j++){
+		var=swaddr_read(work+4+4*j,4);
+		printf("i%d : %u ",j,var);
+	}
+	printf("\n");
 	while(work!=0){
 		ret=swaddr_read(work+4,4);
 		work=swaddr_read(work,4);
