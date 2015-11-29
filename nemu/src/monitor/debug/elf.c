@@ -115,6 +115,10 @@ void backtrace(unsigned int ebp){
 		return ;
 	}
 	while(1){
+		work=swaddr_read(work,4);
+		if(work==0){
+			break;
+		}
 		ret=swaddr_read((work+4),4);
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
@@ -123,10 +127,6 @@ void backtrace(unsigned int ebp){
 					break;
 				}
 		//	}
-		}
-		work=swaddr_read(work,4);
-		if(work==0){
-			break;
 		}
 	}
 	if(count==0){
