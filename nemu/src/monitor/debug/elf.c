@@ -127,9 +127,6 @@ void backtrace(unsigned int ebp,unsigned int eip){
 	}
 	while(work!=0){
 		ret=swaddr_read(work+4,4);
-        if(swaddr_read(work,4)==0){
-			break;
-		}
 		for(i=0;i<nr_symtab_entry;i++){
 		//	if((symtab[i].st_info&0x11)==2){
 				if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
