@@ -127,7 +127,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 		printf("No stack.\n");
 		return ;
 	}
-	for(j=1;j<=5;j++){
+	for(j=1;j<=4;j++){
 		var=swaddr_read(work+4+4*j,4);
 		printf("i%d : %u ",j,var);
 	}
