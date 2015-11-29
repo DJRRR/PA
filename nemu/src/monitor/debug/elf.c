@@ -134,8 +134,6 @@ void backtrace(unsigned int ebp,unsigned int eip){
 	printf("\n");
 	while(work!=0){
 		ret=swaddr_read(work+4,4);
-		work=swaddr_read(work,4);
-		if(work!=0){
 			for(i=0;i<nr_symtab_entry;i++){
 			//	if((symtab[i].st_info&0x11)==2){
 					if(ret>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
@@ -143,7 +141,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 						break;
 			}
 			}
-			}
+			work=swaddr_read(work,4);
 		}
 	}
 
