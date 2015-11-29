@@ -112,7 +112,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 	bool flag=false;
 	uint32_t ret=0;
 	for(i=0;i<nr_symtab_entry;i++){
-		if(eip>=symtab[i].st_value&&ret<=(symtab[i].st_value+symtab[i].st_size)){
+		if(eip>=symtab[i].st_value&&eip<=(symtab[i].st_value+symtab[i].st_size)){
 			printf("# 0: %s\n",strtab+symtab[i].st_name);
 			flag=true;
 			break;
