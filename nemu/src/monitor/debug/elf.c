@@ -107,20 +107,27 @@ unsigned int give_num(char *s){
 
 void backtrace(unsigned int ebp,unsigned int eip){
 	uint32_t work=ebp;
-	int count=1;
+	int count=0;
 	int i=0;
 	bool flag=false;
 	uint32_t ret=0;
+	int j=0;
+	uint32_t var;
 	for(i=0;i<nr_symtab_entry;i++){
 		if(work==0){
 			break;
 		}
 		if(eip>=symtab[i].st_value&&eip<=(symtab[i].st_value+symtab[i].st_size)){
-			printf("# 0: %s\n",strtab+symtab[i].st_name);
+			printf("# current address: %s\n",strtab+symtab[i].st_name);
 			flag=true;
 			break;
 		}
 	}
+	for(j=1;j<=5;j++){
+		var=swaddr_read(work+4+4*j,4);
+        printf(" i%d : %u ",j,var);
+	}
+	printf("\n");	
 	if(flag==false){
 		printf("No stack.\n");
 		return ;
