@@ -92,13 +92,13 @@ unsigned int give_num(char *s){
 	for(i=0;i<nr_symtab_entry;i++){
 	pos=symtab[i].st_name;
 	if(strcmp(s,strtab+pos)==0){
-		if((symtab[i].st_info&0x11)==1){
+	//	if((symtab[i].st_info&0x11)==1){
 			return symtab[i].st_value;
-			 }
-		else {
-			printf("Warning:This is not a data object!\n");
+	//		 }
+	//	else {
+	//		printf("Warning:This is not a data object!\n");
 			return symtab[i].st_value;
-			}
+	//		}
 		}
 	}
 	printf("Error variable name!\n");
