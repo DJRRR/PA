@@ -97,7 +97,7 @@ unsigned int give_num(char *s){
 	//		 }
 	//	else {
 	//		printf("Warning:This is not a data object!\n");
-			return symtab[i].st_value;
+//			return symtab[i].st_value;
 	//		}
 		}
 	}
