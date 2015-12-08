@@ -1,5 +1,5 @@
 #include "trap.h"
-char str[]={"abcdefg"};
+char str[8]={"abcdefg"};
 int main(){
 	int i=0;
 	int ans=0;
