@@ -1,5 +1,5 @@
 #include "trap.h"
-char str[7]={'a','b','c','d','e','f','g'};
+char str[]="abcdefg";
 int main(){
 	int i=0;
 	int ans=0;
