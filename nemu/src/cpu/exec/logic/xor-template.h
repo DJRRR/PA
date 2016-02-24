@@ -5,9 +5,24 @@
 static void do_execute () {
 	DATA_TYPE result = op_dest->val ^ op_src->val;
 	OPERAND_W(op_dest, result);
+	DATA_TYPE flag_res=MSB(result)&1;
+	DATA_TYPE result1=result;
+	unsigned int num=0;
+	int i=0;
+	cpu.CF=0;
+	cpu.OF=0;
+	cpu.ZF=!result;
+	for(i=0;i<8;i++){
+		if(result1&1){
+			num++;
+		}
+		result1 >>= 1;
+	}
+	cpu.PF=!(num%2);
+	cpu.SF=flag_res;
 
 	/* TODO: Update EFLAGS. */
-	panic("please implement me");
+	
 
 	print_asm_template2();
 }
