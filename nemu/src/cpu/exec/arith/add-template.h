@@ -13,13 +13,6 @@ static void do_execute(){
 	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
-/*	for(i=0;i<8;i++){
-		if(result&1){
-			num++;
-		}
-		result >>= 1;
-	}
-	cpu.PF=!(num%2);*/
 	if(tmp1<temp){//unchecked
 		cpu.CF=1;
 	}
