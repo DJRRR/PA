@@ -19,7 +19,7 @@
 #include "arith/div.h"
 #include "arith/add.h"//PA2.2
 
-#include "logic/and.h"
+#include "logic/and.h"//OK
 #include "logic/or.h"
 #include "logic/not.h"
 #include "logic/xor.h"
