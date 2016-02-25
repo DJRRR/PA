@@ -33,6 +33,7 @@
 #include "logic/test.h"//PA2.1
 #include "logic/je.h"//PA2.1
 #include "logic/jbe.h"//PA2.2
+#include "logic/jle.h"//PA2.3
 
 #include "string/rep.h"
 
