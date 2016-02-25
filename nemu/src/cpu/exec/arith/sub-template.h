@@ -4,12 +4,12 @@
 #define instr sub
 
 static void do_execute(){
-	DATA_TYPE flag_dest=(op_dest->val>>(DATA_BYTE*8-1))&1;
-	DATA_TYPE flag_src=(op_src->val>>(DATA_BYTE*8-1))&1;
+	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
+	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE result = op_dest->val - op_src->val;
 	//printf("test:%u",result);
 	OPERAND_W(op_dest,result);
-	DATA_TYPE flag_res=(result>>(DATA_BYTE*8-1))&1;
+	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
 	cpu.ZF=!result;
@@ -32,7 +32,7 @@ static void do_execute(){
 		}
 		result >>= 1;
 	}
-cpu.PF=!(num%2);	
+	cpu.PF=!(num%2);	
 
 	print_asm_template2();
 }
