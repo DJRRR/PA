@@ -10,7 +10,7 @@ make_helper(ret){
 			print_asm("ret");
 		}
 		else{
-			cpu.eip=swaddr_read(cpu.esp,4)-2;
+			cpu.eip=swaddr_read(cpu.esp,4)-1;
 			cpu.esp += 4;
 			print_asm("ret");
 		}
