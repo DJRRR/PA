@@ -17,7 +17,7 @@ static void do_execute () {
 		if(result1&1){
 			num++;
 		}
-		result >>= 1;
+		result1 >>= 1;
 	}
 	cpu.PF=!(num%2);
 	cpu.SF=flag_res;
