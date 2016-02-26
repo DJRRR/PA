@@ -6,7 +6,7 @@ static void do_execute(){
 	DATA_TYPE result=op_dest->val & op_src->val;
 	cpu.OF=0;
 	cpu.CF=0;
-	unsigned int flag_res=(result>>(DATA_BYTE*8-1))&1;
+	unsigned int flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
 	if(result==0){
