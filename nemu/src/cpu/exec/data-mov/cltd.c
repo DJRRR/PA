@@ -1,6 +1,7 @@
 #include "cpu/exec/helper.h"
 #include "cpu/decode/modrm.h"
 
+
 make_helper(cltd){
 	if(ops_decoded.is_data_size_16){
 		if(cpu.gpr[0]._16<0){
@@ -22,5 +23,4 @@ make_helper(cltd){
 	}
 	return 1;
 }
-
 
