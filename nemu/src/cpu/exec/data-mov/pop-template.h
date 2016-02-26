@@ -3,16 +3,16 @@
 #define instr pop
 
 static void do_execute(){
-	if(ops_decoded.is_data_size_16){
+/*	if(ops_decoded.is_data_size_16){
         OPERAND_W(op_dest,(cpu.esp)&0xff);
-	  //  op_dest->val=(cpu.esp&0xff);
 		cpu.esp += 2;
 	}
 	else{
 		OPERAND_W(op_dest,cpu.esp);
-	 //   op_dest->val=cpu.esp;
 		cpu.esp += 4;
-	}
+	}*/
+	OPERAND_W(op_src,MEM_R(cpu.esp));
+	cpu.esp += DATA_BYTE;
     print_asm_template1();
 }
 
