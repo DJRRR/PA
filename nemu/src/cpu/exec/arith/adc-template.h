@@ -3,7 +3,7 @@
 #define instr adc
 
 static void do_execute(){
-	DATA_TYPE result_1=op_dest->val+op_src->val;
+/*	DATA_TYPE result_1=op_dest->val+op_src->val;//wrong hit bad trap
 	DATA_TYPE tmp1=op_dest->val;
 	DATA_TYPE temp1=(~op_src->val+1);
 	unsigned int num=0;
@@ -66,7 +66,36 @@ static void do_execute(){
 			result_1 >>= 1;
 		}
 		cpu.PF=!(num%2);
-	}	
+	}	*/
+	DATA_TYPE result=op_dest->val+op_src->val+cpu.CF;
+	OPERAND_W(op_dest,result);
+	DATA_TYPE temp=result;
+	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
+	DATA_TYPE flag_src=MSB(op_src->val)&1;
+	DATA_TYPE flag_res=MSB(result)&1;
+	unsigned int num=0;
+	int i=0;
+	cpu.SF=flag_res;
+	cpu.ZF=!result;
+	for(i=0;i<8;i++){
+		if(temp&1){
+			num++;
+		}
+		temp >>= 1;
+	}
+	cpu.PF=!(num%2);
+	if(result<op_src->val||result<op_dest->val){
+		cpu.CF=1;
+	}
+	else{
+		cpu.CF=0;
+	}
+	if((flag_dest==flag_src&&flag_src!=flag_res)||(cpu.CF==1&&result==(1<<(DATA_BYTE*8-1)))){
+		cpu.OF=1;
+	}
+	else{
+		cpu.OF=0;
+	}
 	print_asm_template2();
 
 }
