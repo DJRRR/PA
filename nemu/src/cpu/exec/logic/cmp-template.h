@@ -12,10 +12,10 @@ static void do_execute(){
 	cpu.ZF=!result;
 	cpu.SF=MSB(result);
 	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src&&flag_res==1)){
-		cpu.CF=1;
+		cpu.OF=1;
 	}
 	else{
-		cpu.CF=0;
+		cpu.OF=0;
 	}
 	if(op_dest->val<(DATA_TYPE_S)op_src->val){
 		cpu.CF=1;
