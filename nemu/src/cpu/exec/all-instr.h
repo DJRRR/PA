@@ -8,6 +8,7 @@
 #include "data-mov/jmp.h"
 #include "data-mov/ret.h"
 #include "data-mov/movsx.h"//PA2.3
+#include "data-mov/movzx.h"//PA2.3
 //#include "data-mov/lea.h"
 
 #include "arith/sub.h"//PA2.1
