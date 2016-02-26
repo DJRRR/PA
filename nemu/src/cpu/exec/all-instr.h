@@ -40,6 +40,7 @@
 #include "logic/jne.h"//PA2.3
 #include "logic/seta.h"//PA2.3
 #include "logic/setne.h"//PA2.3
+#include "logic/jg.h"//PA2.3
 
 #include "string/rep.h"
 
