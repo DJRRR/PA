@@ -4,10 +4,6 @@
 
 static void do_execute(){
 	if(ops_decoded.opcode==0xff){
-		if(ops_decoded.is_data_size_16){
-			cpu.eip=(op_src->val)&0x0000ffff;
-		}
-		else{
 			cpu.eip=op_src->val;
 			if(op_src->type==OP_TYPE_REG){
 				cpu.eip -= 2;
@@ -15,7 +11,7 @@ static void do_execute(){
 			else{
 				cpu.eip -= 7;
 			}
-		}
+		
 	}
 	if(ops_decoded.opcode==0xeb||ops_decoded.opcode==0xe9){
 		cpu.eip += op_src->val;
