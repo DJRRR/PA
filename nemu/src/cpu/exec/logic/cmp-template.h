@@ -5,13 +5,13 @@
 static void do_execute(){
 	DATA_TYPE result= op_dest->val-(DATA_TYPE_S)op_src->val;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
-	DATA_TYPE flag_src=MSB(op_src->val)&1;
+	DATA_TYPE flag_src=MSB((DATA_TYPE_S)op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
 	cpu.ZF=!result;
 	cpu.SF=MSB(result);
-	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src&&flag_res==1)){
+	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
 		cpu.OF=1;
 	}
 	else{

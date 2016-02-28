@@ -3,7 +3,7 @@
 #define instr jle
 
 static void do_execute(){
-	if((cpu.SF^cpu.OF)==1||cpu.ZF==1){
+	if((cpu.SF!=cpu.OF)||cpu.ZF==1){
 		cpu.eip += (DATA_TYPE_S)op_src->val;
 		if(ops_decoded.is_data_size_16){
 			cpu.eip = cpu.eip&0xffff;
