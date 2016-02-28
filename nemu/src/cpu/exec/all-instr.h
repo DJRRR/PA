@@ -43,6 +43,7 @@
 #include "logic/setne.h"//PA2.3
 #include "logic/jg.h"//PA2.3
 #include "logic/jl.h"//PA2.3
+#include "logic/ja.h"//PA2.3
 
 #include "string/rep.h"
 
