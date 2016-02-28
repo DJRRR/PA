@@ -5,6 +5,9 @@
 static void do_execute(){
 	if(ops_decoded.opcode==0xff){
 			cpu.eip=op_src->val;
+			if(DATA_BYTE==2){
+				cpu.eip = cpu.eip&0x0000ffff;
+			}
 			if(op_src->type==OP_TYPE_REG){
 				cpu.eip -= 2;
 			}
