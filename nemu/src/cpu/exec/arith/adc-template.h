@@ -68,11 +68,12 @@ static void do_execute(){
 		cpu.PF=!(num%2);
 	}	*/
 	DATA_TYPE result=op_dest->val+op_src->val+cpu.CF;
-	OPERAND_W(op_dest,result);
+//	OPERAND_W(op_dest,result);
 	DATA_TYPE temp=result;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
+	OPERAND_W(op_dest,result);
 	unsigned int num=0;
 	int i=0;
 	cpu.SF=flag_res;
