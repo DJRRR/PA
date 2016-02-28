@@ -10,7 +10,7 @@ static void do_execute(){
 	unsigned int num=0;
 	int i=0;
 	cpu.ZF=!result;
-	cpu.SF=MSB(result);
+	cpu.SF=flag_res;
 	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
 		cpu.OF=1;
 	}
