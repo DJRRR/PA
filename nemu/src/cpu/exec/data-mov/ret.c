@@ -6,7 +6,7 @@ make_helper(ret){
 		if(ops_decoded.is_data_size_16){
 			cpu.eip=swaddr_read(cpu.esp,2)-1;//unchecked
 			cpu.esp += 2;
-			cpu.eip = cpu.eip & 0xffff;
+			cpu.eip = cpu.eip & 0x0000ffff;
 			print_asm("ret");
 		}
 		else{
