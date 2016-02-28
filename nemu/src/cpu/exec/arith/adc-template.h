@@ -90,7 +90,7 @@ static void do_execute(){
 	else{
 		cpu.CF=0;
 	}
-	if(((flag_dest==flag_src)&&(flag_src!=flag_res))||((cpu.CF==1)&&(result==(1<<(DATA_BYTE*8-1))))){
+	if(((flag_dest==flag_src)&&(flag_src!=flag_res))){
 		cpu.OF=1;
 	}
 	else{
