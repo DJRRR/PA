@@ -22,6 +22,7 @@
 #include "arith/div.h"
 #include "arith/add.h"//PA2.2
 #include "arith/adc.h"//PA2.3
+#include "arith/sbb.h"//PA2.3
 
 #include "logic/and.h"//OK
 #include "logic/or.h"
