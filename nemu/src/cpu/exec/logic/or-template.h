@@ -21,8 +21,6 @@ static void do_execute () {
 	}
 	cpu.PF=!(num%2);
 	cpu.SF=flag_res;
-
-
 	print_asm_template2();
 }
 

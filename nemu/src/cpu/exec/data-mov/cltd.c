@@ -13,11 +13,11 @@ make_helper(cltd){
 		print_asm("cwd");
 	}
 	else{
-		if(((cpu.eax>>31)&1)==1){
-			cpu.edx=0xffffffff;
+		if(((cpu.gpr[0]._32>>31)&1)==1){
+			cpu.gpr[2]._32=0xffffffff;
 		}
 		else{
-			cpu.edx=0;
+			cpu.gpr[2]._32=0;
 		}
 		print_asm("cdq");
 	}
