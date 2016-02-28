@@ -2,7 +2,7 @@
 #include "cpu/decode/modrm.h"
 //#include "cpu/exec/template-start.h"
 make_helper(ret){
-	if(ops_decoded.opcode==0xc3){
+	if(ops_decoded.opcode==0xc3||ops_decoded.opcode==0xc2){
 		if(ops_decoded.is_data_size_16){
 			cpu.eip=swaddr_read(cpu.esp,2)-1;//unchecked
 			cpu.esp += 2;
