@@ -12,7 +12,7 @@ static void do_execute(){
 				cpu.eip -= 2;
 			}
 			else{
-				cpu.eip -= 7;
+				cpu.eip -= 3;
 			}
 		
 	}
