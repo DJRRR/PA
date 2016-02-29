@@ -21,23 +21,13 @@ static void do_execute(){
 		temp >>= 1;
 	}
 	cpu.PF=!(num%2);
-	if(cpu.CF==0){
-		if(result<op_src->val||result<op_dest->val){
-			cpu.CF=1;
-		}
-		else{
-			cpu.CF=0;
-		}
+	if(result<op_src->val||result<op_dest->val){
+		cpu.CF=1;
 	}
 	else{
-		if(result<=op_src->val||result<=op_dest->val){
-			cpu.CF=1;
-		}
-		else{
-			cpu.CF=0;
-		}
+		cpu.CF=0;
 	}
-	if(((flag_dest==flag_src)&&(flag_src!=flag_res))){
+	if(((flag_dest==flag_src)&&(flag_src!=flag_res))||(cpu.CF==1&&result==(1<<(DATA_BYTE*8-1)))){
 		cpu.OF=1;
 	}
 	else{
