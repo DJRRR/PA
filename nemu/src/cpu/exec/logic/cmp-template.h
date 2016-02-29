@@ -3,7 +3,7 @@
 #define instr cmp
 
 static void do_execute(){
-	DATA_TYPE result= op_dest->val-(DATA_TYPE_S)op_src->val;
+	DATA_TYPE result= op_dest->val-op_src->val;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
