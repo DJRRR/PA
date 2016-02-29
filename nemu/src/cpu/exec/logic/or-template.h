@@ -9,7 +9,6 @@ static void do_execute () {
 	DATA_TYPE result1=result;
 	unsigned int num=0;
 	int i=0;
-	/* TODO: Update EFLAGS. */
 	cpu.CF=0;
 	cpu.OF=0;
 	cpu.ZF=!result;
