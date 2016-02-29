@@ -3,13 +3,7 @@
 #define instr and
 
 static void do_execute () {
-	DATA_TYPE result;
-	if(ops_decoded.opcode==0x83){
-		 result = op_dest->val & (DATA_TYPE_S)op_src->val;
-	}
-	else{
-		result = op_dest->val & op_src->val;
-	}
+	DATA_TYPE result = op_dest->val & op_src->val;
 	OPERAND_W(op_dest, result);
 	DATA_TYPE result1 = result;
 	DATA_TYPE flag_res=MSB(result)&1;
