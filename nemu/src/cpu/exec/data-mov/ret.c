@@ -13,4 +13,4 @@
 #undef DATA_BYTE
 
 make_helper_v(ret)
-make_helper_v(ret_imm)
+//make_helper_v(ret_imm)
