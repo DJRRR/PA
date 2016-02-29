@@ -5,7 +5,7 @@
 make_helper(concat(ret_,SUFFIX)){
 	if(ops_decoded.opcode==0xc3){
 		if(ops_decoded.is_data_size_16){
-			cpu.eip=swaddr_read(cpu.esp,4)-1;
+			cpu.eip=swaddr_read(cpu.esp,2)-1;
 			cpu.esp += 2;
 			cpu.eip = cpu.eip&0x0000ffff;
 		}
