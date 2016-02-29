@@ -5,9 +5,8 @@
 static void do_execute(){
 	DATA_TYPE result= op_dest->val-(DATA_TYPE_S)op_src->val;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
-	DATA_TYPE flag_src=MSB((DATA_TYPE_S)op_src->val)&1;
+	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
-	DATA_TYPE src2=(DATA_TYPE_S)op_src->val;
 	unsigned int num=0;
 	int i=0;
 	cpu.ZF=!result;
@@ -18,7 +17,7 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
-	if(op_dest->val<src2){
+	if(op_dest->val<op_src->val){
 		cpu.CF=1;
 	}
 	else{
