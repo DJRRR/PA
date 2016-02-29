@@ -3,15 +3,16 @@
 #define instr ret
 
 make_helper(concat(ret_,SUFFIX)){
-	cpu.eip = swaddr_read(cpu.esp,4)-1;
-	if(DATA_BYTE==2){
-		cpu.esp += 2;
-	}
-	else{
-		cpu.esp += 4;
-	}
-	if(DATA_BYTE==2){
-		cpu.eip = cpu.eip&0x0000ffff;
+	if(ops_decoded.opcode==0xc3){
+		if(ops_decoded.is_data_size_16){
+			cpu.eip=swaddr_read(cpu.esp,4)-1;
+			cpu.esp += 2;
+			cpu.eip = cpu.eip&0x0000ffff;
+		}
+		else{
+			cpu.eip=swaddr_read(cpu.esp,4)-1;
+			cpu.esp += 4;
+		}
 	}
 	print_asm("ret");
 	return 1;
