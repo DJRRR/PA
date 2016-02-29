@@ -5,7 +5,6 @@
 static void do_execute(){
 	DATA_TYPE result=op_dest->val+op_src->val+cpu.CF;
 //	OPERAND_W(op_dest,result);
-	DATA_TYPE temp=result;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
@@ -14,13 +13,6 @@ static void do_execute(){
 	int i=0;
 	cpu.SF=flag_res;
 	cpu.ZF=!result;
-	for(i=0;i<8;i++){
-		if(temp&1){
-			num++;
-		}
-		temp >>= 1;
-	}
-	cpu.PF=!(num%2);
 	if(result<op_src->val||result<op_dest->val){
 		cpu.CF=1;
 	}
@@ -33,6 +25,13 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
+	for(i=0;i<8;i++){
+		if(result&1){
+			num++;
+		}
+		result >>= 1;
+	}
+	cpu.PF=!(num%2);
 	print_asm_template2();
 
 }
