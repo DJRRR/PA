@@ -22,7 +22,7 @@ static void do_execute(){
 	}
 	cpu.PF=!(num%2);
 	if(cpu.CF==0){
-		if(result<op_src->val&&result<op_dest->val){
+		if(result<op_src->val||result<op_dest->val){
 			cpu.CF=1;
 		}
 		else{
@@ -30,7 +30,7 @@ static void do_execute(){
 		}
 	}
 	else{
-		if(result<=op_src->val&&result<=op_dest->val){
+		if(result<=op_src->val||result<=op_dest->val){
 			cpu.CF=1;
 		}
 		else{
