@@ -6,7 +6,7 @@ make_helper(concat(movs_m_,SUFFIX)){
 	MEM_W(cpu.edi,swaddr_read(cpu.esi,DATA_BYTE));
 	if(cpu.DF==0){
 		cpu.edi += DATA_BYTE;
-		cpu.edi += DATA_BYTE;
+		cpu.esi += DATA_BYTE;
 	}
 	else{
 		cpu.edi -= DATA_BYTE;
