@@ -3,17 +3,11 @@
 #define instr call
 
 static void do_execute(){
-/*	cpu.esp -= 4;
-	MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
-	cpu.eip += op_src->val;
-//	op_src->val = cpu.eip;
-//	printf("op_src->val : %u\n",op_src->val);
-	print_asm_template1();*/
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;
 			MEM_W(cpu.esp,(cpu.eip&0xff)+1+DATA_BYTE);
-			cpu.eip += op_src->val&0xffff;
+			cpu.eip =(cpu.eip+op_src->val)&0x0000ffff;
 		}
 		else{
 			cpu.esp -= 4;
