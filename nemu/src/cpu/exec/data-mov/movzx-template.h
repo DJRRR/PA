@@ -4,7 +4,7 @@
 
 static void do_execute(){
 
-	printf("%X\n",instr_fetch(cpu.eip+2,1));
+	printf("%X\n",instr_fetch(cpu.eip+1,1));
 	print_asm_template2();
 }
 
