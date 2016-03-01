@@ -6,9 +6,11 @@ static void do_execute(){
 	DATA_TYPE_S addr=op_src->val;
 	if(instr_fetch(cpu.eip+1,1)==0xbe){
 		addr=(addr<<24)>>24;
+		printf("test1\n");
 	}
 	else if(instr_fetch(cpu.eip+1,1)==0xbf){
 		addr=(addr<<16)>>16;
+		printf("test2\n");
 	}
 	OPERAND_W(op_dest,addr);
 	print_asm_template2();
