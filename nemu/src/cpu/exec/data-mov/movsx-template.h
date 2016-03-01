@@ -3,14 +3,14 @@
 #define instr movsx
 
 static void do_execute(){
-	DATA_TYPE_S add=op_src->val;
+	DATA_TYPE addr=op_src->val;
 	if(instr_fetch(cpu.eip+1,1)==0xbe){
-		add=(add<<24)>>24;
+		addr=(addr<<24)>>24;
 	}
 	else if(instr_fetch(cpu.eip+1,1)==0xbf){
-		add =(add<<16)>>16;
+		addr=(addr<<16)>>16;
 	}
-	OPERAND_W(op_dest,add);
+	OPERAND_W(op_dest,addr);
 	print_asm_template2();
 }
 
