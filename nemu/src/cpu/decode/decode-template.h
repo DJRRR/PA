@@ -50,7 +50,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 #endif
 
 #if DATA_BYTE==4
-	if(op_src->simm>>31==1) op_src->simm |= 0xFF000000;
+	if(op_src->simm>>31==1) op_src->simm |= 0x00000000;
 #endif
 
 	op_src->val = op_src->simm;
