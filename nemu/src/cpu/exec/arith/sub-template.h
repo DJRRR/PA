@@ -25,11 +25,21 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
-	if(op_dest->val<op_src->val){
-		cpu.CF=1;
+	if(cpu.CF==0){
+		if(op_dest->val<op_src->val){
+			cpu.CF=1;
+		}
+		else{
+			cpu.CF=0;
+		}
 	}
 	else{
-     	cpu.CF=0;
+		if(op_dest->val<=op_src->val){
+			cpu.CF=1;
+		}
+		else{
+			cpu.CF=0;
+		}
 	}
 	for(i=0;i<8;i++){
 		if(result&1){
