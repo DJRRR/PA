@@ -5,7 +5,6 @@
 static void do_execute(){
 	DATA_TYPE res;
 	if(instr_fetch(cpu.eip+1,1)==0xb6){
-		printf("%X\n",instr_fetch(cpu.eip+2,1));
 		res=op_src->val;
 		res=(res<<24)>>24;
 		res = res&0x000000ff;
