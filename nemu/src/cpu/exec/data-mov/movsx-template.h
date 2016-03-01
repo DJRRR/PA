@@ -3,7 +3,7 @@
 #define instr movsx
 
 static void do_execute(){
-	DATA_TYPE addr=op_src->val;
+	DATA_TYPE_S addr=op_src->val;
 	if(instr_fetch(cpu.eip+1,1)==0xbe){
 		addr=(addr<<24)>>24;
 	}
