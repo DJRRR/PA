@@ -4,7 +4,7 @@
 
 static void do_execute(){
 	if(cpu.ZF==1){
-		cpu.eip += (instr_fetch(cpu.eip+1,DATA_BYTE)<<(32-DATA_BYTE*8))>>(32-DATA_BYTE*8);
+		cpu.eip += (DATA_TYPE_S)op_src->val;
 		if(ops_decoded.is_data_size_16){
 			cpu.eip = cpu.eip&0x0000ffff;
 		}
