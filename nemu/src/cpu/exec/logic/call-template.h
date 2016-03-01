@@ -6,8 +6,8 @@ static void do_execute(){
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;
-			MEM_W(cpu.esp,(cpu.eip&0xffff)+1+DATA_BYTE);
-			cpu.eip =(cpu.eip+op_src->val)&0x0000ffff;
+			MEM_W(cpu.esp,(cpu.eip&0xff)+1+DATA_BYTE);
+			cpu.eip +=op_src->val&0x0000ffff;
 		}
 		else{
 			cpu.esp -= 4;
