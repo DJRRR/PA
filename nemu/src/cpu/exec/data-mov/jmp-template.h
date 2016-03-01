@@ -17,9 +17,16 @@ static void do_execute(){
 		
 	}
 	if(ops_decoded.opcode==0xeb||ops_decoded.opcode==0xe9){
-		cpu.eip += op_src->val;
-		if(ops_decoded.is_data_size_16){
-			cpu.eip=cpu.eip&0x0000ffff;
+		if(DATA_BYTE==1){
+			char t1=op_src->val&0x000000ff;
+			cpu.eip += t1;
+		}
+		else if(DATA_BYTE==2){
+			short t2=op_src->val&0x0000ffff;
+			cpu.eip=(cpu.eip+t2)&0x0000ffff;
+		}
+		else{
+			cpu.eip += op_src->val;
 		}
 	}
 /*	swaddr_t opcode=instr_fetch(cpu.eip,1);
