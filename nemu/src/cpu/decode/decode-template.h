@@ -41,12 +41,20 @@ make_helper(concat(decode_si_, SUFFIX)) {
 //		op_src->simm=(int) op_src->simm;
 //	}
 //	panic("please implement me");
-if(OP_TYPE_IMM==2){
+/*if(OP_TYPE_IMM==2){
 	if(op_src->simm>>7==1) op_src->simm |= 0x0000FF00;
 }
 if(OP_TYPE_IMM==4){
 	if(op_src->simm>>15==1) op_src->simm |= 0xFFFFFF00;
-}
+}*/
+	if(DATA_BYTE==1){
+		char temp=instr_fetch(eip,DATA_BYTE);
+		op_src->simm=(int32_t)(temp);
+	}
+	else{
+		int temp1=instr_fetch(eip,DATA_BYTE);
+		op_src->simm=temp1;
+	}
 	op_src->val = op_src->simm;
 
 #ifdef DEBUG
