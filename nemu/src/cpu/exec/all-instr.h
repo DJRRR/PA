@@ -11,6 +11,7 @@
 #include "data-mov/movzx.h"//PA2.3
 #include "data-mov/cltd.h"
 #include "data-mov/movs.h"
+#include "data-mov/cld.h"
 //#include "data-mov/lea.h"
 
 #include "arith/sub.h"//PA2.1
