@@ -3,7 +3,14 @@
 #define instr movsx
 
 static void do_execute(){
-	OPERAND_W(op_dest,(DATA_TYPE_S)op_src->val);
+	DATA_TYPE_S add=op_src->val;
+	if(ops_decoded.opcode==0xbe){
+		add=(add<<24)>>24;
+	}
+	else if(ops_decoded.opcode==0xbf){
+		add =(add<<16)>>16;
+	}
+	OPERAND_W(op_dest,add);
 	print_asm_template2();
 }
 
