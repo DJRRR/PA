@@ -4,7 +4,7 @@
 
 static void do_execute(){
 
-	OPERAND_W(op_dest,(DATA_TYPE)(unsigned short)op_src->val);
+	printf("%X\n",instr_fetch(cpu.eip+2,1));
 	print_asm_template2();
 }
 
