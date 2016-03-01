@@ -6,7 +6,7 @@ static void do_execute () {
 	DATA_TYPE result = op_dest->val & op_src->val;
 	OPERAND_W(op_dest, result);
 	DATA_TYPE result1 = result;
-	DATA_TYPE flag_res=MSB((DATA_TYPE_S)result)&1;
+	DATA_TYPE flag_res=MSB(result)&1;
 	unsigned int num=0;
 	int i=0;
 	/* TODO: Update EFLAGS. */
