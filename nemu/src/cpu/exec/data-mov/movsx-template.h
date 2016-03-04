@@ -14,7 +14,7 @@ static void do_execute(){
 		printf("test2\n");
 	}
 	OPERAND_W(op_dest,addr);*/
-	int len=DATA_BYTE<<3;
+/*	int len=DATA_BYTE<<3;
 	int32_t result=op_src->val;
 	int first=0;
 	if((DATA_TYPE_S)op_src->val<0){
@@ -25,6 +25,9 @@ static void do_execute(){
 		result = result |(first<<i);
 	}
 	write_operand_l(op_dest,result);
+	print_asm_template2();*/
+	int t=(DATA_TYPE_S)op_src->val;
+	reg_l(op_dest->reg)=t;
 	print_asm_template2();
 }
 
