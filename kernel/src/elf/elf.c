@@ -40,7 +40,7 @@ uint32_t loader() {
 	int cnt=0;
 	for(; cnt<elf->e_phnum;cnt++ ) {
 		/* Scan the program header table, load each segment into memory */
-		ph=(void *)(elf->e_shentsize+buf+cnt*elf->e_phentsize);
+		ph=(void *)(elf->e_phoff+cnt*elf->e_phentsize);
 		if(ph->p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
@@ -51,7 +51,7 @@ uint32_t loader() {
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-			memset(va_to_pa(ph->p_vaddr+ph->p_filesz+ph->p_offset),0,ph->p_memsz-ph->p_filesz);
+			memset(va_to_pa(ph->p_vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
