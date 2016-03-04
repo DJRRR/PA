@@ -40,7 +40,7 @@ uint32_t loader() {
 	int cnt=0;
 	for(; cnt<elf->e_phnum;cnt++ ) {
 		/* Scan the program header table, load each segment into memory */
-		ph=(void *)(elf->e_ehsize+buf+cnt*elf->e_phentsize);
+		ph=(void *)(elf->e_shentsize+buf+cnt*elf->e_phentsize);
 		if(ph->p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
