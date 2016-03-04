@@ -10,3 +10,5 @@ $(FLOAT): $(FLOAT_OBJ)
 
 # TODO: write a rule for generating $(FLOAT_OBJ)
 
+$(FLOAT_OBJ): $(FLOAT_SRC)
+		$(call make_command, $(CC), $(lib_common_CFLAGS_EXTRA), ld $@, $(CFLAGS)   $(FLOAT_SRC))

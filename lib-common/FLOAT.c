@@ -23,10 +23,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT f2F(float a) {
-	float temp=a;
-	int temp_i=*((int *)&temp);
-	int flag=(temp_i>>31)&1;
-	int exp=((temp_i>>23)&0xff)-127;
+//	float temp=a;
+//	int temp_i=*((int *)&temp);
+//	int flag=(temp_i>>31)&1;
+//	int exp=((temp_i>>23)&0xff)-127;
 	return 0;
 }
 
