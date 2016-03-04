@@ -36,20 +36,22 @@ uint32_t loader() {
 	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
-	panic("please implement me");
-	for(; true; ) {
+	//panic("please implement me");
+	int cnt=0;
+	for(; cnt<elf->e_phnum;cnt++ ) {
 		/* Scan the program header table, load each segment into memory */
+		ph=(void *)(elf->e_ehsize+buf+cnt*elf->e_phentsize);
 		if(ph->p_type == PT_LOAD) {
 
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 
+			 ramdisk_read(va_to_pa(ph->p_vaddr),ELF_OFFSET_IN_DISK+ph->p_offset,ph->p_filesz);
 			 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-
+			memset(va_to_pa(ph->p_vaddr+ph->p_filesize+ph->p_offset),0,ph->p_memsz-ph->filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
