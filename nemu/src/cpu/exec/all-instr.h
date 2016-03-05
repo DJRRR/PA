@@ -52,6 +52,7 @@
 #include "logic/jge.h"//PA2.3
 #include "logic/jns.h"//PA2.3
 #include "logic/js.h"//PA2.3
+#include "logic/jae.h"//PA2.3
 
 #include "string/rep.h"
 
