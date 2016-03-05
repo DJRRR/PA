@@ -10,11 +10,8 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	  int a_t=a;
-	  int b_t=b;
-	  long long result=a_t/b_t;
 	  FLOAT fin;
-	  fin=result<<16;
+	  fin=(a/b)<<16;
 	  return fin;
 }
 
