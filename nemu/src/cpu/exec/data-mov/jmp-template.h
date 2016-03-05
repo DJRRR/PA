@@ -25,7 +25,7 @@ static void do_execute(){
 		}
 		else if(DATA_BYTE==2){
 			short t2=op_src->val&0x0000ffff;
-			cpu.eip=(cpu.eip+t2)&0x0000ffff;
+			cpu.eip=(cpu.eip+t2);
 		}
 		else{
 			cpu.eip += op_src->val;
