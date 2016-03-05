@@ -1,8 +1,8 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	long long  a_t=a;
-	long long  b_t=b;
+	int   a_t=a;
+	int   b_t=b;
 	long long  result=a_t*b_t;
 	FLOAT fin;
 	if(result>=0){
