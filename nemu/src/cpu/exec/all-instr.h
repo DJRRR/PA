@@ -49,6 +49,7 @@
 #include "logic/jl.h"//PA2.3
 #include "logic/ja.h"//PA2.3
 #include "logic/jge.h"//PA2.3
+#include "logic/jns.h"//PA2.3
 
 #include "string/rep.h"
 
