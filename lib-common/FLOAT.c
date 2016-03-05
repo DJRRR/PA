@@ -54,7 +54,7 @@ FLOAT f2F(float a) {
 	int f2=(temp_i&0x7fff)|0x800000;
 	int offset=23-exp;
 	int t=((f2>>offset)<<16)&0x7fff0000;
-	f2=((f2<<(32-offset)))&0x0000ffff;
+	f2=((f2<<(32-offset)>>16))&0x0000ffff;
 	int F=f2+t;
 	if(flag==1){
 	return F;
