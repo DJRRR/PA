@@ -9,7 +9,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 		fin=result>>16;
 	}
 	else{
-		fin=-(-result>>16);
+		fin=(result>>16);
 	}
 	return fin;
 /*	long long tmp=(long long)a*(long long)b;
