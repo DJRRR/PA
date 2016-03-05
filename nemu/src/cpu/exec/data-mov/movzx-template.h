@@ -16,17 +16,9 @@ static void do_execute(){
 		res = res&0x0000ffff;
 		OPERAND_W(op_dest,res);
 	}*/
-/*	int len=DATA_BYTE<<3;
-	uint32_t temp=0,result=op_src->val;
-	int i=0;
-	for(;i<len;i++){
-		temp = temp | (1<<i);
-	}
-	result = result &temp;
-	write_operand_l(op_dest,result);
-	print_asm_template2();*/
 	unsigned t=op_src->val&0x0000ffff;
-	reg_l(op_dest->reg)=t;
+	//reg_l(op_dest->reg)=t;
+		OPERAND_W(op_dest,t);
 	print_asm_template2();
 
 }
