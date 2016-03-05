@@ -41,15 +41,11 @@ FLOAT f2F(float a) {
 	int exp=((temp_i>>23)&0xff)-127;
 	int val_1=temp_i&0x7fff;
 	val_1=val_1|0x800000;
-	int val_2=((val_1>>(7-exp)))&0x7fff0000;
-	val_1=(val_1<<(exp-7))&0xffff;
-	int F=val_1+val_2;
-	if(flag==1){
-	return -F;
-	}
-	else{
-	return F;
-	}
+	int val_2=((val_1>>(23-exp)<<16))&0x7fff0000;
+	val_1=((val_1<<(exp+9))>>16)&0xffff;
+	int res=val_1+val_2;
+	if(flag==1) res = -res;
+	return res;
 
 
 }
