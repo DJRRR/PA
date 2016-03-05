@@ -5,7 +5,7 @@
 #if DATA_BYTE==2||DATA_BYTE==4
 
 static void do_execute(){
-	printf("test:%u\n",ops_decoded.opcode);
+//	printf("test:%u\n",ops_decoded.opcode);
 	switch(ops_decoded.opcode){
 	case 0x40:
 		if(cpu.OF==1){
