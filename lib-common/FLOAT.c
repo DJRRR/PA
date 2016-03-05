@@ -28,7 +28,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT f2F(float a) {
-	float temp=a;
+/*	float temp=a;
 	FLOAT fin;
 	int temp_i=*((int *)&temp);
 	int flag=(temp_i>>31)&1;
@@ -45,7 +45,25 @@ FLOAT f2F(float a) {
 	else{
 		fin=(F_val<<off_judge)|(flag<<31);
 	}
-	return fin;
+	return fin;*/
+	float temp=a;
+//	FLOAT fin;
+	int temp_i=*((int *)&temp);
+	int flag=(temp_i>>31)&1;
+	int exp=((temp_i>>23)&0xff)-127;
+	int f2=(temp_i&0x7fff)|0x800000;
+	int offset=23-exp;
+	int t=((f2>>offset)<<16)&0x7fff0000;
+	f2=((f2<<(32-offset)))&0x0000ffff;
+	int F=f2+t;
+	if(flag==1){
+	return F;
+	}
+	else{
+	return -F;
+	}
+
+
 }
 
 FLOAT Fabs(FLOAT a) {
