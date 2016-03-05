@@ -14,20 +14,8 @@ static void do_execute(){
 		printf("test2\n");
 	}
 	OPERAND_W(op_dest,addr);*/
-/*	int len=DATA_BYTE<<3;
-	int32_t result=op_src->val;
-	int first=0;
-	if((DATA_TYPE_S)op_src->val<0){
-		first=1;
-	}
-	int i=len;
-	for(;i<8*sizeof(op_dest->val);i++){
-		result = result |(first<<i);
-	}
-	write_operand_l(op_dest,result);
-	print_asm_template2();*/
-	int t=(DATA_TYPE_S)op_src->val;
-	reg_l(op_dest->reg)=t;
+	DATA_TYPE_S res=(DATA_TYPE_S)op_src->val;
+	reg_l(op_dest->reg)=res;
 	print_asm_template2();
 }
 
