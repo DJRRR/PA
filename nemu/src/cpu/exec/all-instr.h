@@ -14,6 +14,7 @@
 #include "data-mov/cld.h"
 #include "data-mov/stos.h"
 #include "data-mov/cmps.h"
+#include "data-mov/cmov.h"//PA2.3
 //#include "data-mov/lea.h"
 
 #include "arith/sub.h"//PA2.1
