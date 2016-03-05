@@ -24,9 +24,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	FLOAT fin;
-	fin=(a<<8)/(b>>8);
-	return fin;
+	return (a<<8)/(b>>8);
 }
 
 FLOAT f2F(float a) {
