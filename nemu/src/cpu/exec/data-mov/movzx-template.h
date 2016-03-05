@@ -16,9 +16,8 @@ static void do_execute(){
 		res = res&0x0000ffff;
 		OPERAND_W(op_dest,res);
 	}*/
-	unsigned t=op_src->val&0x0000ffff;
-	//reg_l(op_dest->reg)=t;
-		OPERAND_W(op_dest,t);
+	DATA_TYPE res=op_src->val&0x0000ffff;
+	reg_l(op_dest->reg)=res;
 	print_asm_template2();
 
 }
