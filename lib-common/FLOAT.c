@@ -7,17 +7,11 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	FLOAT fin;
 	fin=result>>16;
 	return fin;
-/*	long long tmp=(long long)a*(long long)b;
-	if(tmp>=0){
-		return (FLOAT)(tmp>>16);
-	}
-	else{
-		return (FLOAT)-(-tmp>>16);
-	}*/
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	return (a<<8)/(b>>8);
+	//return (a<<8)/(b>>8);
+	  return (a/b)<<16;
 }
 
 FLOAT f2F(float a) {
