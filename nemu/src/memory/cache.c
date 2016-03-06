@@ -5,7 +5,6 @@
 uint32_t dram_read(hwaddr_t,size_t);
 uint32_t hwaddr_read(hwaddr_t,size_t);
 void dram_write(hwaddr_t,size_t,uint32_t);
-void hwaddr_write(hwaddr_t,size_t,uint32_t);
 
 typedef struct{
 	unsigned int valid:1;
@@ -89,7 +88,43 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 
 
 
-
+void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
+	unsigned int offset_i=addr&0x3f;
+	unsigned int index_i=(addr&0x1fc0)>>6;
+	unsigned int tag_i=(addr&0xfffe000)>>13;
+	bool flag=find_cache_L1(addr,len);
+	uint32_t data_t=data;
+	if(flag==true){//write through
+		int way_i=-1;
+		bool check=false;
+		int i;
+		for(i=0;i<8;i++){
+			if(cache_L1[i][index_i].tag==tag_i){
+				way_i=i;
+				check=true;
+				break;
+			}
+		}
+		if(check==false){
+			printf("False!\n");
+			assert(0);
+		}
+		if(offset_i+len<=64){
+			int j;
+			for(j=len-1;j>=0;j--){
+				cache_L1[way_i][index_i].data[j]=data_t&0xff;
+				data_t >>= 8;
+			}
+		}
+		else{
+			printf("write cache 1 bound error!\n");
+			assert(0);
+		}
+	}
+	else{//uncompleted
+	}
+}
+				
 
 
 			
