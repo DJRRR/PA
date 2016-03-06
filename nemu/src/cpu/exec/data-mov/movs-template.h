@@ -9,8 +9,8 @@ make_helper(concat(movs_m_,SUFFIX)){
 		cpu.esi += DATA_BYTE;
 	}
 	else{
-		cpu.edi -= DATA_BYTE;
-		cpu.edi -= DATA_BYTE;
+		cpu.edi -= DATA_BYTE*2;
+	//	cpu.edi -= DATA_BYTE;
 	}
 	print_asm_template2();
 	return DATA_BYTE;
