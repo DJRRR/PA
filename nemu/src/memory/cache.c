@@ -14,12 +14,12 @@ typedef struct{
 	uint8_t data[64];
 }Cache_L1;
 
-Cache_L1 cache_L1[8][128];//8-way
+Cache_L1 cache_L1[128][8];//8-way 128zu
 
 void init_cache_L1(){
 	int i,j;
-	for(i=0;i<8;i++){
-		for(j=0;j<128;j++){
+	for(i=0;i<128;i++){
+		for(j=0;j<8;j++){
 			cache_L1[i][j].valid=0;
 		}
 	}
@@ -31,8 +31,8 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 	unsigned int tag_i=(addr&0xfffe000)>>13;
 	int i=0;
 	for(;i<8;i++){
-		if(tag_i==cache_L1[i][index_i].tag){
-			if(cache_L1[i][index_i].valid==1){
+		if(tag_i==cache_L1[index_i][i].tag){
+			if(cache_L1[index_i][i].valid==1){
 				return true;
 			}
 		}
@@ -50,21 +50,21 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	if(flag==true){
 		printf("here1\n");
 		for(i=0;i<8;i++){
-			if(cache_L1[i][index_i].tag==tag_i){
+			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
 				check=true;
 				break;
 			}
 		}
 		if(check==false){
-		//	printf("Read cache L1 error!\n");
+			printf("Read cache L1 error!\n");
 		assert(0);
 		}
 		uint32_t res=0x00000000;
 		if(offset_i+len<=64){//check bound
 			int j=0;
-			for(j=0;j<len;j++){
-				res = (res<<8)|cache_L1[way_i][index_i].data[offset_i+j];//unchecked
+			for(j=len-1;j>=0;j--){
+				res = (res<<8)|(cache_L1[index_i][way_i].data[offset_i+j]&0xff);//unchecked
 			}
 			return res;
 		}
@@ -74,15 +74,17 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		}
 	}
 	else{
-		int num;
 		srand((unsigned)time(NULL));
-		num=rand()%128;
-		int i_i=(tag_i)%8;
-		cache_L1[i_i][num].valid=1;
-		cache_L1[i_i][num].tag=tag_i;
-		cache_L1[i_i][num].index=num;
-		cache_L1[i_i][num].data[0]=dram_read(addr&0xfffffff8,8);
-		return dram_read(addr,len);
+		int i_i=rand()%8;
+		cache_L1[index_i][i_i].valid=1;
+		cache_L1[index_i][i_i].tag=tag_i;
+		cache_L1[index_i][i_i].index=index_i;
+		hwaddr_t addr_new=addr-offset_i;
+		int q=0;
+		for(q=0;q<64;q++){
+			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
+		}
+		return dram_read(addr_new,len);
 	}
 }
 
@@ -99,7 +101,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		bool check=false;
 		int i;
 		for(i=0;i<8;i++){
-			if(cache_L1[i][index_i].tag==tag_i){
+			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
 				check=true;
 				break;
@@ -112,8 +114,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		if(offset_i+len<=64){
 			int j;
 			for(j=len-1;j>=0;j--){
-				cache_L1[way_i][index_i].data[j]=data_t&0xff;
-				data_t >>= 8;
+				cache_L1[index_i][way_i].data[j]=(data_t>>(j*8))&0xff;
 			}
 		}
 		else{
