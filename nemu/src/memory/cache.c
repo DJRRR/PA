@@ -78,7 +78,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		}
 	}
 	else{
-		srand((unsigned)time(NULL));
+		srand((unsigned)time(0)+clock());
 		int i_i=rand()%8;
 		printf("TEST: %d\n",i_i);
 		cache_L1[index_i][i_i].valid=1;
