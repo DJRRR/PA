@@ -96,8 +96,10 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 
 void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 	unsigned int offset_i=addr&0x3f;
-	unsigned int index_i=(addr&0x1fc0)>>6;
-	unsigned int tag_i=(addr&0xfffe000)>>13;
+//	unsigned int index_i=(addr&0x1fc0)>>6;
+//	unsigned int tag_i=(addr&0xfffe000)>>13;
+	unsigned int index_i=(addr>>6)&0x3f;
+	unsigned int tag_i=(addr>>13)&0x3fff;
 	bool flag=find_cache_L1(addr,len);
 	uint32_t data_t=data;
 	if(flag==true){//write through
@@ -128,6 +130,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 	}
 	else{//uncompleted
 	}
+	dram_write( addr,len,data);
 }
 				
 
