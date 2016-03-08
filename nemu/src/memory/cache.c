@@ -14,7 +14,6 @@ typedef struct{
 	uint8_t data[64];
 }Cache_L1;
 
-
 Cache_L1 cache_L1[128][8];//8-way 128zu
 
 void init_cache_L1(){
@@ -28,7 +27,8 @@ void init_cache_L1(){
 
 bool find_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int offset_i=addr&0x3f;
-	unsigned int index_i=(addr&0x1fc0)>>6;
+//	unsigned int index_i=(addr&0x1fc0)>>6;
+	unsigned int index_i=(addr>>6)&0x7f;
 	unsigned int tag_i=(addr&0xfffe000)>>13;
 	int i=0;
 	for(;i<8;i++){
