@@ -67,7 +67,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
 		if(offset_i+len<=64){//check bound
 			int j=0;
-			for(j=len-2;j>=0;j--){
+			for(j=len-2;j>=1;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
 			}
 			return res;
