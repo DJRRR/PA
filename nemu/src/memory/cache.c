@@ -64,10 +64,10 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			printf("Read cache L1 error!\n");
 		assert(0);
 		}
-		uint32_t res=0;
+		uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
 		if(offset_i+len<=64){//check bound
 			int j=0;
-			for(j=len-1;j>=0;j--){
+			for(j=len-2;j>=0;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
 			}
 			return res;
@@ -80,6 +80,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	else{
 		srand((unsigned)time(NULL));
 		int i_i=rand()%8;
+		printf("TEST: %d\n",i_i);
 		cache_L1[index_i][i_i].valid=1;
 		cache_L1[index_i][i_i].tag=tag_i;
 		cache_L1[index_i][i_i].index=index_i;
