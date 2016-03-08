@@ -30,7 +30,7 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 	unsigned int index_i=(addr>>6)&0x7f;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
-	unsigned int tag_i=(addr>>13);
+	unsigned int tag_i=(addr>>13)&0x3fff;
 	int i=0;
 	for(;i<8;i++){
 		if(tag_i==cache_L1[index_i][i].tag){
@@ -47,7 +47,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
 	unsigned int index_i=(addr>>6)&0x7f;
-	unsigned int tag_i=(addr>>13);
+	unsigned int tag_i=(addr>>13)&0x3fff;
 	bool flag=find_cache_L1(addr,len);
 	int i,way_i=-1;
 	bool check=false;
