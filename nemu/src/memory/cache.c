@@ -85,6 +85,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		cache_L1[index_i][i_i].tag=tag_i;
 		cache_L1[index_i][i_i].index=index_i;
 		hwaddr_t addr_new=addr-offset_i;
+		printf("0x%X\n",addr_new);
 		int q=0;
 		for(q=0;q<64;q++){
 			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
