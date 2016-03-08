@@ -90,8 +90,8 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		for(q=0;q<64;q++){
 			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
 			system("pause");
-		}
-		return dram_read(addr_new,len)&(~0u>>((4-len)<<3));
+		}	
+		return hwaddr_read(addr,len);
 	}
 }
 
