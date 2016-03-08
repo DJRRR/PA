@@ -14,6 +14,7 @@ typedef struct{
 	uint8_t data[64];
 }Cache_L1;
 
+
 Cache_L1 cache_L1[128][8];//8-way 128zu
 
 void init_cache_L1(){
