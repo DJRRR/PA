@@ -64,7 +64,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			printf("Read cache L1 error!\n");
 		assert(0);
 		}
-		uint32_t res=0x00000000;
+		uint32_t res=0;
 		if(offset_i+len<=64){//check bound
 			int j=0;
 			for(j=len-1;j>=0;j--){
