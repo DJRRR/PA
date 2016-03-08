@@ -52,7 +52,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	int i,way_i=-1;
 	bool check=false;
 	if(flag==true){
-		printf("here1\n");
+	//	printf("here1\n");
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
