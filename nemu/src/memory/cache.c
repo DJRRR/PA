@@ -16,6 +16,19 @@ typedef struct{
 
 Cache_L1 cache_L1[128][8];//8-way 128zu
 
+typedef struct{
+	unsigned int valid:1;
+	unsigned int dirty:1;
+	unsigned int tag:9;
+	unsigned int index:12;
+	unsigned int offset:6;
+	unsigned int data[64];
+
+}Cache_L2;
+
+Cache_L2 cache_L2[4096][16];//16-way 4096组
+
+
 void init_cache_L1(){
 	int i,j;
 	for(i=0;i<128;i++){
@@ -24,7 +37,14 @@ void init_cache_L1(){
 		}
 	}
 }
-
+void init_cache_L2(){
+	int i,j;
+	for(i=0;i<4096;i++){
+		for(j=0;j<16;j++){
+			cache_L2[i][j].valid=0;
+		}
+	}
+}
 bool find_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
@@ -41,6 +61,21 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 	}
 	return false;
 }
+
+bool find_cache_L2(hwaddr_t addr,size_t len){
+	unsigned int index_i=(addr>>6)&0xfff;
+	unsigned int tag_i=(addr>>(6+12));
+	int i=0;
+	for(;i<16;i++){
+		if(tag_i==cache_L2[index_i][i].tag){
+			if(cache_L1[index_i][i].valid==1){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 
 uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	unsigned int offset_i=addr&0x3f;
