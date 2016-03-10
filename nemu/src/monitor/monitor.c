@@ -1,5 +1,6 @@
 #include "nemu.h"
 //#include "common.h"//add
+#include <memory/cache.h>
 
 #define ENTRY_START 0x100000
 
@@ -90,6 +91,8 @@ void restart() {
 	cpu.EFLAGS=0x00000002;
    // init_cache_L1();
 //	init_cache_L2();
+	init_cache_L1();
+	init_cache_L2();
   //  printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
 	/* Initialize DRAM. */
 	init_ddr3();
