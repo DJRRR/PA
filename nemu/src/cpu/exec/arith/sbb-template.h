@@ -9,21 +9,27 @@ static void do_execute(){
 	}
 	DATA_TYPE result=op_dest->val-(src+cpu.CF);
 	OPERAND_W(op_dest,result);
-	DATA_TYPE temp=result;
+//	DATA_TYPE temp=result;
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(src)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
-	unsigned int num=0;
-	int i=0;
+//	unsigned int num=0;
+//	int i=0;
 	cpu.SF=flag_res;
 	cpu.ZF=!result;
-	for(i=0;i<8;i++){
+/*	for(i=0;i<8;i++){
 		if(temp&1){
 			num++;
 		}
 		temp >>= 1;
 	}
-	cpu.PF=!(num%2);
+	cpu.PF=!(num%2);*/
+	DATA_TYPE res_t=result;
+	res_t = res_t &0xff;
+	res_t ^= res_t>>4;
+	res_t ^= res_t>>2;
+	res_t ^= res_t>>1;
+	cpu.PF=!res_t;
 	if(op_dest->val<src){
 		cpu.CF=1;
 	}
