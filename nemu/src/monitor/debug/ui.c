@@ -55,6 +55,8 @@ static int cmd_d(char *args);
 
 static int cmd_bt(char *args);
 
+static int cmd_cache(char *args);//check cache
+
 //static int cmd_test_expr();
 
 static struct {
@@ -72,6 +74,7 @@ static struct {
 	{ "w","set watchpoint",cmd_w},
 	{ "d","delete watchpoint",cmd_d},
 	{ "bt","print the backtrace",cmd_bt},
+	{ "cache","check cache",cmd_cache},
 //	{"test_expr","function used for test",cmd_test_expr},
 	/* TODO: Add more commands */
 
@@ -221,6 +224,9 @@ static int cmd_info(char *args){
 	}
     return 0;
 
+}
+static int cmd_cache(char *args){
+	return 0;
 }
 static int cmd_help(char *args) {
 	/* extract the first argument */
