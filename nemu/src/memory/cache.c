@@ -64,7 +64,7 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 
 bool find_cache_L2(hwaddr_t addr,size_t len){
 	unsigned int index_i=(addr>>6)&0xfff;
-	unsigned int tag_i=(addr>>(6+12))&0x1ff;
+	unsigned int tag_i=(addr>>18)&0x1ff;
 	int i=0;
 	for(;i<16;i++){
 		if(tag_i==cache_L2[index_i][i].tag){
@@ -117,12 +117,11 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			int begin=63;
 		//	uint32_t res_over=cache_L1[index_i][way_i].data[begin];
 		    uint32_t res_over=0;
-			res_over=cache_L1[index_i][way_i].data[begin];
 			int m=0;
-			for(m=begin-1;m>=offset_i;m--){
+			for(m=begin;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
 			}
-			uint32_t res_over2=hwaddr_read((addr+0x40)&0xffffffc0,offset_i+len-64);//why?
+			uint32_t res_over2=hwaddr_read((addr+0x40)&0xffffffc0,offset_i+len-64);
 			res_over=(res_over2<<((64-offset_i)*8))+res_over;
 			return res_over;
 		}
@@ -167,7 +166,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 			}
 		}
 		if(check==false){
-			printf("False!\n");
+			printf("write cache L1 False!\n");
 			assert(0);
 		}
 		if(offset_i+len<=64){
