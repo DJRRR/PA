@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-extern uint32_t dram_read(hwaddr_t,size_t);
-extern uint32_t hwaddr_read(hwaddr_t,size_t);
-extern void hwaddr_write(hwaddr_t , size_t , uint32_t);
-extern void dram_write(hwaddr_t,size_t,uint32_t);
+//extern uint32_t dram_read(hwaddr_t,size_t);
+//extern uint32_t hwaddr_read(hwaddr_t,size_t);
+//extern void hwaddr_write(hwaddr_t , size_t , uint32_t);
+//extern void dram_write(hwaddr_t,size_t,uint32_t);
 
 void init_cache_L1(){
 	int i,j;
