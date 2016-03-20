@@ -15,6 +15,7 @@ typedef struct {
 	unsigned int valid:1;
 	unsigned int dirty:1;
 	unsigned int tag:9;
+	unsigned int index:12;
 	unsigned int offset:6;
 	union{
 		uint8_t data[64];

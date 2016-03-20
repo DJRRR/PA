@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+unsigned int buf_1f2[4];//tag_j(0)+index_j(1)+offset_j(2)+way_j(3)
 
 void init_cache_L1(){
 	int i,j;
@@ -21,7 +22,7 @@ void init_cache_L2(){
 		}
 	}
 }
-void rewrite_cache_L1(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){
+void rewrite_cache_L1_fdram(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){
 	srand((unsigned)time(0)+clock());
 	int i_i=rand()%8;
 	cache_L1[index_i][i_i].valid=1;
@@ -33,6 +34,63 @@ void rewrite_cache_L1(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsi
 		cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*4,4);
 	}
 }
+
+void rewrite_cache_L1_fcache2(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){
+	srand((unsigned)time(0)+clock());
+	int i_i=rand()%8;
+	cache_L1[index_i][i_i].valid=1;
+	cache_L1[index_i][i_i].index=index_i;
+	cache_L1[index_i][i_i].tag=tag_i;
+	unsigned int index_j=(addr>>6)&0xfff;
+	unsigned int tag_j=(addr>>18)&0x1ff;
+//	hwaddr_t addr_new=addr-offset_i;
+	int num=0;
+	bool check2=false;
+	int way_j=0;
+	for(num=0;num<16;num++){
+		if(cache_L2[index_j][num].tag==tag_j&&cache_L2[index_j][num].valid==1){
+			way_j=num;
+			check2=true;
+			break;
+		}
+	}
+	if(check2==false){
+		printf("Flase read cache1 from cache2!\n");
+		assert(0);
+	}
+	int cnt=0;
+	for(cnt=0;cnt<64;cnt++){
+		cache_L1[index_i][i_i].data[cnt]=cache_L2[index_j][way_j].data[cnt];
+	}
+	buf_1f2[0]=tag_j;//update buf
+	buf_1f2[1]=index_j;
+	buf_1f2[2]=offset_i;
+	buf_1f2[3]=way_j;
+}
+
+void rewrite_cache_L2_fdram(hwaddr_t addr){
+	unsigned int index_j=(addr>>6)&0xfff;
+	unsigned int tag_j=(addr>>18)&0x1ff;
+//	unsigned int offset_j=addr&0x3f;
+	srand((unsigned)time(0)+clock());
+	int x=rand()%16;
+	if(cache_L2[index_j][x].valid==1&&cache_L2[index_j][x].dirty==1){//write back
+		uint32_t back_addr=(cache_L2[index_j][x].tag<<18)+(cache_L2[index_j][x].index<<6);
+		int i_back=0;
+		for(i_back=0;i_back<64;i_back++){
+			dram_write(back_addr+i_back,1,cache_L2[index_j][x].data[i_back]);
+		}
+	}
+	cache_L2[index_j][x].valid=1;
+	cache_L2[index_j][x].tag=tag_j;
+	cache_L2[index_j][x].index=index_j;
+	int cnt2=0;
+	for(cnt2=0;cnt2<64;cnt2++){//read cache2 from dram
+		cache_L2[index_j][x].data[cnt2]=dram_read(addr+cnt2,1);
+	}
+}
+
+
 bool find_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 	unsigned int index_i=(addr>>6)&0x7f;
@@ -71,9 +129,10 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	unsigned int index_i=(addr>>6)&0x7f;
 	unsigned int tag_i=(addr>>13)&0x3fff;
 	bool flag1=find_cache_L1(addr,len);
+	bool flag2=find_cache_L2(addr,len);
 	int i,way_i=-1;
 	bool check1=false;
-	if(flag1==true){
+	if(flag1==true){// if addr in cache_L1
 	//	printf("here1\n");
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
@@ -87,7 +146,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		    assert(0);
 		}
 		uint32_t res=0;
-		if(offset_i+len<=64){//check bound
+		if(offset_i+len<=64){//check bound of cache1
 			int j=0;
 			for(j=len-1;j>=0;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
@@ -109,9 +168,42 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			return res_over;
 		}
 	}
-	else{
-		rewrite_cache_L1(addr,index_i,tag_i,offset_i);
-		return hwaddr_read(addr,len);
+	else if(flag2==true){//not in cache 1 but in cache 2 then read cache1 from cache2 and read data from cache2
+	//	rewrite_cache_L1_fdram(addr,index_i,tag_i,offset_i);
+		rewrite_cache_L1_fcache2(addr,index_i,tag_i,offset_i);
+	//	unsigned int tag_j=buf_1f2[0];
+		unsigned int index_j=buf_1f2[1];
+		unsigned int offset_j=buf_1f2[2];
+		unsigned int way_j=buf_1f2[3];
+		uint32_t res2=0;
+		if(offset_j+len<=64){//check bound of cache2
+			int j2=0;
+			for(j2=len-1;j2>=0;j2--){
+				res2=(res2<<8)+cache_L2[index_j][way_j].data[offset_j+j2];
+			}
+			return res2;
+		}
+		else{//over bound
+			//printf("read cache 2 bound error!\n");
+			//assert(0);
+			int begin2=63;
+			uint32_t res_over_=0;
+			int m2=0;
+			for(m2=begin2;m2>=offset_j;m2--){
+				res_over_=(res_over_<<8)+cache_L2[index_j][way_j].data[m2];
+			}
+			uint32_t res_over_2=hwaddr_read((addr+0x40)&0xffffffc0,offset_j+len-64);
+			res_over_=(res_over_2<<((64-offset_j)*8))+res_over_;
+			return res_over_;
+		}
+        
+	}
+	else{//not in cache1 not in cache2 then read cache2 from dram and read cache1 from cache2
+		rewrite_cache_L2_fdram(addr);
+		rewrite_cache_L1_fcache2(addr,index_i,tag_i,offset_i);
+		return dram_read(addr,len);
+
+
 	}
 }
 
