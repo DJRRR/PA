@@ -1,7 +1,6 @@
-#include <common.h>
-#include<time.h>
+#include "common.h"
 #include <stdlib.h>
-#include <memory/cache.h>
+#include <time.h>
 
 uint32_t dram_read(hwaddr_t,size_t);
 uint32_t hwaddr_read(hwaddr_t,size_t);
