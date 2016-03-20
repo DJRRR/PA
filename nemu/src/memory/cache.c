@@ -287,7 +287,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 			}
 			hwaddr_write((addr+0x40)&0xffffffc0,offset_i+len-64,data2);
 		}
-		cache_L2[index_j][way_j].dirty=1;
+	//	cache_L2[index_j][way_j].dirty=1;
 	}
 	else if(flag2==true){//not in cache1 but in cache2 then write cache 2 set dirty =1
 		int way_f;
