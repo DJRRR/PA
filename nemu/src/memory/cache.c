@@ -1,13 +1,14 @@
 #include "common.h"
+#include <memory/cache.h>
 #include <stdlib.h>
 #include <time.h>
 
-uint32_t dram_read(hwaddr_t,size_t);
-uint32_t hwaddr_read(hwaddr_t,size_t);
-void hwaddr_write(hwaddr_t , size_t , uint32_t);
-void dram_write(hwaddr_t,size_t,uint32_t);
+extern uint32_t dram_read(hwaddr_t,size_t);
+extern uint32_t hwaddr_read(hwaddr_t,size_t);
+extern void hwaddr_write(hwaddr_t , size_t , uint32_t);
+extern void dram_write(hwaddr_t,size_t,uint32_t);
 
-typedef struct {
+/*typedef struct {
 	unsigned int valid:1;
 	unsigned int tag:14;
 	unsigned int index:7;
@@ -32,7 +33,7 @@ typedef struct{
 	};
 }Cache_L2;
 
-Cache_L2 cache_L2[4096][16];//16-way 4096zu
+Cache_L2 cache_L2[4096][16];//16-way 4096zu*/
 
 
 void init_cache_L1(){
