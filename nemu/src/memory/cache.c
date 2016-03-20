@@ -109,8 +109,19 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			return res;
 		}
 		else{
-			printf("read cache 1 bound error!\n");
-			assert(0);
+		//	printf("read cache 1 bound error!\n");
+		//	assert(0);
+		//    unalign_rw(addr,len);
+		   // int max_block=64-offset_i;
+			int begin=63;
+			uint32_t res_over=cache_L1[index_i][way_i].data[begin];
+			int m=0;
+			for(m=begin-1;m>=offset_i;m--){
+				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
+			}
+			uint32_t res_over2=hwaddr_read(((addr+0x40)>>6)<<6,offset_i+len-64);
+			res_over=(res_over2<<((len-(offset_i+len-64))*8))+res_over;
+			return res_over;
 		}
 	}
 	else{
