@@ -136,8 +136,8 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		hwaddr_t addr_new=addr-offset_i;
 //		printf("0x%X\n",addr_new);
 		int q=0;
-		for(q=63;q>=0;q--){
-			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+(63-q),1);
+		for(q=0;q<=63;q++){
+			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1)&0xff;
 		//	system("pause");
 		}	
 		return hwaddr_read(addr,len);
