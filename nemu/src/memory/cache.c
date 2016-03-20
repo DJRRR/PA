@@ -21,6 +21,18 @@ void init_cache_L2(){
 		}
 	}
 }
+void rewrite_cache_L1(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){
+	srand((unsigned)time(0)+clock());
+	int i_i=rand()%8;
+	cache_L1[index_i][i_i].valid=1;
+	cache_L1[index_i][i_i].tag=tag_i;
+	cache_L1[index_i][i_i].index=index_i;
+	hwaddr_t addr_new=addr-offset_i;
+	int q=0;
+	for(q=0;q<16;q++){
+		cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*4,4);
+	}
+}
 bool find_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 	unsigned int index_i=(addr>>6)&0x7f;
@@ -98,22 +110,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		}
 	}
 	else{
-		srand((unsigned)time(0)+clock());
-		int i_i=rand()%8;
-	//	printf("TEST: %d\n",i_i);
-		cache_L1[index_i][i_i].valid=1;
-		cache_L1[index_i][i_i].tag=tag_i;
-		cache_L1[index_i][i_i].index=index_i;
-		hwaddr_t addr_new=addr-offset_i;
-//		printf("0x%X\n",addr_new);
-		int q=0;
-//		for(q=0;q<=63;q++){//too slow
-//			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
-		//	system("pause");
-//		}	
-        for(q=0;q<16;q++){//use data buf
-			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*4,4);
-		}
+		rewrite_cache_L1(addr,index_i,tag_i,offset_i);
 		return hwaddr_read(addr,len);
 	}
 }
