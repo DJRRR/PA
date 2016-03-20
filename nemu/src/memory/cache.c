@@ -137,7 +137,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
-	unsigned int index_i=(addr>>6)&0x3f;
+	unsigned int index_i=(addr>>6)&0x7f;
 	unsigned int tag_i=(addr>>13)&0x3fff;
 	bool flag=find_cache_L1(addr,len);
 	uint32_t data_t=data;
@@ -146,7 +146,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		bool check=false;
 		int i;
 		for(i=0;i<8;i++){
-			if(cache_L1[index_i][i].tag==tag_i){
+			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
 				check=true;
 				break;
