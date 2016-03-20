@@ -1,7 +1,3 @@
-#include <common.h>
-#include<time.h>
-#include<stdlib.h>
-
-
+#include "common.h"
 void init_cache_L1();
 void init_cache_L2();
