@@ -8,34 +8,6 @@ extern uint32_t hwaddr_read(hwaddr_t,size_t);
 extern void hwaddr_write(hwaddr_t , size_t , uint32_t);
 extern void dram_write(hwaddr_t,size_t,uint32_t);
 
-/*typedef struct {
-	unsigned int valid:1;
-	unsigned int tag:14;
-	unsigned int index:7;
-	unsigned int offset:6;
-	union {
-	   uint8_t data[64];
-	   uint32_t data_buf[16];
-	};
-}Cache_L1;
-
-Cache_L1 cache_L1[128][8];//8-way 128zu
-
-typedef struct{
-	unsigned int valid:1;
-	unsigned int dirty:1;
-	unsigned int tag:9;
-	unsigned int index:12;
-	unsigned int offset:6;
-	union {
-	   uint8_t  data[64];
-	   uint32_t data_buf[16];
-	};
-}Cache_L2;
-
-Cache_L2 cache_L2[4096][16];//16-way 4096zu*/
-
-
 void init_cache_L1(){
 	int i,j;
 	for(i=0;i<128;i++){
@@ -70,7 +42,7 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 
 bool find_cache_L2(hwaddr_t addr,size_t len){
 	unsigned int index_i=(addr>>6)&0xfff;
-	unsigned int tag_i=(addr>>(6+12))&0x1ff;
+	unsigned int tag_i=(addr>>18)&0x1ff;
 	int i=0;
 	for(;i<16;i++){
 		if(tag_i==cache_L2[index_i][i].tag){
