@@ -137,7 +137,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 //		printf("0x%X\n",addr_new);
 		int q=0;
 		for(q=0;q<=63;q++){
-			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1)&0xff;
+			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
 		//	system("pause");
 		}	
 		return hwaddr_read(addr,len);
