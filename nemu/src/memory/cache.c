@@ -1,3 +1,4 @@
+
 #include "common.h"
 #include <memory/cache.h>
 #include <stdlib.h>
@@ -77,10 +78,8 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			printf("Read cache L1 error!\n");
 		    assert(0);
 		}
-	//	uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
 		uint32_t res=0;
 		if(offset_i+len<=64){//check bound
-		//	res=cache_L1[index_i][way_i].data[offset_i+len-1];
 			int j=0;
 			for(j=len-1;j>=0;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
@@ -90,10 +89,9 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		else{
 		//	printf("read cache 1 bound error!\n");
 		//	assert(0);
-		//    unalign_rw(addr,len);
+		//    unalign_rw(addr,len);//???
 			int begin=63;
 		    uint32_t res_over=0;
-//			res_over=cache_L1[index_i][way_i].data[begin];
 			int m=0;
 			for(m=begin;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
