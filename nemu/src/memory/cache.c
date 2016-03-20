@@ -100,11 +100,11 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		    assert(0);
 		}
 	//	uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
-		uint32_t res;
+		uint32_t res=0;
 		if(offset_i+len<=64){//check bound
-			res=cache_L1[index_i][way_i].data[offset_i+len-1];
+		//	res=cache_L1[index_i][way_i].data[offset_i+len-1];
 			int j=0;
-			for(j=len-2;j>=0;j--){
+			for(j=len-1;j>=0;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
 			}
 			return res;
@@ -115,13 +115,14 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		//    unalign_rw(addr,len);
 		   // int max_block=64-offset_i;
 			int begin=63;
-			uint32_t res_over=cache_L1[index_i][way_i].data[begin];
+		//	uint32_t res_over=cache_L1[index_i][way_i].data[begin];
+		    uint32_t res_over=0;
 			int m=0;
-			for(m=begin-1;m>=offset_i;m--){
+			for(m=begin;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
 			}
 			uint32_t res_over2=hwaddr_read(((addr+0x40)>>6)<<6,offset_i+len-64);//why?
-			res_over=(res_over2<<((len-(offset_i+len-64))*8))+res_over;
+			res_over=(res_over2<<((64-offset_i)*8))+res_over;
 			return res_over;
 		}
 	}
