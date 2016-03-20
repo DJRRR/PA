@@ -129,15 +129,15 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	else{
 		srand((unsigned)time(0)+clock());
 		int i_i=rand()%8;
-		printf("TEST: %d\n",i_i);
+	//	printf("TEST: %d\n",i_i);
 		cache_L1[index_i][i_i].valid=1;
 		cache_L1[index_i][i_i].tag=tag_i;
 		cache_L1[index_i][i_i].index=index_i;
 		hwaddr_t addr_new=addr-offset_i;
-		printf("0x%X\n",addr_new);
+//		printf("0x%X\n",addr_new);
 		int q=0;
-		for(q=0;q<64;q++){
-			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
+		for(q=63;q>=0;q--){
+			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+(63-q),1);
 		//	system("pause");
 		}	
 		return hwaddr_read(addr,len);
@@ -189,7 +189,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		    
 		}
 	}
-	else{//uncompleted
+	else{
 	dram_write( addr,len,data);
 	}
 }
