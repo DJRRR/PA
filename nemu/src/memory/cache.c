@@ -24,10 +24,9 @@ typedef struct{
 	unsigned int index:12;
 	unsigned int offset:6;
 	unsigned int data[64];
-
 }Cache_L2;
 
-Cache_L2 cache_L2[4096][16];//16-way 4096组
+Cache_L2 cache_L2[4096][16];//16-way 4096zu
 
 
 void init_cache_L1(){
@@ -47,7 +46,6 @@ void init_cache_L2(){
 	}
 }
 bool find_cache_L1(hwaddr_t addr,size_t len){
-//	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 	unsigned int index_i=(addr>>6)&0x7f;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
@@ -65,7 +63,7 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 
 bool find_cache_L2(hwaddr_t addr,size_t len){
 	unsigned int index_i=(addr>>6)&0xfff;
-	unsigned int tag_i=(addr>>(6+12));
+	unsigned int tag_i=(addr>>(6+12))&0x1ff;
 	int i=0;
 	for(;i<16;i++){
 		if(tag_i==cache_L2[index_i][i].tag){
@@ -98,12 +96,14 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		}
 		if(check==false){
 			printf("Read cache L1 error!\n");
-		assert(0);
+		    assert(0);
 		}
-		uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
+	//	uint32_t res=cache_L1[index_i][way_i].data[offset_i+len-1];
+		uint32_t res;
 		if(offset_i+len<=64){//check bound
+			res=cache_L1[index_i][way_i].data[offset_i+len-1];
 			int j=0;
-			for(j=len-2;j>=1;j--){
+			for(j=len-2;j>=0;j--){
 				res = (res<<8)+(cache_L1[index_i][way_i].data[offset_i+j]);//unchecked
 			}
 			return res;
@@ -158,8 +158,8 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		}
 		if(offset_i+len<=64){
 			int j;
-			for(j=len-1;j>=0;j--){
-				cache_L1[index_i][way_i].data[j]=(data_t>>(j*8))&0xff;
+			for(j=len-1;j>=0;j--){//change
+				cache_L1[index_i][way_i].data[j+offset_i]=(data_t>>(j*8))&0xff;//change
 			}
 		}
 		else{
