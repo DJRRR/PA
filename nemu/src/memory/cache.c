@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//extern uint32_t dram_read(hwaddr_t,size_t);
-//extern uint32_t hwaddr_read(hwaddr_t,size_t);
-//extern void hwaddr_write(hwaddr_t , size_t , uint32_t);
-//extern void dram_write(hwaddr_t,size_t,uint32_t);
 
 void init_cache_L1(){
 	int i,j;
@@ -62,19 +58,19 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
 	unsigned int index_i=(addr>>6)&0x7f;
 	unsigned int tag_i=(addr>>13)&0x3fff;
-	bool flag=find_cache_L1(addr,len);
+	bool flag1=find_cache_L1(addr,len);
 	int i,way_i=-1;
-	bool check=false;
-	if(flag==true){
+	bool check1=false;
+	if(flag1==true){
 	//	printf("here1\n");
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
-				check=true;
+				check1=true;
 				break;
 			}
 		}
-		if(check==false){
+		if(check1==false){
 			printf("Read cache L1 error!\n");
 		    assert(0);
 		}
@@ -130,20 +126,20 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
 	unsigned int index_i=(addr>>6)&0x7f;
 	unsigned int tag_i=(addr>>13)&0x3fff;
-	bool flag=find_cache_L1(addr,len);
+	bool flag1=find_cache_L1(addr,len);
 	uint32_t data_t=data;
-	if(flag==true){//write through
+	if(flag1==true){//write through
 		int way_i=-1;
-		bool check=false;
+		bool check1=false;
 		int i;
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
-				check=true;
+				check1=true;
 				break;
 			}
 		}
-		if(check==false){
+		if(check1==false){
 			printf("False!\n");
 			assert(0);
 		}
