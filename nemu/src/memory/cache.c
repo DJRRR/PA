@@ -145,7 +145,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		//	system("pause");
 //		}	
         for(q=0;q<8;q++){//use data buf
-			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*8,1);
+			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*8,8);
 		}
 		return hwaddr_read(addr,len);
 	}
