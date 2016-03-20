@@ -13,7 +13,10 @@ typedef struct{
 	unsigned int tag:14;
 	unsigned int index:7;
 	unsigned int offset:6;
+	union {
 	uint8_t data[64];
+	uint32_t data_buf[16];
+	};	
 }Cache_L1;
 
 Cache_L1 cache_L1[128][8];//8-way 128zu
@@ -24,7 +27,7 @@ typedef struct{
 	unsigned int tag:9;
 	unsigned int index:12;
 	unsigned int offset:6;
-	unsigned int data[64];
+	uint8_t  data[64];
 }Cache_L2;
 
 Cache_L2 cache_L2[4096][16];//16-way 4096zu
@@ -64,7 +67,7 @@ bool find_cache_L1(hwaddr_t addr,size_t len){
 
 bool find_cache_L2(hwaddr_t addr,size_t len){
 	unsigned int index_i=(addr>>6)&0xfff;
-	unsigned int tag_i=(addr>>18)&0x1ff;
+	unsigned int tag_i=(addr>>(6+12))&0x1ff;
 	int i=0;
 	for(;i<16;i++){
 		if(tag_i==cache_L2[index_i][i].tag){
@@ -117,8 +120,9 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			int begin=63;
 		//	uint32_t res_over=cache_L1[index_i][way_i].data[begin];
 		    uint32_t res_over=0;
+			res_over=cache_L1[index_i][way_i].data[begin];
 			int m=0;
-			for(m=begin;m>=offset_i;m--){
+			for(m=begin-1;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
 			}
 			uint32_t res_over2=hwaddr_read((addr+0x40)&0xffffffc0,offset_i+len-64);
@@ -136,10 +140,13 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		hwaddr_t addr_new=addr-offset_i;
 //		printf("0x%X\n",addr_new);
 		int q=0;
-		for(q=0;q<=63;q++){
-			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
+//		for(q=0;q<=63;q++){//too slow
+//			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
 		//	system("pause");
-		}	
+//		}	
+        for(q=0;q<16;q++){
+			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*4,1);
+		}
 		return hwaddr_read(addr,len);
 	}
 }
@@ -166,7 +173,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 			}
 		}
 		if(check==false){
-			printf("write cache L1 False!\n");
+			printf("False!\n");
 			assert(0);
 		}
 		if(offset_i+len<=64){
