@@ -22,7 +22,7 @@ void init_cache_L2(){
 		}
 	}
 }
-void rewrite_cache_L1_fdram(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){
+void rewrite_cache_L1_fdram(hwaddr_t addr,unsigned int index_i,unsigned int tag_i,unsigned int offset_i){//right
 	srand((unsigned)time(0)+clock());
 	int i_i=rand()%8;
 	cache_L1[index_i][i_i].valid=1;
@@ -88,6 +88,7 @@ void rewrite_cache_L2_fdram(hwaddr_t addr){
 	for(cnt2=0;cnt2<64;cnt2++){//read cache2 from dram
 		cache_L2[index_j][x].data[cnt2]=dram_read(addr+cnt2,1);
 	}
+	cache_L2[index_j][x].dirty=0;
 }
 
 
