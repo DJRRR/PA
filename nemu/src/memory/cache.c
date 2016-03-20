@@ -19,6 +19,7 @@ void init_cache_L2(){
 	for(i=0;i<4096;i++){
 		for(j=0;j<16;j++){
 			cache_L2[i][j].valid=0;
+			cache_L2[i][j].dirty=0;
 		}
 	}
 }
