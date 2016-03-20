@@ -135,7 +135,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 	int i,way_i=-1;
 	bool check1=false;
 	if(flag1==true){// if addr in cache_L1
-	//	printf("here1\n");
+		printf("read case 1\n");
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
@@ -171,7 +171,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 		}
 	}
 	else if(flag2==true){//not in cache 1 but in cache 2 then read cache1 from cache2 and read data from cache2
-	//	rewrite_cache_L1_fdram(addr,index_i,tag_i,offset_i);
+		printf("read case 2\n");
 		rewrite_cache_L1_fcache2(addr,index_i,tag_i,offset_i);
 	//	unsigned int tag_j=buf_1f2[0];
 		unsigned int index_j=buf_1f2[1];
@@ -201,6 +201,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
         
 	}
 	else{//not in cache1 not in cache2 then read cache2 from dram and read cache1 from cache2
+		printf("read case 3\n");
 		rewrite_cache_L2_fdram(addr);
 		rewrite_cache_L1_fcache2(addr,index_i,tag_i,offset_i);
 		return dram_read(addr,len);
@@ -212,7 +213,6 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 
 
 void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
-	printf("here in write!\n");
 	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
@@ -226,6 +226,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 	uint32_t data2=data;
 	uint32_t data3=data;
  	if(flag1==true){//in cache1 then write cache1 write cache2 set dirty=1
+		printf("write case 1\n");
 		int way_i=-1;//write cache 1
 		bool check1=false;
 		int i;
@@ -290,6 +291,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 	//	cache_L2[index_j][way_j].dirty=1;
 	}
 	else if(flag2==true){//not in cache1 but in cache2 then write cache 2 set dirty =1
+		printf("write case 2\n");
 		int way_f;
 		int i_f;
 		bool check3=false;
@@ -322,6 +324,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		cache_L2[index_j][way_f].dirty=1;
 	}
 	else{//not in cache 1 and not in cache2 then write dram then write cache2 and set dirty=0;
+		printf("write case 3\n");
 		dram_write(addr,len,data);
 		int i_g;
 		srand((unsigned)time(0)+clock());
