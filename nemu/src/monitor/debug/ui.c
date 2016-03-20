@@ -2,6 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "monitor/exprelf.h"
+#include "memory/cache.h"//test cache
 #include "nemu.h"
 
 #include <stdlib.h>
@@ -187,6 +188,23 @@ static int cmd_bt(char *args){
 		return 0;
 	}
 }
+static int cmd_cache(char *args){
+	char *arg=strtok(NULL," ");
+	bool *success =NULL;
+    hwaddr_t addr=expr(arg,success);
+    bool in_cache_L1=find_cache_L1(addr,4);
+	bool in_cache_L2=find_cache_L2(addr,4);
+	if(in_cache_L1==true){
+		printf("0x%.8X in cache_L1!\n",addr);
+	}
+	if(in_cache_L2==true){
+		printf("0x%.8X in cache_L2!\n",addr);
+	}
+	if(in_cache_L1==false&&in_cache_L2==false){
+		printf("0x%.8X not in cache!\n",addr);
+	}
+	return 0;
+}
 static int cmd_si(char *args){
 	char *arg = strtok(NULL," ");
 	int i,j,step_num=0;
@@ -224,9 +242,6 @@ static int cmd_info(char *args){
 	}
     return 0;
 
-}
-static int cmd_cache(char *args){
-	return 0;
 }
 static int cmd_help(char *args) {
 	/* extract the first argument */
