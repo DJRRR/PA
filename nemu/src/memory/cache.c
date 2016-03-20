@@ -191,8 +191,10 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		}
 	}
 	else{
-	     dram_write( addr,len,data);
+	    // dram_write( addr,len,data);
+
 	}
+	dram_write(addr,len,data);
 }
 				
 
