@@ -5,6 +5,7 @@
 
 uint32_t dram_read(hwaddr_t,size_t);
 uint32_t hwaddr_read(hwaddr_t,size_t);
+void hwaddr_write(hwaddr_t , size_t , uint32_t);
 void dram_write(hwaddr_t,size_t,uint32_t);
 
 typedef struct{
@@ -119,7 +120,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			for(m=begin-1;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
 			}
-			uint32_t res_over2=hwaddr_read(((addr+0x40)>>6)<<6,offset_i+len-64);
+			uint32_t res_over2=hwaddr_read(((addr+0x40)>>6)<<6,offset_i+len-64);//why?
 			res_over=(res_over2<<((len-(offset_i+len-64))*8))+res_over;
 			return res_over;
 		}
@@ -174,11 +175,22 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 			}
 		}
 		else{
-			printf("write cache 1 bound error!\n");
-			assert(0);
+		//	printf("write cache 1 bound error!\n");
+		//	assert(0);
+		   // int max_block=64-offset_i;
+		   int end=63;
+		   int m;
+		   for(m=offset_i;m<=end;m++){
+			   cache_L1[index_i][way_i].data[m]=data&0xff;
+			   data >>= 8;
+		   }
+		   hwaddr_write(((addr+0x40)>>6)<<6,offset_i+len-64,data);		    
+		    
 		}
 	}
 	else{//uncompleted
+		printf("write uncomplated!\n");
+		assert(0);
 	}
 	dram_write( addr,len,data);
 }
