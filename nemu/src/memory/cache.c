@@ -189,7 +189,6 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		}
 	}
 	else{//uncompleted
-		printf("write uncomplated!\n");
 	dram_write( addr,len,data);
 	}
 }
