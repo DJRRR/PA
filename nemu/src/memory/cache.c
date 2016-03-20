@@ -8,15 +8,15 @@ uint32_t hwaddr_read(hwaddr_t,size_t);
 void hwaddr_write(hwaddr_t , size_t , uint32_t);
 void dram_write(hwaddr_t,size_t,uint32_t);
 
-typedef struct{
+typedef struct {
 	unsigned int valid:1;
 	unsigned int tag:14;
 	unsigned int index:7;
 	unsigned int offset:6;
 	union {
-	uint8_t data[64];
-	uint32_t data_buf[16];
-	};	
+	   uint8_t data[64];
+	   uint32_t data_buf[16];
+	};
 }Cache_L1;
 
 Cache_L1 cache_L1[128][8];//8-way 128zu
@@ -27,7 +27,10 @@ typedef struct{
 	unsigned int tag:9;
 	unsigned int index:12;
 	unsigned int offset:6;
-	uint8_t  data[64];
+	union {
+	   uint8_t  data[64];
+	   uint32_t data_buf[16];
+	};
 }Cache_L2;
 
 Cache_L2 cache_L2[4096][16];//16-way 4096zu
