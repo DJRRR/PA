@@ -113,7 +113,7 @@ bool find_cache_L2(hwaddr_t addr,size_t len){
 	int i=0;
 	for(;i<16;i++){
 		if(tag_i==cache_L2[index_i][i].tag){
-			if(cache_L1[index_i][i].valid==1){
+			if(cache_L2[index_i][i].valid==1){
 				return true;
 			}
 		}
