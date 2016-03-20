@@ -173,7 +173,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		if(offset_i+len<=64){
 			int j;
 			for(j=len-1;j>=0;j--){//change
-				cache_L1[index_i][way_i].data[j+offset_i]=(data_t>>(j*8))&0xff;//change
+				cache_L1[index_i][way_i].data[j+offset_i]=(data_t>>(j*8));//change
 			}
 		}
 		else{
@@ -183,7 +183,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		   int end=63;
 		   int m;
 		   for(m=offset_i;m<=end;m++){
-			   cache_L1[index_i][way_i].data[m]=data&0xff;
+			   cache_L1[index_i][way_i].data[m]=data;
 			   data >>= 8;
 		   }
 		   hwaddr_write(((addr+0x40)>>6)<<6,offset_i+len-64,data);		    
