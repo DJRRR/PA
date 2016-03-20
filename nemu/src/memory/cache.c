@@ -109,7 +109,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			return res;
 		}
 		else{
-			printf("cache 1 bound error!\n");
+			printf("read cache 1 bound error!\n");
 			assert(0);
 		}
 	}
