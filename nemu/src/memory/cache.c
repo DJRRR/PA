@@ -72,10 +72,11 @@ void rewrite_cache_L1_fcache2(hwaddr_t addr,unsigned int index_i,unsigned int ta
 void rewrite_cache_L2_fdram(hwaddr_t addr){
 	unsigned int index_j=(addr>>6)&0xfff;
 	unsigned int tag_j=(addr>>18)&0x1ff;
-//	unsigned int offset_j=addr&0x3f;
+	unsigned int offset_j=addr&0x3f;
 	srand((unsigned)time(0)+clock());
 	int x=rand()%16;
 	if(cache_L2[index_j][x].valid==1&&cache_L2[index_j][x].dirty==1){//write back
+		cache_L2[index_j][x].dirty=0;
 		uint32_t back_addr=(cache_L2[index_j][x].tag<<18)+(cache_L2[index_j][x].index<<6);
 		int i_back=0;
 		for(i_back=0;i_back<64;i_back++){
@@ -86,10 +87,11 @@ void rewrite_cache_L2_fdram(hwaddr_t addr){
 	cache_L2[index_j][x].tag=tag_j;
 	cache_L2[index_j][x].index=index_j;
 	int cnt2=0;
+	addr=addr-offset_j;
 	for(cnt2=0;cnt2<64;cnt2++){//read cache2 from dram
 		cache_L2[index_j][x].data[cnt2]=dram_read(addr+cnt2,1);
 	}
-	cache_L2[index_j][x].dirty=0;
+//	cache_L2[index_j][x].dirty=0;
 }
 
 
