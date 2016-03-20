@@ -146,7 +146,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 		bool check=false;
 		int i;
 		for(i=0;i<8;i++){
-			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
+			if(cache_L1[index_i][i].tag==tag_i){
 				way_i=i;
 				check=true;
 				break;
