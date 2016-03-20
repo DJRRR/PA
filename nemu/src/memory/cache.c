@@ -122,7 +122,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 			for(m=begin-1;m>=offset_i;m--){
 				res_over = (res_over<<8)+cache_L1[index_i][way_i].data[m];
 			}
-			uint32_t res_over2=hwaddr_read(((addr+0x40)>>6)<<6,offset_i+len-64);//why?
+			uint32_t res_over2=hwaddr_read((addr+0x40)&0xffffffc0,offset_i+len-64);//why?
 			res_over=(res_over2<<((64-offset_i)*8))+res_over;
 			return res_over;
 		}
@@ -186,7 +186,7 @@ void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
 			   cache_L1[index_i][way_i].data[m]=data;
 			   data >>= 8;
 		   }
-		   hwaddr_write(((addr+0x40)>>6)<<6,offset_i+len-64,data);		    
+		   hwaddr_write((addr+0x40)&0xffffffc0,offset_i+len-64,data);		    
 		    
 		}
 	}
