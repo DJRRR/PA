@@ -15,7 +15,7 @@ typedef struct{
 	unsigned int offset:6;
 	union {
 	uint8_t data[64];
-	uint64_t data_buf[8];
+	uint32_t data_buf[16];
 	};	
 }Cache_L1;
 
@@ -144,8 +144,8 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 //			cache_L1[index_i][i_i].data[q]=dram_read(addr_new+q,1);
 		//	system("pause");
 //		}	
-        for(q=0;q<8;q++){//use data buf
-			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*8,8);
+        for(q=0;q<16;q++){//use data buf
+			cache_L1[index_i][i_i].data_buf[q]=dram_read(addr_new+q*4,4);
 		}
 		return hwaddr_read(addr,len);
 	}
