@@ -126,7 +126,7 @@ bool find_cache_L2(hwaddr_t addr,size_t len){
 }
 
 
-uint32_t read_cache_L1(hwaddr_t addr,size_t len){
+uint32_t read_cache(hwaddr_t addr,size_t len){
 	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
@@ -214,7 +214,7 @@ uint32_t read_cache_L1(hwaddr_t addr,size_t len){
 
 
 
-void  write_cache_L1(hwaddr_t addr, size_t len, uint32_t data){
+void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 	unsigned int offset_i=addr&0x3f;
 //	unsigned int index_i=(addr&0x1fc0)>>6;
 //	unsigned int tag_i=(addr&0xfffe000)>>13;
