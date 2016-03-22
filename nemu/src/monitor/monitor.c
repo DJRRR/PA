@@ -1,5 +1,4 @@
 #include "nemu.h"
-//#include "common.h"//add
 #include <memory/cache.h>
 
 #define ENTRY_START 0x100000
@@ -75,6 +74,22 @@ static void load_entry() {
 	assert(ret == 1);
 	fclose(fp);
 }
+void init_cr0(){//shi dizhi moshi
+	cpu.cr0.protect_enable=0;
+	cpu.cr0.monitor_coprocessor=0;
+	cpu.cr0.emulation=0;
+	cpu.cr0.task_switched=0;
+	cpu.cr0.extension_type=0;
+	cpu.cr0.numeric_error=0;
+	cpu.cr0.pad0=0;
+	cpu.cr0.write_protect=0;
+	cpu.cr0.pad1=0;
+	cpu.cr0.alignment_mask=0;
+	cpu.cr0.pad2=0;
+	cpu.cr0.no_write_through=1;
+	cpu.cr0.cache_disable=1;
+	cpu.cr0.paging=0;
+}
 
 void restart() {
 	/* Perform some initialization to restart a program */
@@ -88,9 +103,11 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
-	cpu.EFLAGS=0x00000002;
+
+	cpu.EFLAGS=0x00000002;//init eflags
 	init_cache_L1();//init cache
 	init_cache_L2();
+	init_cr0();//init cr0
   //  printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
 	/* Initialize DRAM. */
 	init_ddr3();
