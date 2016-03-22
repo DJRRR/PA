@@ -3,7 +3,7 @@
 #define instr lgdt
 
 static void do_execute(){
-	printf("0x%X\n",instr_fetch(cpu.eip+1,4));
+	printf("0x%X\n",instr_fetch(cpu.eip+2,4));
 	if(ops_decoded.is_data_size_16){
 
 
