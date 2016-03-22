@@ -3,7 +3,7 @@
 #define instr lidt
 
 static void do_execute(){
-	printf("0x%.2X\n",ops_decoded.opcode);
+	printf("0x%.2X\n",instr_fetch(cpu.eip+1,1));
 	print_asm_template1();
 }
 
