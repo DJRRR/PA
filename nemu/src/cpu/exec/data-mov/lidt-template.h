@@ -3,7 +3,10 @@
 #define instr lidt
 
 static void do_execute(){
-	printf("0x%.2X\n",instr_fetch(cpu.eip+1,1));
+	if(ops_decoded.is_data_size_16){
+	}
+	else{
+	}
 	print_asm_template1();
 }
 
