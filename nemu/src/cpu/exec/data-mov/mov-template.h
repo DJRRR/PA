@@ -34,9 +34,12 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 make_helper(concat(mov_r2cr_,SUFFIX)){
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
 	if(judge==0xc0){//cr0
-	//	cpu.cr0.val=REG(op_sr
+		cpu.cr0.val=REG(R_EAX);
+		print_asm("mov %%%s , cr0",REG_NAME(R_EAX));
 	}
 	else if(judge==0xd8){//cr3
+		cpu.cr3.val=REG(R_EAX);
+		print_asm("mov %%%s , cr3",REG_NAME(R_EAX));
 	}
 	return 2;
 }
