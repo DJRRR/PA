@@ -20,12 +20,12 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 	if(judge==0xc0){//cr0
 		REG(R_EAX)=cpu.cr0.val;
 		puts("1");
-		print_asm("mov cr0 ,  %%%s",REG_NAME(R_EAX));
+	//	print_asm("mov cr0 ,  %%%s",REG_NAME(R_EAX));
 
 	}
 	else if(judge==0xd8){//cr3
 		REG(R_EAX)=cpu.cr3.val;
-		print_asm("mov cr3 , %%%s",REG_NAME(R_EAX));
+	//	print_asm("mov cr3 , %%%s",REG_NAME(R_EAX));
 	}
 //	printf("%%%s\n",REG_NAME(op_src->reg));
 	return 2;
