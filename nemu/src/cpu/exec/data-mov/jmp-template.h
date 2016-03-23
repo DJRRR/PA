@@ -55,7 +55,10 @@ make_instr_helper(i)
 make_instr_helper(rm)
 
 
-
+make_helper(concat(jmp_ptr_,SUFFIX)){
+	printf("%d\n",DATA_BYTE);
+	return DATA_BYTE+3;
+}
 #include "cpu/exec/template-end.h"
 
 
