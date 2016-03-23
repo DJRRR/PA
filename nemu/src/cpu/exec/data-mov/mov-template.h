@@ -17,12 +17,10 @@ make_instr_helper(rm)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
-	printf("0x%.2X\n",judge);
-	printf("cr2r\n");
+//	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
 		REG(R_EAX)=cpu.cr0.val;
-		printf("cr2r1\n");
-	//	print_asm("mov cr0 ,  %%%s",REG_NAME(R_EAX));
+		print_asm("mov cr0 ,  %%%s",REG_NAME(R_EAX));
 
 	}
 	else if(judge==0xd8){//cr3
