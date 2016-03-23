@@ -4,7 +4,11 @@
 
 static void do_execute(){
 	printf("0x%X\n",instr_fetch(cpu.eip+3,4));
+	hwaddr_t addr=instr_fetch(cpu.eip+3,4);
+	printf("0x%X\n",addr);
 	if(ops_decoded.is_data_size_16){
+		cpu.gdtr.bound=swaddr_read(addr,2);
+		cpu.gdtr.base=swaddr_read(addr+2,3);
 
 
 	}
