@@ -52,6 +52,8 @@ typedef struct {
 			unsigned int tl:1;
 			unsigned int index:13;
 		};
+		uint16_t val;
+
 	}CS,DS,ES,SS;
 	struct {
 		uint16_t bound;
