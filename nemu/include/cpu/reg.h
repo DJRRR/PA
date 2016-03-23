@@ -65,7 +65,7 @@ typedef struct {
 		union{
 			struct{
 				unsigned int base23_16:8;
-				unsigned int accessed:1;
+				unsigned int A:1;
 				unsigned int type:3;
 				unsigned int S_type:1;
 				unsigned int DPL:2;//tequanji

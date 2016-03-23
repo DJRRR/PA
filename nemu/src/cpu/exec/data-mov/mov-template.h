@@ -44,7 +44,20 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
-	printf("0x%.2X\n",judge);
+//	printf("0x%.2X\n",judge);
+	if(judge==0xd8){//ds
+
+
+	}
+	else if(judge==0xc0){//es
+
+	}
+	else if(judge==0xd0){//ss
+
+	}
+	else{//cs
+
+	}
 	return 2;
 
 }
