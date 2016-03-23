@@ -19,7 +19,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 	printf("0x%.2X\n",judge);
 	uint32_t len=decode_rm_l(cpu.eip+1);
 	printf("%d\n",len);
-	return 3;
+	return len+1;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
@@ -27,7 +27,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	printf("0x%.2X\n",judge);
 	uint32_t len=decode_rm_l(cpu.eip+1);
 	printf("%d\n",len);
-	return 3;
+	return len+1;
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
