@@ -15,14 +15,18 @@ make_instr_helper(rm2r)
 //make_instr_helper(r2cr)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
-	uint32_t opcode=instr_fetch(cpu.eip+1,1);
-	printf("0x%.2X\n",opcode);
+	uint32_t judge=instr_fetch(cpu.eip+1,1);
+	printf("0x%.2X\n",judge);
+	uint32_t len=decode_rm_l(cpu.eip+1);
+	printf("%d\n",len);
 	return 3;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
-	uint32_t opcode=instr_fetch(cpu.eip+1,1);
-	printf("0x%.2X\n",opcode);
+	uint32_t judge=instr_fetch(cpu.eip+1,1);
+	printf("0x%.2X\n",judge);
+	uint32_t len=decode_rm_l(cpu.eip+1);
+	printf("%d\n",len);
 	return 3;
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
