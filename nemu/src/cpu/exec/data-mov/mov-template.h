@@ -18,17 +18,22 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
 //	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
-		OPERAND_W(op_dest,cpu.cr0.val);
+	//	REG(op_src->reg)=cpu.cr0.val;
+		print_asm("mov cr0 ,  %%%s",REG_NAME(op_src->reg));
 
 	}
 	else if(judge==0xd8){//cr3
+//		REG(op_src->reg)=cpu.cr3.val;
+		print_asm("mov cr3 , %%%s",REG_NAME(op_src->reg));
 	}
+	printf("%s\n",REG_NAME(op_src->reg));
 	return 2;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
 	if(judge==0xc0){//cr0
+	//	cpu.cr0.val=REG(op_sr
 	}
 	else if(judge==0xd8){//cr3
 	}
