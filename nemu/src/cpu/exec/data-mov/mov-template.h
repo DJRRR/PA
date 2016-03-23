@@ -37,11 +37,11 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	if(judge==0xc0){//cr0
 		cpu.cr0.val=REG(R_EAX);
 		puts("2");
-		print_asm("mov %%%s , cr0",REG_NAME(R_EAX));
+		print_asm("mov %%eax , cr0");
 	}
 	else if(judge==0xd8){//cr3
 		cpu.cr3.val=REG(R_EAX);
-		print_asm("mov %%%s , cr3",REG_NAME(R_EAX));
+		print_asm("mov %%eax , cr3");
 	}
 	return 2;
 }
