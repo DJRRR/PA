@@ -14,7 +14,6 @@ static void do_execute(){
 		cpu.gdtr.bound=swaddr_read(addr,2)&0x0000ffff;
 		cpu.gdtr.base=swaddr_read(addr+2,4);
 	}
-	printf("here!\n");
 	print_asm_template1();
 }
 
