@@ -53,8 +53,34 @@ typedef struct {
 			unsigned int index:13;
 		};
 		uint16_t val;
-
 	}CS,DS,ES,SS;
+	struct{
+		union{
+			struct{
+				unsigned int limit15_0:16;
+				unsigned int base16_0:16;
+			};
+			uint32_t val1;
+		};
+		union{
+			struct{
+				unsigned int base23_16:8;
+				unsigned int accessed:1;
+				unsigned int type:3;
+				unsigned int S_type:1;
+				unsigned int DPL:2;//tequanji
+				unsigned int S_present:1;
+				unsigned int limit19_16:4;
+				unsigned int AVL:1;
+				unsigned int O:1;
+				unsigned int X:1;
+				unsigned int G:1;
+				unsigned int base31_24:8;
+			};
+			uint32_t val2;
+		};
+	}CS_DES,DS_DES,ES_DES,SS_DES;
+
 	struct {
 		uint16_t bound;
 		uint32_t base;
