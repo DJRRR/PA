@@ -26,7 +26,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 //		REG(op_src->reg)=cpu.cr3.val;
 		print_asm("mov cr3 , %%%s",REG_NAME(op_src->reg));
 	}
-	printf("%s\n",REG_NAME(op_src->reg));
+	printf("%%%s\n",REG_NAME(op_src->reg));
 	return 2;
 
 }
