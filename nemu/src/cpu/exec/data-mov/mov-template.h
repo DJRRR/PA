@@ -11,6 +11,7 @@ make_instr_helper(i2r)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
+make_instr_helper(rm)
 //make_instr_helper(cr2r)
 //make_instr_helper(r2cr)
 
