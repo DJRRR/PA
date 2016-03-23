@@ -56,7 +56,8 @@ make_instr_helper(rm)
 
 
 make_helper(concat(jmp_ptr_,SUFFIX)){
-	printf("%d\n",DATA_BYTE);
+	hwaddr_t addr=instr_fetch(cpu.eip+1,DATA_BYTE);
+	printf("0x%.8X\n",addr);
 	return DATA_BYTE+3;
 }
 #include "cpu/exec/template-end.h"
