@@ -43,7 +43,10 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	return 2;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){
-	return 1;
+	uint32_t judge=instr_fetch(cpu.eip+1,1);
+	printf("0x%.2X\n",judge);
+	return 2;
+
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
