@@ -19,6 +19,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 //	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
 	//	REG(op_src->reg)=cpu.cr0.val;
+		puts("1");
 		print_asm("mov cr0 ,  %%%s",REG_NAME(op_src->reg));
 
 	}
