@@ -11,7 +11,20 @@ make_instr_helper(i2r)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
+//make_instr_helper(cr2r)
+//make_instr_helper(r2cr)
 
+make_helper(concat(mov_cr2r_,SUFFIX)){
+	uint32_t opcode=instr_fetch(cpu.eip+1,1);
+	printf("0x%.2X\n",opcode);
+	return 3;
+
+}
+make_helper(concat(mov_r2cr_,SUFFIX)){
+	uint32_t opcode=instr_fetch(cpu.eip+1,1);
+	printf("0x%.2X\n",opcode);
+	return 3;
+}
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
 	MEM_W(addr, REG(R_EAX));
