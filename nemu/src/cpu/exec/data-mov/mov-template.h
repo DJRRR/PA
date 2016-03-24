@@ -47,6 +47,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	printf("0x%.2X\n",judge);
 	if(judge==0xd8){//ds
 		cpu.DS.val=REG(op_src->reg);
+		printf("1111\n");
 		uint8_t addr1=cpu.DS.index;
 		cpu.DS_DES.limit15_0=lnaddr_read(cpu.gdtr.base+(addr1<<3),2);//16
 		cpu.DS_DES.base15_0=lnaddr_read(cpu.gdtr.base+(addr1<<3)+2,2);//16
