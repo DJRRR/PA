@@ -58,7 +58,7 @@ typedef struct {
 		union{
 			struct{
 				unsigned int limit15_0:16;
-				unsigned int base16_0:16;
+				unsigned int base15_0:16;
 			};
 			uint32_t val1;
 		};
