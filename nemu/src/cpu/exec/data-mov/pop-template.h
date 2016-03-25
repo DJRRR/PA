@@ -11,6 +11,7 @@ static void do_execute(){
 		OPERAND_W(op_dest,cpu.esp);
 		cpu.esp += 4;
 	}*/
+	int current_sreg=3;
 	OPERAND_W(op_src,MEM_R(cpu.esp));//unchecked
 	cpu.esp += DATA_BYTE;
     print_asm_template1();

@@ -3,6 +3,7 @@
 #define instr call
 
 static void do_execute(){
+	int current_sreg=0;
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;

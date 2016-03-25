@@ -7,12 +7,12 @@ static void do_execute(){
 	hwaddr_t addr=instr_fetch(cpu.eip+3,4);
 //	printf("0x%X\n",addr);
 	if(ops_decoded.is_data_size_16){
-		cpu.gdtr.limit=swaddr_read(addr,2)&0x0000ffff;
-		cpu.gdtr.base=swaddr_read(addr+2,3)&0x00ffffff;
+		cpu.gdtr.limit=swaddr_read(addr,2,0)&0x0000ffff;
+		cpu.gdtr.base=swaddr_read(addr+2,3,0)&0x00ffffff;
 	}
 	else{
-		cpu.gdtr.limit=swaddr_read(addr,2)&0x0000ffff;
-		cpu.gdtr.base=swaddr_read(addr+2,4);
+		cpu.gdtr.limit=swaddr_read(addr,2,0)&0x0000ffff;
+		cpu.gdtr.base=swaddr_read(addr+2,4,0);
 	}
 	print_asm_template1();
 }

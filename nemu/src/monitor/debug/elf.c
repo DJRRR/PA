@@ -130,14 +130,14 @@ void backtrace(unsigned int ebp,unsigned int eip){
 		return ;
 	}
 	for(j=1;j<=4;j++){
-		var=swaddr_read(work+4+4*j,4);
+		var=swaddr_read(work+4+4*j,4,3);
 		printf("i%d : %u ",j,var);
 	}
 	printf("\n");
 	while(work!=0){
-		ret=swaddr_read(work+4,4);
+		ret=swaddr_read(work+4,4,3);
 			for(i=0;i<nr_symtab_entry;i++){
-				if(swaddr_read(work,4)==0){
+				if(swaddr_read(work,4,3)==0){
 					break;
 				};
 			//	if((symtab[i].st_info&0x11)==2){
@@ -146,7 +146,7 @@ void backtrace(unsigned int ebp,unsigned int eip){
 						break;
 			}
 			}
-			work=swaddr_read(work,4);
+			work=swaddr_read(work,4,3);
 		}
 	}
 
