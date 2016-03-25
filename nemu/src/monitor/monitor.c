@@ -86,8 +86,8 @@ void init_cr0(){//shi dizhi moshi
 	cpu.cr0.pad1=0;
 	cpu.cr0.alignment_mask=0;
 	cpu.cr0.pad2=0;
-	cpu.cr0.no_write_through=1;
-	cpu.cr0.cache_disable=1;
+	cpu.cr0.no_write_through=0;
+	cpu.cr0.cache_disable=0;
 	cpu.cr0.paging=0;
 }
 

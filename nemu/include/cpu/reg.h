@@ -79,14 +79,14 @@ typedef struct {
 			};
 			uint32_t val2;
 		};
-	}CS_DES,DS_DES,ES_DES,SS_DES;
+	}DES[4];//0->cs 1->ds 2->es 3->ss
 
 	struct {
-		uint16_t bound;
+		uint16_t limit;
 		uint32_t base;
 	}gdtr;
 	struct {
-		uint16_t bound;
+		uint16_t limit;
 		uint32_t base;
 	}idtr;
 
