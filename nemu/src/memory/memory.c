@@ -17,9 +17,24 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	dram_write(addr, len, data);
 	write_cache(addr,len,data);
 }
+hwaddr_t page_translate(lnaddr_t addr){
+	hwaddr_t res;
+	res=addr;
+	return res;
+}
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+	//return hwaddr_read(addr, len);
+#ifdef DEBUG
+	assert(len==1 || len==2 ||len==4);
+#endif
+	if(0){//data cross the page boundary
+		assert(0);
+	}
+	else{
+		hwaddr_t hwaddr = page_translate(addr);
+		return hwaddr_read(hwaddr,len);
+	}
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
