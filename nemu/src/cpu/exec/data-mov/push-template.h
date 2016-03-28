@@ -18,7 +18,7 @@ static void do_execute(){
 	uint32_t n=4;
 	if(ops_decoded.is_data_size_16) n=2;
 	cpu.esp -= n;
-	swaddr_write(cpu.esp,n,op_src->val,3);
+	swaddr_write(cpu.esp,n,op_src->val,S_SS);
 	print_asm_template1();
 }
 
