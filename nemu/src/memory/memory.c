@@ -38,14 +38,20 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-	hwaddr_write(addr, len, data);
+//	hwaddr_write(addr, len, data);
+#ifdef DEBUG
+	assert(len==1 || len==2 || len==4);
+#endif
+	if(0){//data cross the page boundary
+		assert(0);
+	}
+	else{
+		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_write(hwaddr,len,data);
+	}
 }
+
 lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
-/*	lnaddr_t res;
-	if(cpu.cr0.protect_enable==0){
-		res=addr;
-		return res;
-	}*/
 #ifdef DEBUG
 	assert(current_sreg==S_CS || current_sreg==S_DS || current_sreg==S_ES || current_sreg==S_SS);
 #endif
