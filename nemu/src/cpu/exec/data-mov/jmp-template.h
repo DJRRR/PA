@@ -58,7 +58,7 @@ make_instr_helper(rm)
 make_helper(concat(jmp_ptr_,SUFFIX)){
 	hwaddr_t addr1=instr_fetch(cpu.eip+1,DATA_BYTE);
 	//printf("0x%.8X\n",addr);
-	hwaddr_t addr2=instr_fetch(cpu.eip+DATA_BYTE+1,2);
+	hwaddr_t addr2=instr_fetch(cpu.eip+DATA_BYTE+1,S_ES);
 	cpu.eip = addr1;
 //	cpu.eip -= DATA+BYTE+3;
 	cpu.CS.val=addr2&0x0000ffff;
