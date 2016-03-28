@@ -3,8 +3,8 @@
 #define instr cmps
 
 make_helper(concat(cmps_m_,SUFFIX)){
-	DATA_TYPE src=swaddr_read(cpu.esi,DATA_BYTE,1);
-	DATA_TYPE dest=swaddr_read(cpu.edi,DATA_BYTE,2);
+	DATA_TYPE src=swaddr_read(cpu.esi,DATA_BYTE,S_DS);
+	DATA_TYPE dest=swaddr_read(cpu.edi,DATA_BYTE,S_ES);
 	DATA_TYPE result=dest-src;
 	DATA_TYPE flag_dest=MSB(dest)&1;
 	DATA_TYPE flag_src=MSB(src)&1;
