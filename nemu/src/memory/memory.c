@@ -32,7 +32,7 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
 		return res;
 	}
 #ifdef DEBUG
-	assert(current_sreg==0 || current_sreg==1 || current_sreg==2 || current_sreg==3);
+	assert(current_sreg==S_CS || current_sreg==S_DS || current_sreg==S_ES || current_sreg==S_SS);
 #endif
 	uint32_t addr15_0=cpu.DES[current_sreg].base15_0;
 	uint32_t addr23_16=cpu.DES[current_sreg].base23_16;
