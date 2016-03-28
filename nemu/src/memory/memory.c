@@ -41,14 +41,19 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	hwaddr_write(addr, len, data);
 }
 lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
+/*	lnaddr_t res;
+	if(cpu.cr0.protect_enable==0){
+		res=addr;
+		return res;
+	}*/
+#ifdef DEBUG
+	assert(current_sreg==S_CS || current_sreg==S_DS || current_sreg==S_ES || current_sreg==S_SS);
+#endif
 	lnaddr_t res;
 	if(cpu.cr0.protect_enable==0){
 		res=addr;
 		return res;
 	}
-#ifdef DEBUG
-	assert(current_sreg==S_CS || current_sreg==S_DS || current_sreg==S_ES || current_sreg==S_SS);
-#endif
 	uint32_t addr15_0=cpu.DES[current_sreg].base15_0;
 	uint32_t addr23_16=cpu.DES[current_sreg].base23_16;
 	uint32_t addr31_24=cpu.DES[current_sreg].base31_24;
