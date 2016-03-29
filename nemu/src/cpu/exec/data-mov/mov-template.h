@@ -38,6 +38,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	}
 	else if(judge==0xd8){//cr3
 		cpu.cr3.val=REG(R_EAX);
+		init_page_L1();
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
 	return 2;
