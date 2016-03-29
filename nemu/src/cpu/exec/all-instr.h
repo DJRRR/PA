@@ -17,6 +17,7 @@
 #include "data-mov/cmov.h"//PA2.3
 #include "data-mov/lgdt.h"
 #include "data-mov/lidt.h"
+#include "data-mov/smsw.h"
 //#include "data-mov/lea.h"
 
 #include "arith/sub.h"//PA2.1
