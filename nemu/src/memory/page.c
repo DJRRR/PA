@@ -58,7 +58,8 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 			assert(0);
 		}
 		if((uint32_t)page_L1[way_i].offset+len<=4096){
-			res=page_L1[way_i].offset+(page_L1[way_i].physical&0xfffff000);
+			uint32_t temp1=page_L1[way_i].physical<<12;
+			res=page_L1[way_i].offset+temp1;
 			return res;
 		}
 		else{
@@ -76,7 +77,8 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 		unsigned int dic_addr=hwaddr_read((cpu.cr3.page_directory_base<<12)+page_dic*4,4)&0xfffff000;
 		unsigned int physic_addr=hwaddr_read(dic_addr+page_table*4,4);
 		page_L1[i_i].physical=(physic_addr>>12)&0xfffff;
-		res=page_L1[i_i].offset+(page_L1[i_i].physical<<12);
+		unsigned int temp2=page_L1[i_i].physical<<12;
+		res=page_L1[i_i].offset+temp2;
 		return res;
 	}
 }
