@@ -19,10 +19,11 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	hwaddr_t res;
-	res=addr;
 	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
+		res=read_page_L1(addr,len);
 	}
 	else{
+		res=addr;
 	}
 	return res;
 }
