@@ -24,7 +24,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 
 	}
 	else if(judge==0xd8){//cr3
-		REG(R_EAX)=cpu.cr3.val;
+		REG(op_src->reg)=cpu.cr3.val;
 		print_asm("mov cr3,%%%s",REG_NAME(op_dest->reg));
 	}
 	return 2;
