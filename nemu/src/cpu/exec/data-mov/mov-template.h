@@ -40,7 +40,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 		cpu.cr3.val=REG(R_EAX);
 		printf("here!\n");
 		init_page_L1();
-		print_asm("mov %%%s,cr3",REG_NAME(R_EAX));
+		print_asm("mov %%%s,cr3",REG_NAME(op_src->val));
 	}
 	return 2;
 }
