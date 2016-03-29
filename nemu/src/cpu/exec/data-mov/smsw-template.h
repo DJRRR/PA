@@ -4,6 +4,7 @@
 
 static void do_execute(){
 	printf("here!\n");
+	OPERAND_W(op_src,cpu.cr0.val);
 	print_asm_template1();
 }
 
