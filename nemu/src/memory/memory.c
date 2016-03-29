@@ -17,9 +17,13 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	dram_write(addr, len, data);
 	write_cache(addr,len,data);
 }
-hwaddr_t page_translate(lnaddr_t addr){
+hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	hwaddr_t res;
 	res=addr;
+	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
+	}
+	else{
+	}
 	return res;
 }
 
@@ -32,7 +36,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		assert(0);
 	}
 	else{
-		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_t hwaddr = page_translate(addr,len);
 		return hwaddr_read(hwaddr,len);
 	}
 }
@@ -46,7 +50,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		assert(0);
 	}
 	else{
-		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_t hwaddr = page_translate(addr,len);
 		hwaddr_write(hwaddr,len,data);
 	}
 }
