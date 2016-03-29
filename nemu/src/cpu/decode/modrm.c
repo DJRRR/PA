@@ -4,10 +4,10 @@
 int load_addr(swaddr_t eip, ModR_M *m, Operand *rm) {
 	assert(m->mod != 3);
 	if(m->reg==R_ESP||m->reg==R_EBP){
-		rm->sreg=3;
+		rm->sreg=S_SS;
 	}
 	else{
-		rm->sreg=1;
+		rm->sreg=S_DS;
 	}
 	int32_t disp;
 	int instr_len, disp_offset, disp_size = 4;
