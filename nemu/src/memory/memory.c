@@ -19,7 +19,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	write_cache(addr,len,data);
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
-	return read_page(addr);
+//	return read_page(addr);
+	return addr;
 //	if(cpu.eip>=0x100c44){
 //		printf("stop\n");
 //	}
