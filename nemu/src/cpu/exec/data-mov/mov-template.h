@@ -16,6 +16,8 @@ make_instr_helper(rm)
 //make_instr_helper(r2cr)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
+	int len=decode_rm_l(cpu.eip+1);
+	printf("%d\n",len);
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
 //	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
