@@ -4,6 +4,7 @@
 
 static void do_execute(){
 	int current_sreg=S_CS;
+	printf("0x%x\n",cpu.eip);
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;
