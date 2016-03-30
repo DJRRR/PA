@@ -22,7 +22,7 @@ void init_page_L1(){
 bool find_page_L1(lnaddr_t addr,size_t len){
 	unsigned int tag_i=(addr>>12)&0x000fffff;
 	int i=0;
-	for(i=0;i<32;i++){
+	for(i=0;i<64;i++){
 		if(page_L1[i].tag==tag_i){
 			if(page_L1[i].valid==1){
 				return true;
@@ -35,12 +35,12 @@ bool find_page_L1(lnaddr_t addr,size_t len){
 hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 	bool flag=find_page_L1(addr,len);
 	hwaddr_t res;
-	unsigned int tag_i=(addr>>12)&0x000fffff;
+	unsigned int tag_i=(addr>>12);
 	if(flag==true){//hit 
 		bool check=false;
 		int i=0;
 		int way_i=-1;
-		for(i=0;i<32;i++){
+		for(i=0;i<64;i++){
 			if(tag_i==page_L1[i].tag&&page_L1[i].valid==1){
 				way_i=i;
 				check=true;
@@ -64,13 +64,13 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 	}
 	else{//miss
 		srand((unsigned)time(0)+clock());
-		int i_i=rand()%32;
+		int i_i=rand()%64;
 		page_L1[i_i].valid=1;
 		page_L1[i_i].offset=addr&0xfff;
-		page_L1[i_i].tag=(addr>>12)&0x000fffff;
-		unsigned int page_dic=(addr>>22)&0x3ff;
+		page_L1[i_i].tag=(addr>>12);
+		unsigned int page_dic=(addr>>22);
 		unsigned int page_table=(addr>>12)&0x3ff;
-		unsigned int dic_addr=hwaddr_read((cpu.cr3.page_directory_base<<12)+page_dic*4,4);
+		unsigned int dic_addr=hwaddr_read((cpu.cr3.page_directory_base<<12)+page_dic*4,4)>>12;
 		page_L1[i_i].physical=hwaddr_read((dic_addr<<12)+page_table*4,4);
 		unsigned int temp2=page_L1[i_i].physical>>12;
 		res=page_L1[i_i].offset+(temp2<<12);
