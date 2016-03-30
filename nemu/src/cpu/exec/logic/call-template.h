@@ -12,6 +12,7 @@ static void do_execute(){
 			cpu.eip +=op_src->val&0xffff;
 		}
 		else{
+			printf("here\n");
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
 			cpu.eip+=op_src->val;
