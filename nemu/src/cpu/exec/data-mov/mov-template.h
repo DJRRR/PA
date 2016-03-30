@@ -40,7 +40,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 //	}
    if(judge==0xd8){//cr3
 		cpu.cr3.val=REG(op_src->reg);
-		printf("0x%x\n",cpu.cr3.val&0xfffff000);
+		printf("aaaaa:0x%x\n",cpu.cr3.val&0xfffff000);
 		init_page_L1();
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
