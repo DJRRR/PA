@@ -48,6 +48,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	   cpu.cr0.val=REG(op_src->reg);
 	   printf("test. mov r2cr2\n");
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
+	   printf("test 3\n");
    }
 	return 1+len;
 }
