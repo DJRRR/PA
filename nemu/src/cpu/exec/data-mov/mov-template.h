@@ -16,6 +16,8 @@ make_instr_helper(rm)
 //make_instr_helper(r2cr)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
+	int len=decode_rm_l(cpu.eip);
+	printf("cr2r len:%d\n",len);
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
 	if(judge==0xc0){//cr0
 		REG(op_dest->reg)=cpu.cr0.val;
