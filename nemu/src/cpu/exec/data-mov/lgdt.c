@@ -1,15 +1,18 @@
 #include "cpu/exec/helper.h"
-
-#define DATA_BYTE 1
-#include "lgdt-template.h"
-#undef DATA_BYTE
-
-#define DATA_BYTE 2
-#include "lgdt-template.h"
-#undef DATA_BYTE
-
-#define DATA_BYTE 4
-#include "lgdt-template.h"
-#undef DATA_BYTE
-
-make_helper_v(lgdt_i)
+#include "cpu/decode/modrm.h"
+make_helper(lgdt_m){
+	if(instr_fetch(eip+1,1)==0x15){
+		swaddr_t addr=instr_fetch(eip+2,4);
+		cpu.gdtr.limit=swaddr_read(addr,2,S_SS);
+		cpu.gdtr.base=swaddr_read(addr+2,4,S_SS);
+		print_asm("lgdt");
+		return 6;
+	}
+	else{
+		cpu.gdtr.limit=swaddr_read(cpu.eax,2,S_SS);
+		cpu.gdtr.base=swaddr_read(cpu.eax,2,S_SS);
+		print_asm("lgdt (%%eax)");
+		return 2;
+	}
+	return 0;
+}
