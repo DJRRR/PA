@@ -53,6 +53,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+3,1);
+	int len=decode_rm_l(cpu.eip+2);
 	printf("0x%.2X\n",judge);
 	if(judge==0xd8){//ds
 		cpu.DS.val=op_src->val;
@@ -92,7 +93,8 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		print_asm("mov %%%s,ss",REG_NAME(op_src->reg));
 
 	}
-	else{//cs
+	else{//cs error assert
+		assert(0);
 	//	cpu.CS.val=REG(op_src->reg);
 		cpu.CS.val=op_src->val;
 	//	printf("4444\n");
@@ -105,7 +107,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		print_asm("mov %%%s,cs",REG_NAME(op_src->reg));
 
 	}
-	return 2;
+	return 1+len;
 
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
