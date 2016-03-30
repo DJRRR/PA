@@ -35,6 +35,7 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 		res=offset+(page_data&0xfffff000);
 		if(cpu.eip==0x80480ad){
 			printf("addr:0x%x\n",addr);
+			printf("res:0x%x\n",res);
 		}
 	}
 	else{
