@@ -102,7 +102,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		print_asm("mov %%%s,%%cs",REG_NAME(op_src->reg));
 
 	}
-	return 3;
+	return 2;
 
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
