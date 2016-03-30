@@ -23,6 +23,7 @@ static void do_execute(){
 			if(cpu.eip==0x80480ad){
 				printf("here2\n");
 				printf("call : 0x%x\n",addr);
+				printf("esp : 0x%x\n",cpu.esp);
 			}
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
