@@ -30,17 +30,17 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
-	uint32_t judge=instr_fetch(cpu.eip+2,1);
-   if(judge==0xd8){//cr3
-		cpu.cr3.val=REG(op_src->reg);
-		init_TLB();
-		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
+	ModR_M m;
+	m.val=instr_fetch(eip+1,1);
+	switch(m.reg){
+		case 0:cpu.cr0.val=reg_l(m.R_M);break;
+		case 3:{
+				   cpu.cr3.val=reg_l(m.R_M);
+				   init_TLB();
+				   break;
+			   }
 	}
-   else{
-	//	   printf("0x%x\n",cpu.eip);
-	   cpu.cr0.val=REG(op_src->reg);
-	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
-   }
+	print_asm("mov\t %%%s,%%cr%d",regsl[m.R_M],m.reg);
 	return 2;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
