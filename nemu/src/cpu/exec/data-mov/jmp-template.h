@@ -56,7 +56,7 @@ make_instr_helper(rm)
 
 
 make_helper(concat(jmp_ptr_,SUFFIX)){
-	hwaddr_t addr1=instr_fetch(cpu.eip+1,DATA_BYTE);
+/*	hwaddr_t addr1=instr_fetch(cpu.eip+1,DATA_BYTE);
 	//printf("0x%.8X\n",addr);
 	hwaddr_t addr2=instr_fetch(cpu.eip+DATA_BYTE+1,S_ES);
 	cpu.eip = addr1;
@@ -65,15 +65,18 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	cpu.eip -= DATA_BYTE+3;
 	if(DATA_BYTE==2){
 		cpu.eip &= 0x0000ffff;
-	}
+	}*/
+	cpu.eip=instr_fetch(eip+1,4);
+	cpu.eip -= 7;
+	cpu.CS.val=instr_fetch(eip+5,2);
 	uint32_t addr3=cpu.CS.index;
 	cpu.DES[0].limit15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3),2);
 	cpu.DES[0].base15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3)+2,2);
 	cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+4,1);
 	cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
 	cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr3<<3)+7,1);
-	print_asm("ljmp $0x%x,0x%x",addr2,cpu.eip+7);
-	return DATA_BYTE+3;
+	print_asm("ljmp $0x%x,0x%x",cpu.CS.val,cpu.eip);
+	return 7;
 }
 #include "cpu/exec/template-end.h"
 
