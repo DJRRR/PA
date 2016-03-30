@@ -66,7 +66,7 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 		cpu.eip &= 0x0000ffff;
 	}
 	print_asm("ljmp $0x%x,0x%x",addr2,addr1);
-	cpu.eip -= DATA_BYTE+3;
+	cpu.eip -= 7;
 	return DATA_BYTE+3;
 }
 #include "cpu/exec/template-end.h"
