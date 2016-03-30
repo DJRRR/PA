@@ -20,6 +20,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 //	printf("cr2r len:%d\n",len);
 	ModR_M m;
 	m.val=instr_fetch(eip+1,1);
+	printf("%d\n",m.reg);
 	switch(m.reg){
 		case 0:reg_l(m.R_M)=cpu.cr0.val;break;
 		case 3:reg_l(m.R_M)=cpu.cr3.val;break;
