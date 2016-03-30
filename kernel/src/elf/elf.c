@@ -60,8 +60,8 @@ uint32_t loader() {
 			if(brk < new_brk) { brk = new_brk; }
 			uint32_t vaddr=mm_malloc(ph->p_vaddr,ph->p_memsz);
 #endif
-			ramdisk_read((void *)(vaddr),ELF_OFFSET_IN_DISK+ph->p_offset,ph->p_filesz);
-			memset((void *)(vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
+			ramdisk_read((void *)(vaddr),ph->p_offset,ph->p_filesz);
+			memset((void *)(vaddr+ph->p_filesz+ph->p_offset),0,ph->p_memsz-ph->p_filesz);
 		}
 	}
 
