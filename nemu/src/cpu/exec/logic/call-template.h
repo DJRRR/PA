@@ -23,11 +23,12 @@ static void do_execute(){
 			cpu.eip &= 0xffff;
 		}
 		else{
-	//		printf("here\n");
+			if(cpu.eip==0x80480ad){
+				printf("here2\n");
+			}
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
 			cpu.eip+=addr;
-	//		printf("here2\n");
 		}
 	}
 	if(ops_decoded.opcode==0xff){
