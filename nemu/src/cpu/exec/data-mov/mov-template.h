@@ -42,13 +42,13 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 //	}
 	printf("%d\n",len);
    if(judge==0xd8){//cr3
-		cpu.cr3.val=REG(R_EAX);
+		cpu.cr3.val=REG(op_src->reg);
 		printf("here!\n");
 		init_page_L1();
-		print_asm("mov %%%s,cr3",REG_NAME(R_EAX));
+		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
    else{
-	   cpu.cr0.val=REG(R_EAX);
+	   cpu.cr0.val=REG(op_src->reg);
 	   printf("test. mov r2cr\n");
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
    }
