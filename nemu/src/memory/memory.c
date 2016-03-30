@@ -25,7 +25,7 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
 		//res=read_page_L1(addr,len);
 		uint16_t dir=addr>>22;
-		uint16_t page=addr>>12;
+		uint16_t page=(addr>>12)&0x3ff;
 		uint16_t offset=addr&0xfff;
 		uint32_t base=hwaddr_read((cpu.cr3.page_directory_base<<12)+dir*4,4);
 		base=base>>12;
