@@ -33,7 +33,6 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
 	int len=decode_rm_l(cpu.eip+2);
-	printf("r2cr len : %d\n",len);
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
 //	if(judge==0xc0){//cr0
 //		cpu.cr0.val=REG(R_EAX);
@@ -45,6 +44,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
    else{
+	   printf("0x%x\n",cpu.eip);
 	   cpu.cr0.val=REG(op_src->reg);
 	   printf("test. mov r2cr\n");
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
