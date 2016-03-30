@@ -52,7 +52,6 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	return 1+len;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
-	int len=decode_rm_l(cpu.eip+2);
 	uint32_t judge=instr_fetch(cpu.eip+3,1);
 	if(judge==0xd8){//ds
 		cpu.DS.val=op_src->val;
@@ -106,7 +105,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		print_asm("mov %%%s,cs",REG_NAME(op_src->reg));
 
 	}
-	return 1+len;
+	return 2;
 
 }
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
