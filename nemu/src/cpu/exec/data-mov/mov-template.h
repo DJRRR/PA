@@ -44,13 +44,9 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
    else{
-	   printf("test 1\n");
 	   cpu.cr0.val=REG(op_src->reg);
-	   printf("test. mov r2cr2\n");
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
-	   printf("test 3\n");
    }
-   printf("4\n");
 	return 1+len;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
