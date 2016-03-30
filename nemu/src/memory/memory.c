@@ -82,6 +82,9 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data,uint32_t current_sreg
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+	if(cpu.eip==0x80480ad){
+		printf("here in memory.c\n");
+	}
 	lnaddr_t lnaddr = seg_translate(addr,len,current_sreg);
 	lnaddr_write(lnaddr, len, data);
 }
