@@ -62,6 +62,7 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	cpu.eip = addr1;
 //	cpu.eip -= DATA+BYTE+3;
 	cpu.CS.val=addr2&0x0000ffff;
+	cpu.eip -= DATA_BYTE+3;
 	if(DATA_BYTE==2){
 		cpu.eip &= 0x0000ffff;
 	}
@@ -71,8 +72,7 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+4,1);
 	cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
 	cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr3<<3)+7,1);
-	print_asm("ljmp $0x%x,0x%x",addr2,addr1);
-	cpu.eip -= (DATA_BYTE+3);
+	print_asm("ljmp $0x%x,0x%x",addr2,cpu.eip+7);
 	return DATA_BYTE+3;
 }
 #include "cpu/exec/template-end.h"
