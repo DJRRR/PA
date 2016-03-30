@@ -44,6 +44,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
    else{
+		   printf("0x%x\n",cpu.eip);
 	   cpu.cr0.val=REG(op_src->reg);
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
    }
