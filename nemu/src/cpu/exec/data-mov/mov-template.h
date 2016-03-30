@@ -46,7 +46,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
    else{
 	   printf("0x%x\n",cpu.eip);
 	   printf("0x%.2x\n",instr_fetch(cpu.eip+1,1));
-	   printf("0x%.2x\n",instr_fetch(cpu.eip+1,1));
+	   printf("0x%.2x\n",instr_fetch(cpu.eip+2,1));
 	   cpu.cr0.val=REG(op_src->reg);
 	   printf("test. mov r2cr\n");
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
