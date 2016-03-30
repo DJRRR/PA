@@ -33,7 +33,9 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 		uint32_t base=hwaddr_read((cpu.cr3.page_directory_base<<12)+dir*4,4);
 		uint32_t page_data=hwaddr_read(((base>>12)<<12)+page*4,4);
 		res=offset+((page_data>>12)<<12);
-		printf("0x%x\n",res);
+		if(cpu.eip==0x80480ad){
+			printf("addr:0x%x\n",addr);
+		}
 	}
 	else{
 		res=(hwaddr_t)addr;
