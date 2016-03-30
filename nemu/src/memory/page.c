@@ -14,7 +14,7 @@ typedef struct{
 		};
 	};
 	unsigned int offset:12;
-	unsigned int physical:20;
+	unsigned int physical;
 }Page_L1;
 
 Page_L1 page_L1[32];
@@ -58,8 +58,9 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 			assert(0);
 		}
 		if((uint32_t)page_L1[way_i].offset+len<=4096){
-			uint32_t temp1=page_L1[way_i].physical<<12;
-			res=page_L1[way_i].offset+temp1;
+			uint32_t offset=addr&0xfff;
+			uint32_t temp1=(page_L1[way_i].physical>>12);
+			res=offset+(temp1<<12);
 			return res;
 		}
 		else{
@@ -71,14 +72,14 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 		srand((unsigned)time(0)+clock());
 		int i_i=rand()%32;
 		page_L1[i_i].valid=1;
+		page_L1[i_i].offset=addr&0xfff;
 		page_L1[i_i].tag=(addr>>12)&0x000fffff;
-		unsigned int page_dic=(page_L1[i_i].tag>>10)&0x3ff;
-		unsigned int page_table=(page_L1[i_i].tag)&0x3ff;
-		unsigned int dic_addr=hwaddr_read((cpu.cr3.page_directory_base<<12)+page_dic*4,4)&0xfffff000;
-		unsigned int physic_addr=hwaddr_read(dic_addr+page_table*4,4);
-		page_L1[i_i].physical=(physic_addr>>12)&0xfffff;
-		unsigned int temp2=page_L1[i_i].physical<<12;
-		res=page_L1[i_i].offset+temp2;
+		unsigned int page_dic=(addr>>22)&0x3ff;
+		unsigned int page_table=(addr>>12)&0x3ff;
+		unsigned int dic_addr=hwaddr_read((cpu.cr3.page_directory_base<<12)+page_dic*4,4);
+		page_L1[i_i].physical=hwaddr_read((dic_addr<<12)+page_table*4,4);
+		unsigned int temp2=page_L1[i_i].physical>>12;
+		res=page_L1[i_i].offset+(temp2<<12);
 		return res;
 	}
 }
