@@ -34,8 +34,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
-	int len=decode_rm_l(cpu.eip+1);
-
+	int len=decode_r_l(cpu.eip+1);
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
 //	if(judge==0xc0){//cr0
 //		cpu.cr0.val=REG(R_EAX);
