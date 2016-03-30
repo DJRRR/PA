@@ -10,9 +10,9 @@ static void do_execute(){
 	}
 	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
 	if(ops_decoded.opcode==0xe8){
-		if(cpu.eip==0x80480ad){
-			printf("here\n");
-		}
+//		if(cpu.eip==0x80480ad){
+//			printf("here\n");
+//		}
 		if(ops_decoded.is_data_size_16){
 		//	cpu.esp -= 2;
 		//	MEM_W(cpu.esp,(cpu.eip&0xff)+1+DATA_BYTE);
