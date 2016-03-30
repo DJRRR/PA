@@ -113,7 +113,8 @@ void restart() {
 	cpu.DES[0].base31_24=0;
 	cpu.DES[0].limit15_0=0xffff;
 	cpu.DES[0].limit19_16=0xf;
-	init_page_L1();
+//	init_page_L1();
+	init_TLB();
   //  printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
 	/* Initialize DRAM. */
 	init_ddr3();

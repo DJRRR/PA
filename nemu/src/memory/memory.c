@@ -18,13 +18,11 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	write_cache(addr,len,data);
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
-	hwaddr_t res;
+	return read_page(addr);
 //	if(cpu.eip>=0x100c44){
 //		printf("stop\n");
 //	}
-	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
-		//res=read_page_L1(addr,len);
-		if(cpu.eip==0x80480ad){
+	/*	if(cpu.eip==0x80480ad){
 			printf("in memory.c4\n");
 		}
 		uint16_t dir=addr>>22&0x3ff;
@@ -42,7 +40,7 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	else{
 		res=(hwaddr_t)addr;
 	}
-	return res;
+	return res;*/
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {

@@ -2,9 +2,11 @@
 #include <memory/page.h>
 #include <stdlib.h>
 #include <time.h>
+#include "nemu.h"
+#include "../../../lib-common/x86-inc/mmu.h"
 
 
-typedef struct{	
+/*typedef struct{	
 	unsigned int valid:1;
 		unsigned int tag:20;
 	unsigned int offset:12;
@@ -75,10 +77,61 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 		return res;
 	}
 }
+*/
+#define NR_TLB 8
+typedef union{
+	struct{
+		unsigned int offset:12;
+		unsigned int page:10;
+		unsigned int dir:10;
+	};
+	struct{
+		unsigned offset_i:12;
+		unsigned int tag:20;
+	};
+	unsigned int val;
+}ln_addr;
 
+typedef struct{
+	unsigned int valid:1;
+	unsigned int tag;
+	PTE pte;
+}TLB[NR_TLB];
 
+TLB tlb;
 
+void init_TLB(){
+	int i;
+	for(i=0;i<NR_TLB;i++){
+		tlb[i].valid=0;
+	}
+}
 
+hwaddr_t read_page(lnaddr_t addr){
+	if((cpu.cr0.protect_enable==0)||(cpu.cr0.paging==0)){
+		return (hwaddr_t) addr;
+	}
+	ln_addr lnaddr;
+	lnaddr.val=addr;
+	int i;
+	for(i=0;i<NR_TLB;i++){
+		if(tlb[i].valid&&tlb[i].tag==lnaddr.tag) break;
+		if(!tlb[i].valid) break;
+	}
+	if(tlb[i].valid==0||i==NR_TLB){
+		if(i==NR_TLB) i=addr%NR_TLB;
+		hwaddr_t pde_addr=(cpu.cr3.page_directory_base<<12)+lnaddr.page*sizeof(PDE);
+		PDE pde;
+		pde.val=hwaddr_read(pde_addr,4);
+		hwaddr_t pte_addr=(pde.page_frame<<12)+lnaddr.page*sizeof(PTE);
+		PTE pte;
+		pte.val=hwaddr_read(pte_addr,4);
+		tlb[i].tag=lnaddr.tag;
+		tlb[i].valid=1;
+		tlb[i].pte=pte;
+	}
+	return (tlb[i].pte.page_frame<<12)+lnaddr.offset;
+}
 
 
 
