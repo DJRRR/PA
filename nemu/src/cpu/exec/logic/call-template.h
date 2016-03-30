@@ -5,6 +5,7 @@
 static void do_execute(){
 	int current_sreg=S_CS;
 	if(cpu.eip<=0x8049000){
+		printf("cpu.eip:0x%x\n",cpu.eip);
 		puts("1");
 	}
 	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
