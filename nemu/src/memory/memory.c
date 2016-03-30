@@ -1,6 +1,5 @@
 #include "common.h"
 #include "nemu.h"
-#include<stdlib.h>
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -22,7 +21,6 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	hwaddr_t res;
 	if(cpu.eip>=0x100c44){
 		printf("stop\n");
-		system("pause");
 	}
 	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
 		res=read_page_L1(addr,len);
@@ -38,13 +36,8 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len==1 || len==2 ||len==4);
 #endif
-	if(0){//data cross the page boundary
-		assert(0);
-	}
-	else{
 		hwaddr_t hwaddr = page_translate(addr,len);
 		return hwaddr_read(hwaddr,len);
-	}
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
@@ -52,13 +45,8 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 #ifdef DEBUG
 	assert(len==1 || len==2 || len==4);
 #endif
-	if(0){//data cross the page boundary
-		assert(0);
-	}
-	else{
 		hwaddr_t hwaddr = page_translate(addr,len);
 		hwaddr_write(hwaddr,len,data);
-	}
 }
 
 lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
