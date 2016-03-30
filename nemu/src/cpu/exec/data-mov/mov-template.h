@@ -16,12 +16,7 @@ make_instr_helper(rm)
 //make_instr_helper(r2cr)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
-//	printf("test\n");
-//	int len=decode_r_l(cpu.eip+1);
-//	printf("%d\n",len);
-	int len=decode_rm_l(cpu.eip+1);
-	printf("len:%d\n",len);
-	uint32_t judge=instr_fetch(cpu.eip+1,1);
+	uint32_t judge=instr_fetch(cpu.eip+2,1);
 //	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
 		REG(op_src->reg)=cpu.cr0.val;
@@ -32,30 +27,27 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 		REG(op_src->reg)=cpu.cr3.val;
 		print_asm("mov cr3,%%%s",REG_NAME(op_src->reg));
 	}
-	return 1+len;
+	return 2;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
-	int len=decode_r_l(cpu.eip+1);
-	printf("len:%d\n",len);
-	uint32_t judge=instr_fetch(cpu.eip+1,1);
+	uint32_t judge=instr_fetch(cpu.eip+2,1);
 //	if(judge==0xc0){//cr0
 //		cpu.cr0.val=REG(R_EAX);
 //		print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
 //	}
-	printf("%d\n",len);
    if(judge==0xd8){//cr3
 		cpu.cr3.val=REG(op_src->reg);
 		printf("here!\n");
 		init_page_L1();
-		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
+		print_asm("mov %%%s,cr3",REG_NAME(R_EAX));
 	}
    else{
 	   cpu.cr0.val=REG(op_src->reg);
 	   printf("test. mov r2cr\n");
-	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
+	   print_asm("mov %%%s,cr0",REG_NAME(R_EAX));
    }
-	return len+1;
+	return 2;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
