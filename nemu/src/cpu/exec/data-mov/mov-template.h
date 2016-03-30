@@ -50,8 +50,8 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
 	   printf("test 3\n");
    }
+   printf("4\n");
 	return 1+len;
-	printf("4\n");
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
