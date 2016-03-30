@@ -1,5 +1,6 @@
 #include "common.h"
 #include "nemu.h"
+#include<stdlib.h>
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -10,15 +11,19 @@ void write_cache(hwaddr_t,size_t,uint32_t);
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-//	return read_cache(addr,len) & (~0u >> ((4-len)<<3));
+	return read_cache(addr,len) & (~0u >> ((4-len)<<3));
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	dram_write(addr, len, data);
-//	write_cache(addr,len,data);
+	write_cache(addr,len,data);
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	hwaddr_t res;
+	if(cpu.eip>=0x100c44){
+		printf("stop\n");
+		system("pause");
+	}
 	if(cpu.cr0.protect_enable==1&&cpu.cr0.paging==1){//open page function
 		res=read_page_L1(addr,len);
 	}
