@@ -28,6 +28,9 @@ static void do_execute(){
 			}
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
+			if(cpu.eip==0x80480ad){
+				printf("here3\n");
+			}
 			cpu.eip+=addr;
 		}
 	}
