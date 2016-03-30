@@ -53,6 +53,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+3,1);
+	printf("nnuu\n");
 	int len=decode_rm_l(cpu.eip+2);
 	printf("0x%.2X\n",judge);
 	if(judge==0xd8){//ds
