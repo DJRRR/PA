@@ -50,7 +50,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	return 1+len;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
-	uint32_t judge=instr_fetch(cpu.eip+3,1);
+	uint32_t judge=instr_fetch(cpu.eip+1,1);
 	printf("0x%.2X\n",judge);
 	if(judge==0xd8){//ds
 		cpu.DS.val=op_src->val;
