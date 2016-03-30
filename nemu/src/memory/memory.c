@@ -80,6 +80,9 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
 	res=addr+(addr15_0)+(addr23_16<<16)+(addr31_24<<24);
 	if(cpu.eip==0x80480ad){
 		printf("%d\n",current_sreg);
+		printf("15_0:0x%x\n",addr15_0);
+		printf("23_16:0x%x\n",addr23_16);
+		printf("31_24:0x%x\n",addr31_24);
 		printf("seg addr:0x%x\n",addr);
 		printf("seg res:0x%x\n",res);
 	}
