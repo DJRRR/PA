@@ -115,12 +115,12 @@ hwaddr_t read_page(lnaddr_t addr){
 	lnaddr.val=addr;
 	int i;
 	for(i=0;i<NR_TLB;i++){
-		if(tlb[i].valid&&tlb[i].tag==lnaddr.tag) break;
+		if(tlb[i].valid&&(tlb[i].tag==lnaddr.tag)) break;
 		if(!tlb[i].valid) break;
 	}
 	if(tlb[i].valid==0||i==NR_TLB){
 		if(i==NR_TLB) i=addr%NR_TLB;
-		hwaddr_t pde_addr=(cpu.cr3.page_directory_base<<12)+lnaddr.page*sizeof(PDE);
+		hwaddr_t pde_addr=(cpu.cr3.page_directory_base<<12)+lnaddr.dir*sizeof(PDE);
 		PDE pde;
 		pde.val=hwaddr_read(pde_addr,4);
 		hwaddr_t pte_addr=(pde.page_frame<<12)+lnaddr.page*sizeof(PTE);
