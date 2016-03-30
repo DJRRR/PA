@@ -23,7 +23,6 @@ make_instr_helper(rm);*/
 
 #if DATA_BYTE==2 || DATA_BYTE==4
 make_helper(concat(lgdt_i_,SUFFIX)){
-	printf("0x%x\n",cpu.eip);
 	uint32_t addr=instr_fetch(cpu.eip+3,4);
 	uint32_t base;
 	uint8_t opcode=instr_fetch(cpu.eip+2,1);
