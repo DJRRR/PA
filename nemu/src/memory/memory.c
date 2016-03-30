@@ -26,7 +26,7 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 		res=read_page_L1(addr,len);
 	}
 	else{
-		res=addr;
+		res=(hwaddr_t)addr;
 	}
 	return res;
 }
@@ -55,7 +55,7 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
 #endif
 	lnaddr_t res;
 	if(cpu.cr0.protect_enable==0){
-		res=addr;
+		res=(lnaddr_t)addr;
 		return res;
 	}
 	uint32_t addr15_0=cpu.DES[current_sreg].base15_0;
