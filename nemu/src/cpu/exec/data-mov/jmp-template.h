@@ -4,12 +4,12 @@
 
 static void do_execute(){
 	if(ops_decoded.opcode==0xff){
-			if(DATA_BYTE==2){
-				cpu.eip = cpu.eip&0x0000ffff;
-			}
-			else{
+		//	if(DATA_BYTE==2){
+		//		cpu.eip = cpu.eip&0x0000ffff;
+		//	}
+		//	else{
 				cpu.eip=op_src->val;
-			}
+		//	}
 			if(op_src->type==OP_TYPE_REG){
 				cpu.eip -= 2;
 			}
