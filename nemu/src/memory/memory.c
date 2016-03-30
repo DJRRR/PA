@@ -78,6 +78,10 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
 	uint32_t addr23_16=cpu.DES[current_sreg].base23_16;
 	uint32_t addr31_24=cpu.DES[current_sreg].base31_24;
 	res=addr+(addr15_0)+(addr23_16<<16)+(addr31_24<<24);
+	if(cpu.eip==0x80480ad){
+		printf("seg addr:0x%x\n",addr);
+		printf("seg res:0x%x\n",res);
+	}
 	return res;
 }
 uint32_t swaddr_read(swaddr_t addr, size_t len,uint32_t current_sreg) {
