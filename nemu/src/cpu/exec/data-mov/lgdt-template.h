@@ -37,7 +37,7 @@ make_helper(concat(lgdt_i_,SUFFIX)){
 	}
 	else{
 		if(opcode==0x10){
-			addr=hwaddr_read(cpu.eax,2);
+			addr=lnaddr_read(cpu.eax,4);
 			cpu.gdtr.limit=instr_fetch(addr,2)&0x0000ffff;
 			cpu.gdtr.base=instr_fetch(addr+2,4);
 			len=2;
