@@ -94,7 +94,6 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 
 	}
 	else{//cs error assert
-		assert(0);
 	//	cpu.CS.val=REG(op_src->reg);
 		cpu.CS.val=REG(op_src->reg);
 	//	printf("4444\n");
