@@ -51,8 +51,8 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 		}
 		if((uint32_t)page_L1[way_i].offset+len<=4096){
 			uint32_t offset=addr&0xfff;
-			uint32_t temp1=(page_L1[way_i].physical>>12);
-			res=offset+(temp1<<12);
+		//	uint32_t temp1=(page_L1[way_i].physical>>12);
+			res=offset+((page_L1[way_i].physical>>12)<<12);
 			return res;
 		}
 		else{
