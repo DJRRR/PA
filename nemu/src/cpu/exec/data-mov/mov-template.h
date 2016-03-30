@@ -1,4 +1,5 @@
 #include "cpu/exec/template-start.h"
+#include "cpu/decode/modrm.h"
 
 #define instr mov
 
@@ -16,23 +17,18 @@ make_instr_helper(rm)
 //make_instr_helper(r2cr)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
-	int len=decode_rm_l(cpu.eip+2);
 //	printf("cr2r len:%d\n",len);
-	uint32_t judge=instr_fetch(cpu.eip+2,1);
-	if(judge==0xc0){//cr0
-		REG(op_src->reg)=cpu.cr0.val;
-		print_asm("mov cr0,%%%s",REG_NAME(op_src->reg));
-
+	ModR_M m;
+	m.val=instr_fetch(eip+1,1);
+	switch(m.reg){
+		case 0:reg_l(m.R_M)=cpu.cr0.val;break;
+		case 3:reg_l(m.R_M)=cpu.cr3.val;break;
 	}
-	else{//cr3
-		REG(op_src->reg)=cpu.cr3.val;
-		print_asm("mov cr3,%%%s",REG_NAME(op_src->reg));
-	}
-	return 1+len;
+	print_asm("mov\t %%cr%d,%%%s",m.reg,regsl[m.R_M]);
+	return 2;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
-	int len=decode_rm_l(cpu.eip+2);
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
    if(judge==0xd8){//cr3
 		cpu.cr3.val=REG(op_src->reg);
@@ -44,7 +40,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 	   cpu.cr0.val=REG(op_src->reg);
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
    }
-	return 1+len;
+	return 2;
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
