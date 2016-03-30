@@ -7,12 +7,12 @@ static void do_execute(){
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE result;
-//	if(ops_decoded.opcode==0x83){
-//		result=op_dest->val-(DATA_TYPE_S)op_src->val;
-//	}
-//	else{
+	if(ops_decoded.opcode==0x83){
+		result=op_dest->val-(DATA_TYPE_S)op_src->val;
+	}
+	else{
 	  result = op_dest->val - op_src->val;
-//	}
+	}
 	OPERAND_W(op_dest,result);
 	DATA_TYPE flag_res=MSB(result)&1;
 //	unsigned int num=0;
@@ -44,6 +44,9 @@ static void do_execute(){
 	res_t ^= res_t>>2;
 	res_t ^= res_t>>1;
 	cpu.PF=!res_t;
+	if(cpu.eip==0x80480aa){
+		printf("now in sub\n");
+	}
 
 	print_asm_template2();
 }
