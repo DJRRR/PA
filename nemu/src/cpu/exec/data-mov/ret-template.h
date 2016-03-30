@@ -4,21 +4,16 @@
 
 make_helper(concat(ret_,SUFFIX)){
 		if(ops_decoded.is_data_size_16){
-		/*	cpu.eip=swaddr_read(cpu.esp,4,S_CS)-1;
+			cpu.eip=swaddr_read(cpu.esp,4,S_CS)-1;
 			cpu.esp += 2;
-			cpu.eip = cpu.eip&0x0000ffff;*/
-			cpu.eip &= 0xffffff00;
-			cpu.eip |= swaddr_read(reg_l(R_ESP),2,S_CS);
-			reg_l(R_ESP) += 2;
-			cpu.eip &= 0x0000ffff;
+			cpu.eip = cpu.eip&0x0000ffff;
 		}
 		else{
-			cpu.eip=swaddr_read(reg_l(R_ESP),4,S_CS);
-			reg_l(R_ESP)+= 4;
+			cpu.eip=swaddr_read(cpu.esp,4,S_CS)-1;
+			cpu.esp += 4;
 		}
-		cpu.esp += op_src->val;
 	print_asm("ret");
-	return 0;
+	return 1;
 
 }
 
