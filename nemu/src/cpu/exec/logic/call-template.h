@@ -4,7 +4,6 @@
 
 static void do_execute(){
 	int current_sreg=S_CS;
-	printf("0x%x\n",cpu.eip);
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;
@@ -12,14 +11,15 @@ static void do_execute(){
 			cpu.eip +=op_src->val&0xffff;
 		}
 		else{
-			printf("here\n");
+	//		printf("here\n");
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
 			cpu.eip+=op_src->val;
-			printf("here2\n");
+	//		printf("here2\n");
 		}
 	}
 	if(ops_decoded.opcode==0xff){
+		printf("here\n");
 		if(ops_decoded.is_data_size_16){
 			cpu.esp -= 2;
 			MEM_W(cpu.esp,(cpu.eip&0xff)+2);
@@ -31,6 +31,7 @@ static void do_execute(){
 			cpu.eip=op_src->val-2;
 		}
 	}
+
 	print_asm_template1();
 
 }
