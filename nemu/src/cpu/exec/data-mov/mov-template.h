@@ -17,7 +17,7 @@ make_instr_helper(rm)
 
 make_helper(concat(mov_cr2r_,SUFFIX)){
 	int len=decode_rm_l(cpu.eip+2);
-	printf("cr2r len:%d\n",len);
+//	printf("cr2r len:%d\n",len);
 	uint32_t judge=instr_fetch(cpu.eip+2,1);
 	if(judge==0xc0){//cr0
 		REG(op_src->reg)=cpu.cr0.val;
@@ -44,7 +44,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 		print_asm("mov %%%s,cr3",REG_NAME(op_src->reg));
 	}
    else{
-		   printf("0x%x\n",cpu.eip);
+	//	   printf("0x%x\n",cpu.eip);
 	   cpu.cr0.val=REG(op_src->reg);
 	   print_asm("mov %%%s,cr0",REG_NAME(op_src->reg));
    }
@@ -52,7 +52,7 @@ make_helper(concat(mov_r2cr_,SUFFIX)){
 }
 make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
-	printf("0x%.2X\n",judge);
+	//printf("0x%.2X\n",judge);
 	if(judge==0xd8){//ds
 		cpu.DS.val=op_src->val;
 //		printf("1111\n");
