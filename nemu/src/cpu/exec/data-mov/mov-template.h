@@ -19,7 +19,8 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 //	printf("test\n");
 //	int len=decode_r_l(cpu.eip+1);
 //	printf("%d\n",len);
-	int len=decode_r_l(cpu.eip+1);
+	int len=decode_rm_l(cpu.eip+1);
+	printf("len:%d\n",len);
 	uint32_t judge=instr_fetch(cpu.eip+1,1);
 //	printf("0x%.2X\n",judge);
 	if(judge==0xc0){//cr0
