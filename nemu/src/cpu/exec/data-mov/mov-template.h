@@ -55,7 +55,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	int len=decode_rm_l(cpu.eip+2);
 	uint32_t judge=instr_fetch(cpu.eip+3,1);
 	if(judge==0xd8){//ds
-		cpu.DS.val=REG(op_src->reg);
+		cpu.DS.val=op_src->val;
 //		printf("1111\n");
 		uint32_t addr1=cpu.DS.index;
 		cpu.DES[1].limit15_0=lnaddr_read(cpu.gdtr.base+(addr1<<3),2);//16
@@ -68,7 +68,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	}
 	else if(judge==0xc0){//es
 	//	cpu.ES.val=REG(op_src->reg);
-		cpu.ES.val=REG(op_src->reg);
+		cpu.ES.val=op_src->val;
 //		printf("2222\n");
 		uint32_t addr2=cpu.ES.index;
 		cpu.DES[2].limit15_0=lnaddr_read(cpu.gdtr.base+(addr2<<3),2);
@@ -81,7 +81,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	}
 	else if(judge==0xd0){//ss
 	//	cpu.SS.val=REG(op_src->reg);
-		cpu.SS.val=REG(op_src->reg);
+		cpu.SS.val=op_src->val;
 	//	printf("3333\n");
 		uint32_t addr3=cpu.SS.index;
 		cpu.DES[3].limit15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3),2);
