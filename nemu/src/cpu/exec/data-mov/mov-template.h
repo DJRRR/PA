@@ -63,7 +63,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.DES[1].base23_16=lnaddr_read(cpu.gdtr.base+(addr1<<3)+4,1);//8
 		cpu.DES[1].limit19_16=lnaddr_read(cpu.gdtr.base+(addr1<<3)+6,1)&0xf;//4
 		cpu.DES[1].base31_24=lnaddr_read(cpu.gdtr.base+(addr1<<3)+7,1);//8;
-		print_asm("mov %%%s,%%ds",REG_NAME(op_src->reg));
+		print_asm("mov %%%s,ds",REG_NAME(op_src->reg));
 
 	}
 	else if(judge==0xc0){//es
@@ -76,7 +76,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.DES[2].base23_16=lnaddr_read(cpu.gdtr.base+(addr2<<3)+4,1);
 		cpu.DES[2].limit19_16=lnaddr_read(cpu.gdtr.base+(addr2<<3)+6,1)&0xf;
 		cpu.DES[2].base31_24=lnaddr_read(cpu.gdtr.base+(addr2<<3)+7,1);
-		print_asm("mov %%%s,%%es",REG_NAME(op_src->reg));
+		print_asm("mov %%%s,es",REG_NAME(op_src->reg));
 
 	}
 	else if(judge==0xd0){//ss
@@ -89,7 +89,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.DES[3].base23_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+4,1);
 		cpu.DES[3].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
 		cpu.DES[3].base31_24=lnaddr_read(cpu.gdtr.base+(addr3<<3)+7,1);
-		print_asm("mov %%%s,%%ss",REG_NAME(op_src->reg));
+		print_asm("mov %%%s,ss",REG_NAME(op_src->reg));
 
 	}
 	else{//cs
@@ -102,7 +102,7 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+4,1);
 		cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+6,1)&0xf;
 		cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr4<<3)+7,1);
-		print_asm("mov %%%s,%%cs",REG_NAME(op_src->reg));
+		print_asm("mov %%%s,cs",REG_NAME(op_src->reg));
 
 	}
 	return 2;
