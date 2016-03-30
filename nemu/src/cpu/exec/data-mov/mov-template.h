@@ -30,7 +30,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 		REG(R_EAX)=cpu.cr3.val;
 		print_asm("mov cr3,%%%s",REG_NAME(op_dest->reg));
 	}
-	return 3;
+	return 2;
 
 }
 make_helper(concat(mov_r2cr_,SUFFIX)){
