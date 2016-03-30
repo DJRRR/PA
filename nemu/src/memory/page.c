@@ -6,21 +6,15 @@
 
 typedef struct{	
 	unsigned int valid:1;
-	union{
 		unsigned int tag:20;
-		struct{
-			unsigned int page_table:10;
-			unsigned int page_dic:10;
-		};
-	};
 	unsigned int offset:12;
 	unsigned int physical;
 }Page_L1;
 
-Page_L1 page_L1[32];
+Page_L1 page_L1[64];
 void init_page_L1(){
 	int i=0;
-	for(i=0;i<32;i++){
+	for(i=0;i<64;i++){
 		page_L1[i].valid=0;
 	}
 }
