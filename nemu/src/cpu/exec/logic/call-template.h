@@ -4,6 +4,9 @@
 
 static void do_execute(){
 	int current_sreg=S_CS;
+	if(cpu.eip<=0x8049000){
+		puts("1");
+	}
 	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){

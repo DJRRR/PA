@@ -44,10 +44,6 @@ static void do_execute(){
 	res_t ^= res_t>>2;
 	res_t ^= res_t>>1;
 	cpu.PF=!res_t;
-	if(cpu.eip==0x80480aa){
-		printf("now in sub\n");
-	}
-
 	print_asm_template2();
 }
 
