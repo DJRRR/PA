@@ -61,7 +61,7 @@ uint32_t loader() {
 			uint32_t vaddr=mm_malloc(ph->p_vaddr,ph->p_memsz);
 #endif
 			ramdisk_read((void *)vaddr,ph->p_offset,ph->p_filesz);
-			memset((void *)(vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
+			memset((void *)(vaddr+ph->p_filesz+ph->p_offset),0,ph->p_memsz-ph->p_filesz);
 		}
 	}
 
