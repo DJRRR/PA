@@ -5,6 +5,7 @@
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t read_cache(hwaddr_t,size_t);
+void write_cache_new(hwaddr_t,size_t,uint32_t);
 void write_cache(hwaddr_t,size_t,uint32_t);
 
 /* Memory accessing interfaces */
@@ -16,7 +17,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	dram_write(addr, len, data);
-	write_cache(addr,len,data);
+	write_cache_new(addr,len,data);
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	return read_page(addr);

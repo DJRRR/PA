@@ -356,6 +356,148 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 	}
 }
 				
+void write_cache_new(hwaddr_t addr,size_t len,uint32_t data){
+	bool flag1=find_cache_L1(addr,len);
+	bool flag2=find_cache_L2(addr,len);
+	if(flag1==true){
+		write_cache_L1(addr,len,data);
+	}
+	else if(flag2==true){
+		write_cache_L2(addr,len,data);
+	}
+	else{
+		write_cache_all(addr,len,data);
+	}
+}
+
+void write_cache_L1(hwaddr_t addr,size_t len,uint32_t data){
+	unsigned int offset_i=addr&0x3f;
+	unsigned int index_i=(addr>>6)&0x7f;
+	unsigned int tag_i=(addr>>13)&0x3fff;
+	unsigned int offset_j=addr&0x3f;
+	unsigned int index_j=(addr>>6)&0xfff;
+	unsigned int tag_j=(addr>>18)&0x1ff;
+	uint32_t data_t=data;
+	uint32_t data_t2=data;
+	int way_i=-1;
+	int i;
+	int check1=false;
+	for(i=0;i<8;i++){
+		if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
+			way_i=i;
+			check1=true;
+			break;
+		}
+	}
+	if(check1==false){
+		printf("write cache1 false!\n");
+		assert(0);
+	}
+	if(offset_i+len<=64){
+		int i2;
+		for(i2=len-1;i2>=0;i2--){
+			cache_L1[index_i][way_i].data[i2+offset_i]=(data>>(i2*8));
+		}
+	}
+	else{
+		int end=63;
+		int m;
+		for(m=offset_i;m<=end;m++){
+			cache_L1[index_i][way_i].data[m]=data_t&0xff;
+			data_t >>= 8;
+		}
+		hwaddr_write((addr+0x40)&0xffffffc0,offset_i+len-64,data_t);
+	}
+	int way_j=-1;
+	bool check2=false;
+	int i_j;
+	for(i_j=0;i_j<16;i_j++){
+		if(cache_L2[index_j][i_j].tag==tag_j&&cache_L2[index_j][i_j].valid==1){
+			way_j=i_j;
+			check2=true;
+			break;
+		}
+	}
+	if(check2==false){
+		printf("fail!\n");
+		assert(0);
+	}
+	if(offset_j+len<=64){
+		int j_j;
+		for(j_j=len-1;j_j>=0;j_j--){
+			cache_L2[index_j][way_j].data[j_j+offset_j]=(data>>(j_j*8));
+		}
+	}
+	else{
+		int end_j=63;
+		int m_j;
+		for(m_j=offset_j;m_j<=end_j;m_j++){
+			cache_L2[index_j][way_j].data[m_j]=data_t2;
+			data_t2 >>= 8;
+		}
+		hwaddr_write((addr+0x40)&0xffffffc0,offset_j+len-64,data_t2);
+	}
+}
+
+void write_cache_L2(hwaddr_t addr,size_t len,uint32_t data){
+	unsigned int tag_j=(addr>>18)&0x1ff;
+	unsigned int index_j=(addr>>6)&0xfff;
+	unsigned int offset_j=addr&0x3f;
+	int j;
+	uint32_t data_t=data;
+	int way_j=0;
+	for(j=0;j<16;j++){
+		if(tag_j==cache_L2[index_j][j].tag&&cache_L2[index_j][j].valid==1){
+			way_j=j;
+			break;
+		}
+	}
+	cache_L2[index_j][way_j].dirty=1;
+	if(offset_j+len<=64){
+		int j_f;
+		for(j_f=len-1;j_f>0;j_f--){
+			cache_L2[index_j][way_j].data[j_f+offset_j]=(data>>(j_f*8));
+		}
+	}
+	else{
+		int end_f=63;
+		int m_f;
+		for(m_f=offset_j;m_f<=end_f;m_f++){
+			cache_L2[index_j][way_j].data[m_f]=data_t;
+			data_t >>= 8;
+		}
+		hwaddr_write((addr+0x40)&0xffffffc0,offset_j+len-64,data_t);
+	}
+}
+
+void write_cache_all(hwaddr_t addr,size_t len,uint32_t data){
+	dram_write(addr,len,data);
+	int i_g;
+	unsigned int offset_j=addr&0x3f;
+	unsigned int tag_j=(addr>>18)&0x1ff;
+	unsigned int index_j=(addr>>6)&0xfff;
+	srand((unsigned)time(0)+clock());
+	i_g=rand()%16;
+	uint32_t temp1=(cache_L2[index_j][i_g].tag<<18);
+	uint32_t temp2=(cache_L2[index_j][i_g].index<<6);
+	uint32_t addr_g=temp1+temp2;
+	if(cache_L2[index_j][i_g].valid==1&&cache_L2[index_j][i_g].dirty==1){
+		int i_gback=0;
+		for(;i_gback<64;i_gback++){
+			dram_write(addr_g+i_gback,1,cache_L2[index_j][i_g].data[i_gback]);
+		}
+	}
+	cache_L2[index_j][i_g].valid=1;
+	cache_L2[index_j][i_g].dirty=0;
+	cache_L2[index_j][i_g].tag=tag_j;
+	cache_L2[index_j][i_g].index=index_j;
+	cache_L2[index_j][i_g].offset=offset_j;
+	int xx=0;
+	hwaddr_t addr_2g=addr-offset_j;
+	for(xx=0;xx<64;xx++){
+		cache_L2[index_j][i_g].data[xx]=dram_read(addr_2g+xx,1);
+	}
+}
 
 
 			
