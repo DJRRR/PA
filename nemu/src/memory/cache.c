@@ -227,6 +227,8 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 	uint32_t data_t=data;
 	uint32_t data2=data;
 	uint32_t data3=data;
+	uint32_t data4=data;
+	uint32_t data5=data;
  	if(flag1==true){//in cache1 then write cache1 write cache2 set dirty=1
 	//	printf("write case 1\n");
 		int way_i=-1;//write cache 1
@@ -278,7 +280,7 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 		if(offset_i+len<=64){//cache 2 in bound
 			int j_j;
 			for(j_j=len-1;j_j>=0;j_j--){
-				cache_L2[index_j][way_j].data[j_j+offset_i]=(data>>(j_j*8));
+				cache_L2[index_j][way_j].data[j_j+offset_i]=(data4>>(j_j*8));
 			}
 		}
 		else{//cache 2 over bound
@@ -311,7 +313,7 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 		if(offset_i+len<=64){
 			int j_f;
 			for(j_f=len-1;j_f>=0;j_f--){
-				cache_L2[index_j][way_f].data[j_f+offset_i]=(data>>(j_f*8));
+				cache_L2[index_j][way_f].data[j_f+offset_i]=(data5>>(j_f*8));
 			}
 		}
 		else{
