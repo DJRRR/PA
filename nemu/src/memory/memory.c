@@ -17,7 +17,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	dram_write(addr, len, data);
-	write_cache_new(addr,len,data);
+	write_cache(addr,len,data);
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	return read_page(addr);

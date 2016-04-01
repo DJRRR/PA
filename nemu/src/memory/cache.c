@@ -231,20 +231,20 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 	uint32_t data5=data;
  	if(flag1==true){//in cache1 then write cache1 write cache2 set dirty=1
 	//	printf("write case 1\n");
-		int way_i=-1;//write cache 1
-		bool check1=false;
+		int way_i=0;//write cache 1
+//		bool check1=false;
 		int i;
 		for(i=0;i<8;i++){
 			if(cache_L1[index_i][i].tag==tag_i&&cache_L1[index_i][i].valid==1){
 				way_i=i;
-				check1=true;
+//				check1=true;
 				break;
 			}
 		}
-		if(check1==false){
+/*		if(check1==false){
 			printf("write cache1 False!\n");
 			assert(0);
-		}
+		}*/
 		if(offset_i+len<=64){//cache 1 in bound
 			int j;
 			for(j=len-1;j>=0;j--){//change
@@ -265,21 +265,21 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 		   hwaddr_write((addr+0x40)&0xffffffc0,offset_i+len-64,data);		    
 		    
 		}
-		int way_j=-1;
-		bool check2=false;
+		int way_j=0;
+	//	bool check2=false;
 		int i_j;
 		for(i_j=0;i_j<16;i_j++){
 			if(cache_L2[index_j][i_j].tag==tag_j&&cache_L2[index_j][i_j].valid==1){
 				way_j=i_j;
-				check2=true;
+		//		check2=true;
 				break;
 			}
 		}
-		if(check2==false){
+	/*	if(check2==false){
 			printf("here?\n");
 			printf("write cache2 False!\n");
 			assert(0);
-		}
+		}*/
 		if(offset_i+len<=64){//cache 2 in bound
 			int j_j;
 			for(j_j=len-1;j_j>=0;j_j--){
@@ -299,20 +299,20 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 	}
 	else if(flag2==true){//not in cache1 but in cache2 then write cache 2 set dirty =1
 	//	printf("write case 2\n");
-		int way_f;
+		int way_f=0;
 		int i_f;
-		bool check3=false;
+	//	bool check3=false;
 		for(i_f=0;i_f<16;i_f++){
 			if(cache_L2[index_j][i_f].tag==tag_j&&cache_L2[index_j][i_f].valid==1){
 				way_f=i_f;
-				check3=true;
+			//	check3=true;
 				break;
 			}
 		}
-		if(check3==false){
+	/*	if(check3==false){
 			printf("write cache2 false 2!\n");
 			assert(0);
-		}
+		}*/
 		if(offset_i+len<=64){
 			int j_f;
 			for(j_f=len-1;j_f>=0;j_f--){
