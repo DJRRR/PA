@@ -257,7 +257,7 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 		   int end=63;
 		   int m;
 		   for(m=offset_i;m<=end;m++){
-			   cache_L1[index_i][way_i].data[m]=data;
+			   cache_L1[index_i][way_i].data[m]=data&0xff;
 			   data >>= 8;
 		   }
 		   hwaddr_write((addr+0x40)&0xffffffc0,offset_i+len-64,data);		    
