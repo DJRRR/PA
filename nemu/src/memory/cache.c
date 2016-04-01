@@ -274,6 +274,7 @@ void  write_cache(hwaddr_t addr, size_t len, uint32_t data){
 			}
 		}
 		if(check2==false){
+			printf("here?\n");
 			printf("write cache2 False!\n");
 			assert(0);
 		}
