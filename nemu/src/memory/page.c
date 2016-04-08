@@ -78,15 +78,14 @@ hwaddr_t read_page_L1(lnaddr_t addr,size_t len){
 	}
 }
 */
-#define NR_TLB 8
 typedef union{
 	struct{
-		unsigned int offset:12;
+		unsigned int offset:12;//page
 		unsigned int page:10;
 		unsigned int dir:10;
 	};
 	struct{
-		unsigned offset_i:12;
+		unsigned offset_i:12;//tlb
 		unsigned int tag:20;
 	};
 	unsigned int val;
@@ -96,13 +95,13 @@ typedef struct{
 	unsigned int valid:1;
 	unsigned int tag;
 	PTE pte;
-}TLB[NR_TLB];
+}TLB[64];
 
 TLB tlb;
 
 void init_TLB(){
 	int i;
-	for(i=0;i<NR_TLB;i++){
+	for(i=0;i<64;i++){
 		tlb[i].valid=0;
 	}
 }
@@ -114,12 +113,12 @@ hwaddr_t read_page(lnaddr_t addr){
 	ln_addr lnaddr;
 	lnaddr.val=addr;
 	int i;
-	for(i=0;i<NR_TLB;i++){
+	for(i=0;i<64;i++){
 		if(tlb[i].valid&&(tlb[i].tag==lnaddr.tag)) break;
 		if(!tlb[i].valid) break;
 	}
-	if(tlb[i].valid==0||i==NR_TLB){
-		if(i==NR_TLB) i=addr%NR_TLB;
+	if(tlb[i].valid==0||i==64){
+		if(i==64) i=addr%64;
 		hwaddr_t pde_addr=(cpu.cr3.page_directory_base<<12)+lnaddr.dir*sizeof(PDE);
 		PDE pde;
 		pde.val=hwaddr_read(pde_addr,4);
