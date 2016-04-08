@@ -1,5 +1,6 @@
 #include "common.h"
 #include "nemu.h"
+#include "../../../lib-common/x86-inc/mmu.h"
 
 //extern uint32_t hwaddr_read(hwaddr_t,size_t);
 //void init_page_L1();

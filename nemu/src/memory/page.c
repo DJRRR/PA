@@ -1,9 +1,9 @@
 #include "common.h"
+#include "nemu.h"
+#include "../../../lib-common/x86-inc/mmu.h"
 #include <memory/page.h>
 #include <stdlib.h>
 #include <time.h>
-#include "nemu.h"
-#include "../../../lib-common/x86-inc/mmu.h"
 
 
 /*typedef struct{	
