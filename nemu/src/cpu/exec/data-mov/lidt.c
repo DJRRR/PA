@@ -1,15 +1,19 @@
 #include "cpu/exec/helper.h"
+#include "cpu/decode/modrm.h"
 
-#define DATA_BYTE 1
-#include "lidt-template.h"
-#undef DATA_BYTE
-
-#define DATA_BYTE 2
-#include "lidt-template.h"
-#undef DATA_BYTE
-
-#define DATA_BYTE 4
-#include "lidt-template.h"
-#undef DATA_BYTE
-
-make_helper_v(lidt_rm)
+make_helper(lidt_m){
+	if(instr_fetch(eip+1,1)==0x15){
+		swaddr_t addr=instr_fetch(eip+2,4);
+		cpu.idtr.limit=swaddr_read(addr,2,S_SS);
+		cpu.idtr.base=swaddr_read(addr+2,4,S_SS);
+		print_asm("lidt");
+		return 6;
+	}
+	else{
+		cpu.idtr.limit=swaddr_read(cpu.eax,2,S_SS);
+		cpu.idtr.base=swaddr_read(cpu.eax,2,S_SS);
+		print_asm("lidt (%%eax)");
+		return 2;
+	}
+	return 0;
+}
