@@ -22,6 +22,7 @@ void raise_intr(uint8_t NO){
 		cpu.eip=addr;
 		printf("222\n");
 		longjmp(jbuf,1);
+		printf("3333\n");
 }
 
 make_helper(int_i){
