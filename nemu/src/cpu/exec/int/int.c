@@ -26,6 +26,7 @@ make_helper(int_i){
 	printf("here");
 	uint8_t imm=instr_fetch(eip+1,1);
 	cpu.eip += 2;
+	printf("here");
 	print_asm("int\t $0x%02x",imm);
 	raise_intr(imm);
 	return 2;
