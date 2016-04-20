@@ -19,7 +19,7 @@ static void do_execute(){
 		
 	}
 	if(ops_decoded.opcode==0xeb||ops_decoded.opcode==0xe9){
-		if(DATA_BYTE==1){
+	/*	if(DATA_BYTE==1){
 			char t1=op_src->val&0x000000ff;
 			cpu.eip += t1;
 		}
@@ -30,7 +30,12 @@ static void do_execute(){
 		else{
 			cpu.eip += op_src->val;
 		}
+	}*/
+		cpu.eip += (DATA_TYPE_S)op_src->val;
+	if(DATA_BYTE==2){
+		cpu.eip &= 0x0000ffff;
 	}
+}
 /*	swaddr_t opcode=instr_fetch(cpu.eip,1);
 	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
 	if(opcode==0xeb||opcode==0xe9){
