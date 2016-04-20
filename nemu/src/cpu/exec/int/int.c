@@ -9,6 +9,7 @@ extern jmp_buf jbuf;
 
 void raise_intr(uint8_t NO){
 	push(cpu.EFLAGS);
+	printf("111\n");
 	push(cpu.CS.val);
 	push(cpu.eip);
 	GateDesc gd;
