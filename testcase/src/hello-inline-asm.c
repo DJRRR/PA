@@ -1,6 +1,6 @@
 #include "trap.h"
 
-const char str[] = "Hello, world!\n";
+const char str[] = "Hello, world!";
 
 int main() {
 	asm volatile (  "movl $4, %eax;"	// system call ID, 4 = SYS_write
