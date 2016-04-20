@@ -9,7 +9,6 @@ extern jmp_buf jbuf;
 
 void raise_intr(uint8_t NO){
 	push(cpu.EFLAGS);
-	printf("111\n");
 	push(cpu.CS.val);
 	push(cpu.eip);
 	GateDesc gd;
@@ -20,18 +19,12 @@ void raise_intr(uint8_t NO){
 		cpu.CS.val=gd.segment;
 		swaddr_t addr=(gd.offset_31_16<<16)|gd.offset_15_0;
 		cpu.eip=addr;
-		printf("222\n");
 		longjmp(jbuf,1);
-		printf("3333\n");
 }
 
 make_helper(int_i){
-	printf("here");
 	uint8_t imm=instr_fetch(eip+1,1);
 	cpu.eip += 2;
-	printf("here");
-	print_asm("int\t $0x%02x",imm);
 	raise_intr(imm);
-	printf("here2");
 	return 2;
 }
