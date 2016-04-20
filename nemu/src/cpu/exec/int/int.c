@@ -29,5 +29,6 @@ make_helper(int_i){
 	printf("here");
 	print_asm("int\t $0x%02x",imm);
 	raise_intr(imm);
+	printf("here2");
 	return 2;
 }
