@@ -44,22 +44,11 @@
 #include "logic/cmp.h"//PA2.1
 #include "logic/call.h"//PA2.1
 #include "logic/test.h"//PA2.1
-#include "logic/je.h"//PA2.1
-#include "logic/jbe.h"//PA2.2
-#include "logic/jb.h"
-#include "logic/jle.h"//PA2.3
-#include "logic/jne.h"//PA2.3
 #include "logic/seta.h"//PA2.3
 #include "logic/setne.h"//PA2.3
-#include "logic/jg.h"//PA2.3
-#include "logic/jl.h"//PA2.3
-#include "logic/ja.h"//PA2.3
-#include "logic/jge.h"//PA2.3
-#include "logic/jns.h"//PA2.3
-#include "logic/js.h"//PA2.3
-#include "logic/jae.h"//PA2.3
 #include "logic/sete.h"
 #include "logic/std.h"//PA3.3
+#include "logic/jcc.h"
 
 #include "string/rep.h"
 
