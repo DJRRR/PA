@@ -23,3 +23,15 @@ make_helper(lea) {
 	print_asm("leal %s,%%%s", op_src->str, regsl[m.reg]);
 	return 1 + len;
 }
+
+make_helper(cli){
+	cpu.IF=0;
+	print_asm("cli");
+	return 1;
+}
+
+make_helper(sti){
+	cpu.IF=1;
+	print_asm("cli");
+	return 1;
+}
