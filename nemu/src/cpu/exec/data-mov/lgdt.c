@@ -10,7 +10,7 @@ make_helper(lgdt_m){
 	}
 	else{
 		cpu.gdtr.limit=swaddr_read(cpu.eax,2,S_SS);
-		cpu.gdtr.base=swaddr_read(cpu.eax,2,S_SS);
+		cpu.gdtr.base=swaddr_read(cpu.eax+2,2,S_SS);
 		print_asm("lgdt (%%eax)");
 		return 2;
 	}
