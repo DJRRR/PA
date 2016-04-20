@@ -4,12 +4,13 @@
 
 static void do_execute(){
 	if(ops_decoded.opcode==0xff){
-		//	if(DATA_BYTE==2){
-		//		cpu.eip = cpu.eip&0x0000ffff;
-		//	}
-		//	else{
+			if(DATA_BYTE==2){
+				cpu.eip = op_src->val&0x0000ffff;
+			}
+			else{
 				cpu.eip=op_src->val;
-		//	}
+			}
+		
 			if(op_src->type==OP_TYPE_REG){
 				cpu.eip -= 2;
 			}
@@ -19,7 +20,7 @@ static void do_execute(){
 		
 	}
 	if(ops_decoded.opcode==0xeb||ops_decoded.opcode==0xe9){
-	/*	if(DATA_BYTE==1){
+/*		if(DATA_BYTE==1){
 			char t1=op_src->val&0x000000ff;
 			cpu.eip += t1;
 		}
@@ -29,13 +30,12 @@ static void do_execute(){
 		}
 		else{
 			cpu.eip += op_src->val;
-		}
-	}*/
+		}*/
 		cpu.eip += (DATA_TYPE_S)op_src->val;
-	if(DATA_BYTE==2){
-		cpu.eip &= 0x0000ffff;
+		if(DATA_BYTE==2){
+			cpu.eip &= 0x0000ffff;
+		}
 	}
-}
 /*	swaddr_t opcode=instr_fetch(cpu.eip,1);
 	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
 	if(opcode==0xeb||opcode==0xe9){
@@ -57,7 +57,9 @@ static void do_execute(){
 }
 
 make_instr_helper(i)
+#if DATA_BYTE==2 || DATA_BYTE==4
 make_instr_helper(rm)
+#endif
 
 
 make_helper(concat(jmp_ptr_,SUFFIX)){
@@ -75,11 +77,11 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	cpu.eip -= 7;
 	cpu.CS.val=instr_fetch(eip+5,2);
 	uint32_t addr3=cpu.CS.index;
-	cpu.DES[0].limit15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3),2);
-	cpu.DES[0].base15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3)+2,2);
-	cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+4,1);
-	cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
-	cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr3<<3)+7,1);
+	cpu.DES[0].limit15_0=instr_fetch(cpu.gdtr.base+(addr3<<3),2);
+	cpu.DES[0].base15_0=instr_fetch(cpu.gdtr.base+(addr3<<3)+2,2);
+	cpu.DES[0].base23_16=instr_fetch(cpu.gdtr.base+(addr3<<3)+4,1);
+	cpu.DES[0].limit19_16=instr_fetch(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
+	cpu.DES[0].base31_24=instr_fetch(cpu.gdtr.base+(addr3<<3)+7,1);
 	print_asm("ljmp $0x%x,0x%x",cpu.CS.val,cpu.eip);
 	return 7;
 }

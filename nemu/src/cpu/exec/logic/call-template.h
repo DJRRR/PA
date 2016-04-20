@@ -38,14 +38,21 @@ static void do_execute(){
 			cpu.esp -= 4;
 			unsigned int modrm = instr_fetch(cpu.eip+1,1);
 			unsigned int mod=modrm>>6;
+			int buf=0;
 			if(mod==1 || mod==2){
-				MEM_W(cpu.esp,cpu.eip+3);
-				cpu.eip = op_src->val-3;
+				buf=3;
+				MEM_W(cpu.esp,cpu.eip+buf);
+				cpu.eip = op_src->val;
 			}
 			else{
-				MEM_W(cpu.esp,cpu.eip+2);
-				cpu.eip=op_src->val-2;
+				buf=2;
+				MEM_W(cpu.esp,cpu.eip+buf);
+				cpu.eip=op_src->val;
 			}
+			if(DATA_BYTE==2){
+				cpu.eip &= 0x0000ffff;
+			}
+			cpu.eip -=buf;
 		}
 	}
 	print_asm_template1();

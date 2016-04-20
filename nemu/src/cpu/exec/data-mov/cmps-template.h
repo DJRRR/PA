@@ -1,71 +1,38 @@
 #include "cpu/exec/template-start.h"
 
-#define instr cmps
-
-make_helper(concat(cmps_m_,SUFFIX)){
-	DATA_TYPE src=swaddr_read(cpu.esi,DATA_BYTE,S_DS);
-	DATA_TYPE dest=swaddr_read(cpu.edi,DATA_BYTE,S_ES);
-	DATA_TYPE result=dest-src;
-	DATA_TYPE flag_dest=MSB(dest)&1;
-	DATA_TYPE flag_src=MSB(src)&1;
-	DATA_TYPE flag_res=MSB(result)&1;
-	unsigned int num=0;
-	int i=0;
+make_helper(concat(cmps_,SUFFIX)){
+	uint32_t src_index=cpu.esi;
+	uint32_t dest_index=cpu.edi;
+	uint32_t incdec=0;
+	uint32_t result=swaddr_read(src_index,DATA_BYTE,S_ES)-swaddr_read(dest_index,DATA_BYTE,S_DS);
+	if(cpu.DF==0){
+		incdec=DATA_BYTE;
+	}
+	else{
+		incdec=-DATA_BYTE;
+	}
+	cpu.SF=MSB(result);
+	cpu.CF=(result>swaddr_read(dest_index,DATA_BYTE,S_DS))?1:0;
 	cpu.ZF=!result;
-	cpu.SF=flag_res;
-	if((flag_dest==1&&flag_src==0&&flag_res==0)||(flag_dest==0&&flag_src==1&&flag_res==1)){
+	DATA_TYPE p=result;
+	p &= 0xff;
+	p ^=p>>4;
+	p^=p>>2;
+	p^=p>>1;
+	cpu.PF=!p;
+	if(MSB(swaddr_read(src_index,DATA_BYTE,S_ES))!=MSB(swaddr_read(dest_index,DATA_BYTE,S_DS))&&MSB(result)==MSB(swaddr_read(src_index,DATA_BYTE,S_ES))){
 		cpu.OF=1;
 	}
 	else{
 		cpu.OF=0;
 	}
-	if(dest<src){
-		cpu.CF=1;
-	}
-	else{
-		cpu.CF=0;
-	}
-	for(i=0;i<8;i++){
-		if(result&1){
-			num++;
-		}
-		result >>= 1;
-	}
-	cpu.PF=!(num%2);
-	if(DATA_BYTE==1){
-		if(cpu.DF==0){
-			cpu.edi++;
-			cpu.esi++;
-		}
-		else{
-			cpu.edi--;
-			cpu.esi--;
-		}
-	}
-	else if(DATA_BYTE==2){
-		if(cpu.DF==0){
-			cpu.edi += 2;
-			cpu.esi += 2;
-		}
-		else{
-			cpu.edi -= 2;
-			cpu.esi -= 2;
-		}
-	}
-	else{
-		if(cpu.DF==0){
-			cpu.edi += 4;
-			cpu.esi += 4;
-		}
-		else{
-			cpu.edi -= 4;
-			cpu.esi -= 4;
-		}
-	}
-	print_asm_template2();
-	return DATA_BYTE+1;
+	cpu.esi=src_index+incdec;
+	cpu.edi=dest_index+incdec;
+	print_asm("cmps %%edi,%%esi\n");
+	return 1;
 }
 
 #include "cpu/exec/template-end.h"
+
 
 

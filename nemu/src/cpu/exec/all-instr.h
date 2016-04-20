@@ -46,6 +46,7 @@
 #include "logic/test.h"//PA2.1
 #include "logic/je.h"//PA2.1
 #include "logic/jbe.h"//PA2.2
+#include "logic/jb.h"
 #include "logic/jle.h"//PA2.3
 #include "logic/jne.h"//PA2.3
 #include "logic/seta.h"//PA2.3
@@ -57,6 +58,7 @@
 #include "logic/jns.h"//PA2.3
 #include "logic/js.h"//PA2.3
 #include "logic/jae.h"//PA2.3
+#include "logic/sete.h"
 #include "logic/std.h"//PA3.3
 
 #include "string/rep.h"
@@ -65,6 +67,9 @@
 
 #include "special/special.h"
 
-#include "int/int.h"
-#include "int/iret.h"
-
+#include "int/int.h"//PA4.1
+#include "int/pusha.h"//PA4.1
+#include "int/popa.h"//PA4.1
+#include "int/cli.h"//PA4.1
+#include "int/iret.h"//PA4.1
+#include "int/in.h"//PA4.1

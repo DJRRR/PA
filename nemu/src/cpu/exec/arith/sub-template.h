@@ -7,7 +7,7 @@ static void do_execute(){
 	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
 	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE result;
-	if(ops_decoded.opcode==0x83){
+	if(op_src->size==1&&(op_dest->size==2||op_src->size==4)){
 		result=op_dest->val-(DATA_TYPE_S)op_src->val;
 	}
 	else{

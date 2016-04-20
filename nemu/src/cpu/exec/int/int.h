@@ -1,6 +1,5 @@
-#ifndef __INT_I_H
-#define __INT_I_H
+#ifndef __INT_H__
+#define __INT_H__
 
-make_helper(int_i);
-
+make_helper(int_imm);
 #endif

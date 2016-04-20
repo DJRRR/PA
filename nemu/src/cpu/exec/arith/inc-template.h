@@ -8,24 +8,26 @@ static void do_execute () {
 
 	/* TODO: Update EFLAGS. */
 //	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
-	DATA_TYPE flag_src=MSB(op_src->val)&1;
+//	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
 	cpu.ZF=!result;
 	cpu.SF=flag_res;
 //	unsigned int num=0;
 //	int i=0;
-	if(flag_src==0&&flag_res==1){
+/*	if(flag_src==0&&flag_res==1){
 		cpu.OF=1;
 	}
 	else{
 		cpu.OF=0;
-	}
-	if(result<op_src->val||result<1){
+	}*/
+	cpu.OF=(result==0x80000000)?1:0;
+/*	if(result<op_src->val||result<1){
 		cpu.CF=1;
 	}
 	else{
 		cpu.CF=0;
-	}
+	}*/
+
 /*	for(i=0;i<8;i++){
 		if(result&1){
 			num++;

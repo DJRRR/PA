@@ -5,12 +5,12 @@ make_helper(lgdt_m){
 		swaddr_t addr=instr_fetch(eip+2,4);
 		cpu.gdtr.limit=swaddr_read(addr,2,S_SS);
 		cpu.gdtr.base=swaddr_read(addr+2,4,S_SS);
-		print_asm("lgdt");
+		print_asm("lgdt 0x%x",addr);
 		return 6;
 	}
 	else{
 		cpu.gdtr.limit=swaddr_read(cpu.eax,2,S_SS);
-		cpu.gdtr.base=swaddr_read(cpu.eax+2,2,S_SS);
+		cpu.gdtr.base=swaddr_read(cpu.eax+2,4,S_SS);
 		print_asm("lgdt (%%eax)");
 		return 2;
 	}

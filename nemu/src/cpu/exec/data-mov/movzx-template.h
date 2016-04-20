@@ -18,6 +18,7 @@ static void do_execute(){
 	}*/
 	DATA_TYPE res=op_src->val&0xffff;
 	reg_l(op_dest->reg)=res;
+
 	print_asm_template2();
 
 }
