@@ -20,6 +20,7 @@ void raise_intr(uint8_t NO){
 		cpu.CS.val=gd.segment;
 		swaddr_t addr=(gd.offset_31_16<<16)|gd.offset_15_0;
 		cpu.eip=addr;
+		printf("222\n");
 		longjmp(jbuf,1);
 }
 
