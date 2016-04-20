@@ -30,7 +30,7 @@ make_helper(nemu_trap) {
 	switch(cpu.eax) {
 		case 2:{
 			for(i=0;i<cpu.edx;i++){
-				printf("%c",swaddr_read(cpu.ecx+i,1,S_DS));
+				printf("%c",swaddr_read(cpu.ecx+i,1,S_ES));
 			}
 		   	break;
 			   }
