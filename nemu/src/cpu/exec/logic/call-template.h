@@ -3,7 +3,7 @@
 
 #define instr call
 
-static void do_execute(){
+/*static void do_execute(){
 	int current_sreg=S_SS;
 	if(ops_decoded.opcode==0xe8){
 		if(ops_decoded.is_data_size_16){
@@ -15,16 +15,8 @@ static void do_execute(){
 			cpu.eip += op_src->val&0xffff;
 		}
 		else{
-		/*	if(cpu.eip==0x80480ad){
-				printf("here2\n");
-				printf("call : 0x%x\n",addr);
-				printf("esp : 0x%x\n",cpu.esp);
-			}*/
 			cpu.esp -= 4;
 			MEM_W(cpu.esp,cpu.eip+1+DATA_BYTE);
-	/*		if(cpu.eip==0x80480ad){
-				printf("here3\n");
-			}*/
 			cpu.eip+=op_src->val;
 		}
 	}
@@ -57,6 +49,30 @@ static void do_execute(){
 	}
 	print_asm_template1();
 
+}*/
+static void do_execute(){
+	swaddr_t opcode=instr_fetch(cpu.eip,1);
+	DATA_TYPE_S addr=instr_fetch(cpu.eip+1,DATA_BYTE);
+	int current_sreg=S_SS;
+	if(opcode==0xe8){
+		cpu.esp -= DATA_BYTE;
+		MEM_W(cpu.esp,cpu.eip+DATA_BYTE+1);
+		cpu.eip += addr;
+		if(DATA_BYTE==2) cpu.eip &=0x0000ffff;
+		print_asm("call %x",cpu.eip);
+	}
+	else{
+		uint32_t buf=2;
+		if(instr_fetch(cpu.eip+1,1)==0x57) buf=3;
+		cpu.esp -=DATA_BYTE;
+		MEM_W(cpu.esp,cpu.eip+buf);
+		cpu.eip=op_src->val;
+		if(DATA_BYTE==2){
+			cpu.eip &= 0x0000ffff;
+		}
+		cpu.eip -= buf;
+		print_asm_template1();
+	}
 }
 
 make_instr_helper(i)
