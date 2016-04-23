@@ -4,7 +4,7 @@
 
 static void do_execute(){
 	int current_sreg=S_SS;
-	if(DATA_BYTE==4||DATA_BYTE==1){
+	if(DATA_BYTE==4){
 		cpu.esp -= 4;
 	}
 	else{
