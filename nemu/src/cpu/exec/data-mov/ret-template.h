@@ -57,6 +57,7 @@ make_helper(ret_i_w){
 		cpu.eip=swaddr_read(reg_l(R_ESP),4);
 		reg_l(R_ESP) += 4;
 	}
+	cpu.esp += op_src->val;
 	return 0;
 }
 
