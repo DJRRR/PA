@@ -24,13 +24,6 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
-/*	for(i=0;i<8;i++){
-		if(result&1){
-			num++;
-		}
-		result >>= 1;
-	}
-	cpu.PF=!(num%2);*/
 	DATA_TYPE res_t=result;
 	res_t = res_t & 0xff;
 	res_t ^= res_t>>4;
