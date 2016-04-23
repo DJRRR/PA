@@ -38,9 +38,6 @@ static void do_execute(){
 				MEM_W(cpu.esp,cpu.eip+2);
 				cpu.eip=op_src->val-2;
 			}
-			if(DATA_BYTE==2){
-				cpu.eip &= 0x0000ffff;
-			}
 		}
 	}
 	print_asm_template1();
