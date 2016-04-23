@@ -10,7 +10,7 @@ static void do_execute(){
 	else{
 		cpu.esp -= 2;
 	}
-	MEM_W(cpu.esp,op_src->val);
+	swaddr_write(cpu.esp,4,op_src->val,current_sreg);
 	print_asm_template1();
 }
 
