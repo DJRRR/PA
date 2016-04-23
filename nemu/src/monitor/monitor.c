@@ -108,11 +108,11 @@ void restart() {
 	init_cache_L1();//init cache
 	init_cache_L2();
 	init_cr0();//init cr0
-	cpu.DES[0].base15_0=0;
-	cpu.DES[0].base23_16=0;
-	cpu.DES[0].base31_24=0;
-	cpu.DES[0].limit15_0=0xffff;
-	cpu.DES[0].limit19_16=0xf;
+	cpu.DES[1].base15_0=0;
+	cpu.DES[1].base23_16=0;
+	cpu.DES[1].base31_24=0;
+	cpu.DES[1].limit15_0=0xffff;
+	cpu.DES[1].limit19_16=0xf;
 //	init_page_L1();
 	init_TLB();
   //  printf("CF:%u     tmp_1:%u    PF:%u     \n",cpu.CF,cpu.tmp_1,cpu.PF);
