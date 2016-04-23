@@ -85,19 +85,19 @@ typedef union{
 		unsigned int dir:10;
 	};
 	struct{
-		unsigned offset_i:12;//tlb
+		unsigned int offset_i:12;//tlb
 		unsigned int tag:20;
 	};
 	unsigned int val;
 }ln_addr;
 
 typedef struct{
-	unsigned int valid:1;
-	unsigned int tag;
+	bool valid;
+	uint32_t tag;
 	PTE pte;
-}TLB;
+}TLB[8];
 
-TLB tlb[8];
+TLB tlb;
 
 void init_TLB(){
 	int i;
@@ -108,7 +108,7 @@ void init_TLB(){
 
 hwaddr_t read_page(lnaddr_t addr){
 	if((cpu.cr0.protect_enable==0)||(cpu.cr0.paging==0)){
-		return (hwaddr_t) addr;
+		return  addr;
 	}
 	ln_addr lnaddr;
 	lnaddr.val=addr;
@@ -129,7 +129,7 @@ hwaddr_t read_page(lnaddr_t addr){
 		tlb[i].valid=1;
 		tlb[i].pte=pte;
 	}
-	return (hwaddr_t)((tlb[i].pte.page_frame<<12)+lnaddr.offset);
+	return ((tlb[i].pte.page_frame<<12)+lnaddr.offset);
 }
 
 
