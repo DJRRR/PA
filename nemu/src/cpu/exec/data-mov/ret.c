@@ -29,6 +29,7 @@ make_helper(ret){
 	if(ops_decoded.opcode==0xc2){
 		cpu.esp += imm16;
 		print_asm("ret $0x%x",imm16);
+		return 3;
 	}
 	else{
 		print_asm("ret");

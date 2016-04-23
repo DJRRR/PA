@@ -48,8 +48,8 @@ make_helper(concat(ret_imm_,SUFFIX)){//?????
 */
 make_helper(ret_i_w){
 	if(ops_decoded.is_data_size_16){
-		assert(0);
-		cpu.eip =swaddr_read(reg_l(R_ESP),2);
+		cpu.eip &= 0xffffff00;
+		cpu.eip |=swaddr_read(reg_l(R_ESP),2);
 		reg_l(R_ESP) += 2;
 		cpu.eip &= 0x0000ffff;
 	}
