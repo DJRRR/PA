@@ -62,7 +62,7 @@ int isatty(int fd) {
 int main() {
 	printf("%s", "Hello world!\n");
 	asm volatile("int3");
-	printf("%d", 1);
+	printf(" %d", 1);
 
 	HIT_GOOD_TRAP;
 	return 0;
