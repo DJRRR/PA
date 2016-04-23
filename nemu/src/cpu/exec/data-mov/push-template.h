@@ -3,14 +3,10 @@
 #define instr push
 
 static void do_execute(){
-	int current_sreg=S_SS;
-	if(DATA_BYTE==4){
-		cpu.esp -= 4;
-	}
-	else if(DATA_BYTE==2){
-		cpu.esp -= 2;
-	}
-	swaddr_write(cpu.esp,4,op_src->val,current_sreg);
+	int n=4;
+	if(ops_decoded.is_data_size_16) n=2;
+	cpu.esp-=n;
+	swaddr_write(cpu.esp,n,op_src->val,S_SS);
 	print_asm_template1();
 }
 
