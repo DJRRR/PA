@@ -92,6 +92,9 @@ void cpu_exec(volatile uint32_t n) {
 		if(check_watchpoint()==false){
 			nemu_state=STOP;
 		}
+		if(cpu.IF){
+			assert(0);
+		}
 		if(nemu_state != RUNNING) { return; }
 	}
 
