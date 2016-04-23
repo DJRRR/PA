@@ -58,6 +58,7 @@ make_helper(ret_i_w){
 		reg_l(R_ESP) += 4;
 	}
 	cpu.esp += op_src->val;
+	print_asm("retw $0x%x", op_src->val);
 	return 0;
 }
 
