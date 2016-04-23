@@ -12,3 +12,5 @@
 #include "movzx-template.h"
 #undef DATA_BYTE
 
+make_helper_v(movzb_rm2r)
+make_helper_v(movzw_rm2r)

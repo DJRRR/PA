@@ -1,28 +1,29 @@
 #include "cpu/exec/template-start.h"
 
-#define instr movzx
+#define instr movzb
 
-static void do_execute(){
-/*	DATA_TYPE res;
-	if(instr_fetch(cpu.eip+1,1)==0xb6){
-		res=op_src->val;
-		res=(res<<24)>>24;
-		res = res&0x000000ff;
-		OPERAND_W(op_dest,res);
-	}
-	else if(instr_fetch(cpu.eip+1,1)==0xb7){
-		res=op_src->val;
-		res = (res<<16)>>16;
-		res = res&0x0000ffff;
-		OPERAND_W(op_dest,res);
-	}*/
+/*static void do_execute(){
 	DATA_TYPE res=op_src->val&0xffff;
 	reg_l(op_dest->reg)=res;
 
 	print_asm_template2();
 
+}*/
+static void do_execute(){
+	DATA_TYPE result=0xff&op_src->val;
+	OPERAND_W(op_dest,result);
+	print_asm_template2();
 }
-
 make_instr_helper(rm2r)
+#undef instr
+
+#define instr movzw
+static void do_execute(){
+	DATA_TYPE result=0xffff&op_src->val;
+	OPERAND_W(op_dest,result);
+	print_asm_template2();
+}
+make_instr_helper(rm2r)
+#undef instr
 
 #include "cpu/exec/template-end.h"
