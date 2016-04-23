@@ -52,11 +52,15 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	cpu.eip -= 7;
 	cpu.CS.val=instr_fetch(eip+5,2);
 	uint32_t addr3=cpu.CS.index;
-	cpu.DES[0].limit15_0=instr_fetch(cpu.gdtr.base+(addr3<<3),2);
-	cpu.DES[0].base15_0=instr_fetch(cpu.gdtr.base+(addr3<<3)+2,2);
-	cpu.DES[0].base23_16=instr_fetch(cpu.gdtr.base+(addr3<<3)+4,1);
-	cpu.DES[0].limit19_16=instr_fetch(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
-	cpu.DES[0].base31_24=instr_fetch(cpu.gdtr.base+(addr3<<3)+7,1);
+	if(DATA_BYTE==2){
+		assert(0);
+	   	cpu.eip = cpu.eip&0xffff;
+	}
+	cpu.DES[1].limit15_0=instr_fetch(cpu.gdtr.base+(addr3*8),2);
+	cpu.DES[1].base15_0=instr_fetch(cpu.gdtr.base+(addr3*8)+2,2);
+	cpu.DES[1].base23_16=instr_fetch(cpu.gdtr.base+(addr3*8)+4,1);
+	cpu.DES[1].limit19_16=instr_fetch(cpu.gdtr.base+(addr3*8)+6,1)&0xf;
+	cpu.DES[1].base31_24=instr_fetch(cpu.gdtr.base+(addr3*8)+7,1);
 	print_asm("ljmp $0x%x,0x%x",cpu.CS.val,cpu.eip);
 	return 7;
 }

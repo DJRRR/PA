@@ -29,6 +29,7 @@ make_helper(concat(mov_cr2r_,SUFFIX)){
 	return 2;
 
 }
+void init_TLB();
 make_helper(concat(mov_r2cr_,SUFFIX)){
 	ModR_M m;
 	m.val=instr_fetch(eip+1,1);
@@ -50,12 +51,12 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	if(judge==0xd8){//ds
 		cpu.DS.val=op_src->val;
 //		printf("1111\n");
-		uint32_t addr1=cpu.DS.index;
-		cpu.DES[1].limit15_0=lnaddr_read(cpu.gdtr.base+(addr1<<3),2);//16
-		cpu.DES[1].base15_0=lnaddr_read(cpu.gdtr.base+(addr1<<3)+2,2);//16
-		cpu.DES[1].base23_16=lnaddr_read(cpu.gdtr.base+(addr1<<3)+4,1);//8
-		cpu.DES[1].limit19_16=lnaddr_read(cpu.gdtr.base+(addr1<<3)+6,1)&0xf;//4
-		cpu.DES[1].base31_24=lnaddr_read(cpu.gdtr.base+(addr1<<3)+7,1);//8;
+		uint8_t addr1=cpu.DS.index;
+		cpu.DES[3].limit15_0=lnaddr_read(cpu.gdtr.base+(addr1*8),2)&0xffff;//16
+		cpu.DES[3].base15_0=lnaddr_read(cpu.gdtr.base+(addr1*8)+2,2);//16
+		cpu.DES[3].base23_16=lnaddr_read(cpu.gdtr.base+(addr1*8)+4,1);//8
+		cpu.DES[3].limit19_16=lnaddr_read(cpu.gdtr.base+(addr1*8)+6,1)&0xf;//4
+		cpu.DES[3].base31_24=lnaddr_read(cpu.gdtr.base+(addr1*8)+7,1);//8;
 		print_asm("mov %%%s,ds",REG_NAME(op_src->reg));
 
 	}
@@ -63,12 +64,12 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 	//	cpu.ES.val=REG(op_src->reg);
 		cpu.ES.val=op_src->val;
 //		printf("2222\n");
-		uint32_t addr2=cpu.ES.index;
-		cpu.DES[2].limit15_0=lnaddr_read(cpu.gdtr.base+(addr2<<3),2);
-		cpu.DES[2].base15_0=lnaddr_read(cpu.gdtr.base+(addr2<<3)+2,2);
-		cpu.DES[2].base23_16=lnaddr_read(cpu.gdtr.base+(addr2<<3)+4,1);
-		cpu.DES[2].limit19_16=lnaddr_read(cpu.gdtr.base+(addr2<<3)+6,1)&0xf;
-		cpu.DES[2].base31_24=lnaddr_read(cpu.gdtr.base+(addr2<<3)+7,1);
+		uint8_t addr2=cpu.ES.index;
+		cpu.DES[0].limit15_0=lnaddr_read(cpu.gdtr.base+(addr2*8),2)&0xffff;
+		cpu.DES[0].base15_0=lnaddr_read(cpu.gdtr.base+(addr2*8)+2,2);
+		cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr2*8)+4,1);
+		cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr2*8)+6,1)&0xf;
+		cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr2*8)+7,1);
 		print_asm("mov %%%s,es",REG_NAME(op_src->reg));
 
 	}
@@ -77,11 +78,11 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.SS.val=op_src->val;
 	//	printf("3333\n");
 		uint32_t addr3=cpu.SS.index;
-		cpu.DES[3].limit15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3),2);
-		cpu.DES[3].base15_0=lnaddr_read(cpu.gdtr.base+(addr3<<3)+2,2);
-		cpu.DES[3].base23_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+4,1);
-		cpu.DES[3].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3<<3)+6,1)&0xf;
-		cpu.DES[3].base31_24=lnaddr_read(cpu.gdtr.base+(addr3<<3)+7,1);
+		cpu.DES[2].limit15_0=lnaddr_read(cpu.gdtr.base+(addr3*8),2)&0xffff;
+		cpu.DES[2].base15_0=lnaddr_read(cpu.gdtr.base+(addr3*8)+2,2);
+		cpu.DES[2].base23_16=lnaddr_read(cpu.gdtr.base+(addr3*8)+4,1);
+		cpu.DES[2].limit19_16=lnaddr_read(cpu.gdtr.base+(addr3*8)+6,1)&0xf;
+		cpu.DES[2].base31_24=lnaddr_read(cpu.gdtr.base+(addr3*8)+7,1);
 		print_asm("mov %%%s,ss",REG_NAME(op_src->reg));
 
 	}
@@ -91,11 +92,11 @@ make_helper(concat(mov_r2seg_,SUFFIX)){//just read limit and base
 		cpu.CS.val=REG(op_src->reg);
 	//	printf("4444\n");
 		uint32_t addr4=cpu.CS.index;
-		cpu.DES[0].limit15_0=lnaddr_read(cpu.gdtr.base+(addr4<<3),2);
-		cpu.DES[0].base15_0=lnaddr_read(cpu.gdtr.base+(addr4<<3)+2,2);
-		cpu.DES[0].base23_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+4,1);
-		cpu.DES[0].limit19_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+6,1)&0xf;
-		cpu.DES[0].base31_24=lnaddr_read(cpu.gdtr.base+(addr4<<3)+7,1);
+		cpu.DES[1].limit15_0=lnaddr_read(cpu.gdtr.base+(addr4<<3),2);
+		cpu.DES[1].base15_0=lnaddr_read(cpu.gdtr.base+(addr4<<3)+2,2);
+		cpu.DES[1].base23_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+4,1);
+		cpu.DES[1].limit19_16=lnaddr_read(cpu.gdtr.base+(addr4<<3)+6,1)&0xf;
+		cpu.DES[1].base31_24=lnaddr_read(cpu.gdtr.base+(addr4<<3)+7,1);
 		print_asm("mov %%%s,cs",REG_NAME(op_src->reg));
 
 	}

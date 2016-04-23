@@ -16,10 +16,6 @@
 #include <assert.h>
 #include <string.h>
 //#include <exprelf.h>
-#define S_CS 0
-#define S_DS 1
-#define S_ES 2
-#define S_SS 3
 typedef uint8_t bool;
 typedef uint32_t hwaddr_t;
 typedef uint32_t lnaddr_t;
