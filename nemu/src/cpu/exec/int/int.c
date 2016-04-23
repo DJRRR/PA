@@ -1,5 +1,4 @@
 #include "cpu/exec/helper.h"
-#include "cpu/decode/modrm.h"
 #include <setjmp.h>
 #include "../../lib-common/x86-inc/mmu.h"
 extern jmp_buf jbuf;
@@ -47,7 +46,7 @@ make_helper(int_imm){
 	uint8_t judge=instr_fetch(eip+1,1);
 //	printf("int.c 0x%x\n",judge);
 	cpu.eip += 2;
-//	print_asm("int $0x%0x02x",judge);
+	print_asm("int $0x%0x02x",judge);
 	raise_intr(judge);
 	return 2;
 }
