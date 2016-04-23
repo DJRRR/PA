@@ -29,8 +29,11 @@ void do_syscall(TrapFrame *tf) {
 		case 4:{
 				tf->eax=tf->edx;
 				if(tf->ebx==1||tf->ebx==2){
-					asm volatile (".byte 0xd6" : : "a"(2), "c"((uint8_t *)tf->ecx), "d"(tf->edx-1));
+					asm volatile (".byte 0xd6" : : "a"(2), "c"((void *)tf->ecx), "d"(tf->edx));
 					asm volatile ("int3");
+				}
+				else{
+					asm volatile("int3");
 				}
 
 				break;
