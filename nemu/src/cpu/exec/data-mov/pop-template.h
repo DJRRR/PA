@@ -17,7 +17,6 @@ static void do_execute(){
     print_asm_template1();
 }
 make_helper(concat(pop_m_,SUFFIX)){
-	asm volatile("int3");
 	return 2;
 }
 

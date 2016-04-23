@@ -32,9 +32,7 @@ static void do_execute(){
 }
 
 make_instr_helper(i)
-#if DATA_BYTE==2 || DATA_BYTE==4
 make_instr_helper(rm)
-#endif
 
 
 make_helper(concat(jmp_ptr_,SUFFIX)){
@@ -64,6 +62,6 @@ make_helper(concat(jmp_ptr_,SUFFIX)){
 	print_asm("ljmp $0x%x,0x%x",cpu.CS.val,cpu.eip);
 	return 7;
 }
-#include "cpu/exec/template-end.h"
 
+#include "cpu/exec/template-end.h"
 
