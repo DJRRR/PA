@@ -1,6 +1,6 @@
 #include "cpu/exec/helper.h"
 
-/*#define DATA_BYTE 1
+#define DATA_BYTE 1
 #include "ret-template.h"
 #undef DATA_BYTE
 
@@ -13,9 +13,9 @@
 #undef DATA_BYTE
 
 make_helper_v(ret)
-make_helper_v(ret_imm)*/
+make_helper_v(ret_imm)
 
-make_helper(ret){
+/*make_helper(ret){
 	uint32_t imm16=instr_fetch(cpu.eip+1,2);
 	if(ops_decoded.is_data_size_16){
 		cpu.eip=swaddr_read(cpu.esp,2,S_SS);
@@ -35,5 +35,5 @@ make_helper(ret){
 	}
 	cpu.eip --;
 	return 1;
-}
+}*/
 
