@@ -60,7 +60,7 @@ int isatty(int fd) {
 }
 
 int main() {
-	printf("%s", "Hello world!\n");
+	printf("%s", "Hello world!");
 	asm volatile("int3");
 	printf(" %d", 1);
 
