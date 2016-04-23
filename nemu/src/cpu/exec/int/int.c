@@ -48,6 +48,7 @@ make_helper(int_imm){
 	cpu.eip += 2;
 	print_asm("int $0x%0x02x",judge);
 	raise_intr(judge);
+	assert(judge==0x80);
 	return 2;
 }
 	
