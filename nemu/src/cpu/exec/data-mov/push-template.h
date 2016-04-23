@@ -7,7 +7,7 @@ static void do_execute(){
 	if(DATA_BYTE==4){
 		cpu.esp -= 4;
 	}
-	else{
+	else if(DATA_BYTE==2){
 		cpu.esp -= 2;
 	}
 	swaddr_write(cpu.esp,4,op_src->val,current_sreg);
