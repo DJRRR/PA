@@ -11,7 +11,7 @@ make_helper(iret){
 	else{
 	//	asm volatile("int3");
    // 	printf("here int iret.c opcode:0x%x\n",instr_fetch(cpu.eip,1));
-		cpu.eip=swaddr_read(cpu.esp,4,S_SS);
+		cpu.eip=swaddr_read(cpu.esp,4,S_SS)-1;
 		cpu.esp += 4;
 	//	printf("here int iret.c cpu.eip\n");
 //		cpu.CS.val=swaddr_read(cpu.esp,2,S_SS);
@@ -26,7 +26,7 @@ make_helper(iret){
 	//	printf("next opcode : 0x%x\n",instr_fetch(cpu.eip+1,1));
 	}
 	//return 1;
-	return 0;
+	return 1;
 }
 
 #include "cpu/exec/template-start.h"
