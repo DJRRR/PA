@@ -26,11 +26,11 @@ make_helper(inv) {
 
 make_helper(nemu_trap) {
 	print_asm("nemu trap (eax = %d)", cpu.eax);
-	unsigned int i=0;
+	 int i=0;
 	switch(cpu.eax) {
 		case 2:{
 			for(i=0;i<cpu.edx;i++){
-				printf("%c",swaddr_read(cpu.ecx+i,1,S_ES));
+				printf("%c",swaddr_read(cpu.ecx+i,1,S_DS));
 			}
 		   	break;
 			   }
