@@ -1,7 +1,9 @@
 #include "common.h"
 #include "nemu.h"
 #include "../../../lib-common/x86-inc/mmu.h"
-
+#include "stdlib.h"
+#include "time.h"
+#include "tlb2.h"
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t read_cache(hwaddr_t,size_t);
@@ -21,29 +23,35 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	return read_page(addr);
-//	return addr;
-//	if(cpu.eip>=0x100c44){
-//		printf("stop\n");
-//	}
-	/*	if(cpu.eip==0x80480ad){
-			printf("in memory.c4\n");
+}
+
+hwaddr_t page_translate2(lnaddr_t addr){
+	if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
+		return (hwaddr_t) addr;
+	}
+	int i,flag=0;
+	for(i=0;i<64;i++){
+		if(tlb[i].tag==(addr>>12)&&tlb[i].valid==1){
+			flag=1;
+			break;
 		}
-		uint16_t dir=addr>>22&0x3ff;
-		uint16_t page=(addr>>12)&0x3ff;
-		uint16_t offset=addr&0xfff;
-		uint32_t base=hwaddr_read((cpu.cr3.page_directory_base<<12)+dir*4,4);
-		uint32_t page_data=hwaddr_read((base&0xfffff000)+page*4,4);
-		res=offset+(page_data&0xfffff000);
-		if(cpu.eip==0x80480ad){
-			printf("cr3 base:0x%x\n",cpu.cr3.page_directory_base);
-			printf("addr:0x%x\n",addr);
-			printf("res:0x%x\n",res);
-		}
+	}
+	if(flag==1){
+		uint32_t offset=addr&0xfff;
+		return offset+((tlb[i].page_data>>12)<<12);
 	}
 	else{
-		res=(hwaddr_t)addr;
+		uint16_t dir=addr>>22;
+		uint16_t page=(addr>>12)&0x3ff;
+		uint16_t offset=addr&0xfff;
+		uint32_t page_base=hwaddr_read((cpu.cr3.page_directory_base<<12)+dir*4,4)>>12;
+		srand(time(0)+clock());
+		int no=rand()%64;
+		tlb[no].valid=1;
+		tlb[no].tag=addr>>12;
+		tlb[no].page_data=hwaddr_read((page_base<<12)+page*4,4);
+		return offset+((hwaddr_read((page_base<<12)+page*4,4)>>12)<<12);
 	}
-	return res;*/
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
@@ -51,7 +59,8 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 #ifdef DEBUG
 	assert(len==1 || len==2 ||len==4);
 #endif
-		hwaddr_t hwaddr = page_translate(addr,len);
+//		hwaddr_t hwaddr = page_translate(addr,len);
+		hwaddr_t hwaddr = page_translate2(addr);
 		return hwaddr_read(hwaddr,len);
 }
 
@@ -60,7 +69,8 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 #ifdef DEBUG
 	assert(len==1 || len==2 || len==4);
 #endif
-		hwaddr_t hwaddr = page_translate(addr,len);
+//		hwaddr_t hwaddr = page_translate(addr,len);
+		hwaddr_t hwaddr=page_translate2(addr);
 
 		hwaddr_write(hwaddr,len,data);
 }
