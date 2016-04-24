@@ -3,35 +3,37 @@
 #define instr stos
 make_helper(concat(stos_m_,SUFFIX)){
 	int current_sreg=S_ES;
+	uint32_t dest=cpu.edi;
 	if(DATA_BYTE==1){
-		MEM_W(cpu.edi,cpu.gpr[0]._8[0]);
+		MEM_W(dest,REG(R_AL));
 		if(cpu.DF==0){
-			cpu.edi++;
+			dest++;
 		}
 		else{
-			cpu.edi--;
+			dest--;
 		}
 	}
 	else if(DATA_BYTE==2){
-		MEM_W(cpu.edi,cpu.gpr[0]._16);
+		MEM_W(dest,REG(R_AX));
 		if(cpu.DF==0){
-			cpu.edi += 2;
+			dest += 2;
 		}
 		else{
-			cpu.edi -= 2;
+			dest -= 2;
 		}
 	}
 	else{
-		MEM_W(cpu.edi,cpu.eax);
+		MEM_W(dest,REG(R_EAX));
 		if(cpu.DF==0){
-			cpu.edi += 4;
+			dest += 4;
 		}
 		else{
-			cpu.edi -= 4;
+			dest -= 4;
 		}
 	}
-	print_asm_template1();
-	return DATA_BYTE;
+	cpu.edi=dest;
+	print_asm("stos %%esi,%%edi\n");
+	return 1;
 }
 
 #include "cpu/exec/template-end.h"
