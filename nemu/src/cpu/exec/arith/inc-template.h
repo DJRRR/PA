@@ -20,7 +20,7 @@ static void do_execute () {
 	else{
 		cpu.OF=0;
 	}*/
-//	cpu.OF=(result==0x80000000)?1:0;
+	cpu.OF=(result==0x80000000)?1:0;
 /*	if(result<op_src->val||result<1){
 		cpu.CF=1;
 	}

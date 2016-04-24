@@ -15,7 +15,7 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
-	if(result>op_dest->val){
+	if(op_src->val>op_dest->val){
 		cpu.CF=1;
 	}
 	else{
