@@ -24,10 +24,15 @@ make_helper(rep) {
 				|| ops_decoded.opcode == 0xae	// scasb
 				|| ops_decoded.opcode == 0xaf	// scasw
 				);
+			swaddr_t tmp1=instr_fetch(eip,1);
+			swaddr_t tmp2=instr_fetch(eip+1,1);
+			if(tmp1==0xf2&&cpu.ZF==1) break;
+			else if(tmp1==0xf3){
+				if((tmp2==0xa6||tmp2==0xa7||tmp2==0xae||tmp2==0xaf)&&cpu.ZF==0) break;
+			}
+		}
 
 			/* TODO: Jump out of the while loop if necessary. */
-
-		}
 		len = 1;
 	}
 
