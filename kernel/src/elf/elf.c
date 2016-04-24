@@ -48,7 +48,7 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			// ramdisk_read((void *)ph->p_vaddr,ELF_OFFSET_IN_DISK+ph->p_offset,ph->p_filesz);
+			 ramdisk_read(vaddr,ph->p_offset,ph->p_filesz);
 			 
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
@@ -62,8 +62,8 @@ uint32_t loader() {
 			if(brk < new_brk) { brk = new_brk; }
 	//		uint32_t vaddr=mm_malloc(ph->p_vaddr,ph->p_memsz);
 #endif
-			ramdisk_read((void *)(vaddr),ELF_OFFSET_IN_DISK+ph->p_offset,ph->p_filesz);
-			memset((void *)(vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
+		//	ramdisk_read(vaddr,ph->p_offset,ph->p_filesz);
+			memset((vaddr+ph->p_filesz),0,ph->p_memsz-ph->p_filesz);
 		}
 	}
 
