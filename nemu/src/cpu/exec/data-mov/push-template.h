@@ -4,9 +4,11 @@
 
 static void do_execute(){
 	int n=4;
-	if(ops_decoded.is_data_size_16) n=2;
-	cpu.esp-=n;
-	swaddr_write(cpu.esp,n,op_src->val,S_SS);
+	if(DATA_BYTE==2){
+		n=2;
+	}
+	cpu.esp -= n;
+	swaddr_write(cpu.esp,DATA_BYTE,op_src->val,S_SS);
 	print_asm_template1();
 }
 
