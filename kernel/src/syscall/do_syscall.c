@@ -1,6 +1,7 @@
 #include "irq.h"
 
 #include <sys/syscall.h>
+#include <unistd.h>
 
 void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
@@ -30,7 +31,7 @@ void do_syscall(TrapFrame *tf) {
 				asm volatile("int3");
 				tf->eax=tf->edx;
 				if(tf->ebx==1||tf->ebx==2){
-					asm volatile (".byte 0xd6" : : "a"(2), "c"(&tf->ecx), "d"(tf->edx));
+					asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 				}
 
 				break;
