@@ -31,7 +31,7 @@ make_helper(concat(stos_m_,SUFFIX)){
 		}
 	}
 	print_asm_template1();
-	return 1;
+	return DATA_BYTE;
 }
 
 #include "cpu/exec/template-end.h"

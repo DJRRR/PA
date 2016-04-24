@@ -1,5 +1,8 @@
 #include "cpu/exec/helper.h"
 #include "cpu/decode/modrm.h"
+
+#define instr leave
+
 make_helper(leave){
 	if(ops_decoded.is_data_size_16){
 		cpu.esp=cpu.gpr[5]._16;
