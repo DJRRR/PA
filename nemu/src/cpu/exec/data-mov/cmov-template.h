@@ -6,7 +6,7 @@
 
 static void do_execute(){
 //	printf("test:%u\n",ops_decoded.opcode);
-	switch(ops_decoded.opcode){
+	switch(ops_decoded.opcode&0xff){
 	case 0x40:
 		if(cpu.OF==1){
 			OPERAND_W(op_dest,op_src->val);
