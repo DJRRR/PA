@@ -28,10 +28,10 @@ void do_syscall(TrapFrame *tf) {
 
 		case SYS_brk: sys_brk(tf); break;
 		case 4:
-				tf->eax=tf->edx;
 				if(tf->ebx==1||tf->ebx==2){
 					asm volatile (".byte 0xd6" : : "a"(2), "c"(tf->ecx), "d"(tf->edx));
 				}
+				tf->eax=tf->edx;
 
 				break;
 
