@@ -6,8 +6,8 @@
 
 static void do_execute(){
 //	printf("test:%u\n",ops_decoded.opcode);
-	DATA_TYPE opcode=instr_fetch(cpu.eip+1,1);
-	switch(opcode&0xff){
+//	DATA_TYPE opcode=instr_fetch(cpu.eip+1,1);
+	switch(ops_decoded.opcode){
 	case 0x40:
 		if(cpu.OF==1){
 			OPERAND_W(op_dest,op_src->val);
