@@ -89,6 +89,7 @@ static void do_execute(){
 		}
 		break;
 	default:
+		asm volatile("int3");
 		break;
 	}
 	print_asm_template2();
