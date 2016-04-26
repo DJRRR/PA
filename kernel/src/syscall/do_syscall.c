@@ -34,7 +34,6 @@ void do_syscall(TrapFrame *tf) {
 				}
 
 				break;
-					   }
 
 		/* TODO: Add more system calls. */
 
