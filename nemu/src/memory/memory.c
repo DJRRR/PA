@@ -4,6 +4,8 @@
 #include "stdlib.h"
 #include "time.h"
 #include "tlb2.h"
+#include "device/mmio.h"
+
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t read_cache(hwaddr_t,size_t);
@@ -13,13 +15,26 @@ void write_cache(hwaddr_t,size_t,uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-//	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-	return read_cache(addr,len) & (~0u >> ((4-len)<<3));
+	int judge=is_mmio(addr);
+	if(judge==-1){
+	//	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+		return read_cache(addr,len) & (~0u >> ((4 - len) << 3));
+	}
+	else{
+		return mmio_read(addr,len,judge) & (~0u >> ((4 - len) << 3));
+	}
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-//	dram_write(addr, len, data);
-	write_cache(addr,len,data);
+	int judge=is_mmio(addr);
+	if(judge==-1){
+	//	dram_write(addr, len, data);
+		write_cache(addr,len,data);
+	}
+	else{
+		mmio_write(addr,len,data,judge);
+	}
+
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	return read_page(addr);
