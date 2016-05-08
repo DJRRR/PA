@@ -24,8 +24,7 @@ make_helper(lea) {
 	return 1 + len;
 }
 make_helper(hlt){
-	assert(0);
-	while(cpu.IF);
+	while(!(cpu.INTR&&cpu.IF));
 	print_asm("hlt");
 	return 1;
 }
