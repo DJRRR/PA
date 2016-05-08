@@ -12,10 +12,14 @@ static void sys_brk(TrapFrame *tf) {
 #endif
 	tf->eax = 0;
 }
-
+extern void serial_printc(char);
 int sys_write(int fd,void *buf,int len){
 	if(fd==1||fd==2){
-		asm volatile (".byte 0xd6" : : "a"(2),"c"(buf),"d"(len));
+		//asm volatile (".byte 0xd6" : : "a"(2),"c"(buf),"d"(len));
+		int i;
+		for(i=0;i<len;i++){
+			serial_printc(((char*)buf)[i]);
+		}
 	}
 //	asm volatile("int3");
 	return len;
