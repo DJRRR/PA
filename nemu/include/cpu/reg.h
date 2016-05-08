@@ -92,6 +92,8 @@ typedef struct {
 	}idtr;
 
 	swaddr_t eip;
+
+	volatile bool INTR;
 } CPU_state;
 
 extern CPU_state cpu;
