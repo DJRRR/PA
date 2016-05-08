@@ -12,4 +12,5 @@
 #include "in-template.h"
 #undef DATA_BYTE
 
-
+make_helper_v(in_i82a)
+make_helper_v(in_d2a)

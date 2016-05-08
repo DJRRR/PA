@@ -4,19 +4,20 @@
 
 #define instr in
 
-static void do_execute(){
-	uint32_t judge=instr_fetch(cpu.eip,1);
-	printf("here in2 in.c 0x%x\n",judge);
-	print_asm_template2();
+make_helper(concat(in_i82a_,SUFFIX)){
+	uint32_t judge=instr_fetch(eip,1);
+	printf("in-template.h:%d\n",judge);
+	uint8_t addr=instr_fetch(eip+1,1);
+	REG(R_EAX)=pio_read(addr,DATA_BYTE);
+	print_asm("in" str(SUFFIX) " 0x%x,%%%s",addr,REG_NAME(R_EAX));
+	return 2;
 }
-make_instr_helper(i2a)
 
-make_helper(concat(in_rm2a_,SUFFIX)){
+
+make_helper(concat(in_d2a_,SUFFIX)){
 //	uint32_t judge=instr_fetch(cpu.eip,1);
 	REG(R_EAX)=pio_read(cpu.gpr[R_DX]._16,DATA_BYTE);
-//	print_asm("in"str(SUFFIX) " (%%dx), %%%s",REG_NAME(R_EAX));
+	print_asm("in"str(SUFFIX) " (%%dx), %%%s",REG_NAME(R_EAX));
 	return 1;
 }
-
-
 #include "cpu/exec/template-end.h"
