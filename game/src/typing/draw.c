@@ -32,7 +32,7 @@ redraw_screen() {
 	for (it = characters(); it != NULL; it = it->_next) {
 		static char buf[2];
 		buf[0] = it->text + 'A'; buf[1] = 0;
-		Log("hererer!\n");
+	//	Log("hererer!\n");
 		draw_string(buf, F2int(it->x), it->y, 15);
 	}
 
