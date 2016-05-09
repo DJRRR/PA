@@ -17,7 +17,7 @@ void create_video_mapping() {
 	 */
 /*	PDE* pdir=get_updir()+((VMEM_ADDR>>22)&0x3ff);
 	PTE* ptable=vptable+((VMEM_ADDR>>12)&0x3ff);*/
-	PDE *pdir=(PDE *)va_to_pa(get_updir);
+	PDE *pdir=(PDE *)get_updir;
 	PTE *ptable=(PTE *)va_to_pa(vptable);
 	pdir->val=make_pde(ptable);
 	uint32_t pframe_addr=VMEM_ADDR;
