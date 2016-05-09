@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "common.h"
 #include <memory/cache.h>
 
 #define ENTRY_START 0x100000
