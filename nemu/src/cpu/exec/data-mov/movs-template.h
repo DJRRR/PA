@@ -13,7 +13,7 @@ make_helper(concat(movs_m_,SUFFIX)){
 		cpu.edi -= DATA_BYTE;
 		cpu.esi -= DATA_BYTE;
 	}
-	print_asm_template2();
+	print_asm("movs %%esi to %%edi\n");
 	return 1;
 }
 

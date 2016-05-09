@@ -43,8 +43,6 @@ redraw_screen() {
 	draw_string(miss, SCR_HEIGHT - 8, SCR_WIDTH - strlen(miss) * 8, 12);
 	draw_string(itoa(get_fps()), 0, 0, 14);
 	draw_string("FPS", 0, strlen(itoa(get_fps())) * 8, 14);
-	Log("FPS:   ");
-
 	display_buffer(); /* 绘制缓冲区 */
 }
 
