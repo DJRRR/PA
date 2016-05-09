@@ -1,64 +1,64 @@
 #include "FLOAT.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-	int   a_t=a;
-	int   b_t=b;
-	long long  result=a_t*b_t;
-	FLOAT fin;
-	fin=result>>16;
-	return fin;
+	//nemu_assert(0);
+	//return 0;
+	FLOAT temp;
+	if (a<b) {
+		temp=a;
+		a=b;
+		b=temp;
+	}
+	return (a>>6)*(b>>2)>>8;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-	  FLOAT fin;
-	  fin=(a/b)<<16;
-	  return fin;
+	//nemu_assert(0);
+	//return 0;
+	FLOAT c=(a/b)<<16;
+	FLOAT d=(a%b);
+	int i;
+	for(i=0;i<16;i++){
+		c+=((d<<1)/b)<<(15-i);
+		d=(d<<1)%b;
+	}
+	return c;
 }
 
 FLOAT f2F(float a) {
-/*	float temp=a;
-	FLOAT fin;
-	int temp_i=*((int *)&temp);
-	int flag=(temp_i>>31)&1;
-	int exp=((temp_i>>23)&0xff)-127;
-	int F_val=((temp_i)&0x7fffff)|0x800000;
-//	int first_pos=24;
-	int off_judge=exp-7;
-	if(off_judge==0){
-		fin=F_val|(flag<<31);
-	}
-	else if(off_judge<0){
-		fin=(F_val>>(-off_judge))|(flag<<31);
+	//nemu_assert(0);
+	//return 0;
+	void *f;
+	f=&a;
+	unsigned int x=*(unsigned int *)f;
+	int sign=(x>>31)&1;
+	int expo=(x>>23)&0xff;
+	expo=(expo<<24)>>24;
+	int mant=(x<<9)>>9;
+	expo=expo-127-7;
+
+	FLOAT result;
+	result=(1<<23)|mant;
+	if (expo>0){
+		result<<=expo;
 	}
 	else{
-		fin=(F_val<<off_judge)|(flag<<31);
+		result>>=-expo;
 	}
-	return fin;*/
-	float temp=a;
-//	FLOAT fin;
-	int temp_i=*((int *)&temp);
-	int flag=(temp_i>>31)&1;
-	int exp=((temp_i>>23)&0xff)-127;
-	int val_1=temp_i&0x7fff;
-	val_1=val_1|0x800000;
-	int val_2=((val_1>>(23-exp)<<16))&0x7fff0000;//zhengshu
-	val_1=((val_1<<(exp+9))>>16)&0xffff;
-	int res=val_1+val_2;
-	if(flag==1) res = -res;
-	return res;
-
+	if (sign) result=-result;
+	return result;
 
 }
 
 FLOAT Fabs(FLOAT a) {
-	FLOAT fin;
-	if(a<0){
-		fin=-a;
-	}
-	else{
-		fin=a;
-	}
-	return fin;
+
+	//nemu_assert(0);
+	//return 0;
+	void *f=&a;
+	unsigned int x=*(unsigned int*)f;
+	if (!!(x>>31)) x=~x+1;
+	return x;
+
 }
 
 FLOAT sqrt(FLOAT x) {
