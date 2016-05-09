@@ -26,12 +26,15 @@ void create_video_mapping() {
 		pframe += PAGE_SIZE;
 		ptable++;
 	}*/
-	PDE*pdir=get_updir()+((VMEM_ADDR>>22)&0X3ff);
-	PTE*ptable=vptable+((VMEM_ADDR>>12)&0x3ff);
-	pdir->val=make_pde(va_to_pa(vptable));
-	uint32_t page_no;
-	for(page_no=0;page_no<SCR_SIZE;page_no += PAGE_SIZE){
-		ptable->val=make_pte(page_no+VMEM_ADDR);
+	PDE* pdir=get_updir();
+	PTE* ptable=(PTE*)va_to_pa(vptable);
+	pdir[0].val=make_pde(ptable);
+	int i=0;
+	uint32_t pframe_addr=VMEM_ADDR;
+	ptable = ptable +0xa0;
+	for(;i<16;i++){
+		ptable->val=make_pte(pframe_addr);
+		pframe_addr += 4096;
 		ptable++;
 	}
 }
