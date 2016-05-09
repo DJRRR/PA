@@ -31,8 +31,8 @@ void create_video_mapping() {
 	pdir->val=make_pde(va_to_pa(vptable));
 	uint32_t page_no;
 	for(page_no=0;page_no<SCR_SIZE;page_no += PAGE_SIZE){
-		page_table->val=make_pte(page_no+VMEM_ADDR);
-		page_table++;
+		ptable->val=make_pte(page_no+VMEM_ADDR);
+		ptable++;
 	}
 }
 
