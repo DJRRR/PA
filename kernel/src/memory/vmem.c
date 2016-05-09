@@ -31,13 +31,19 @@ void create_video_mapping() {
 	pdir[0].val=make_pde(ptable);
 	
 	memset(vptable,0,sizeof(vptable));
-	int i=0;
+/*	int i=0;
 	uint32_t pframe_addr=VMEM_ADDR;
 	ptable = ptable +0xa0;
 	for(;i<16;i++){
 		ptable->val=make_pte(pframe_addr);
 		pframe_addr += 4096;
 		ptable++;
+	}*/
+	uint32_t vmem_addr=VMEM_ADDR;
+	uint32_t idx=VMEM_ADDR/PAGE_SIZE;
+	for(vmem_addr=VMEM_ADDR;vmem_addr<VMEM_ADDR+VMEM_SIZE;vmem_addr += PAGE_SIZE){
+		vptable[idx].val=make_pte(vmem_addr);
+		idx++;
 	}
 }
 
