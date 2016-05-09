@@ -17,8 +17,8 @@ void write_cache(hwaddr_t,size_t,uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	int judge=is_mmio(addr);
 	if(judge==-1){
-	//	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-		return read_cache(addr,len) & (~0u >> ((4 - len) << 3));
+		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	//	return read_cache(addr,len) & (~0u >> ((4 - len) << 3));
 	}
 	else{
 		return mmio_read(addr,len,judge) & (~0u >> ((4 - len) << 3));
@@ -28,8 +28,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	int judge=is_mmio(addr);
 	if(judge==-1){
-	//	dram_write(addr, len, data);
-		write_cache(addr,len,data);
+		dram_write(addr, len, data);
+	//	write_cache(addr,len,data);
 	}
 	else{
 		mmio_write(addr,len,data,judge);
