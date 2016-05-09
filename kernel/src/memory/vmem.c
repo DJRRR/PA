@@ -23,7 +23,7 @@ void create_video_mapping() {
 	uint32_t pframe=VMEM_ADDR;
 	int cnt;
 	ptable += 0xa0;
-	for(cnt=0;cnt<16;cnt++){
+	for(cnt=0;pframe<(VMEM_ADDR+SCR_SIZE);cnt++){
 		ptable->val=make_pte(pframe);
 		pframe += PAGE_SIZE;
 		ptable++;
