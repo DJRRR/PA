@@ -88,6 +88,7 @@ PAL_InitGlobals(
 #endif
    gpGlobals->bCurrentSaveSlot = 1;
 
+   Log("UTIL");
    return 0;
 }
 
