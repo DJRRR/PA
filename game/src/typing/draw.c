@@ -32,6 +32,7 @@ redraw_screen() {
 	for (it = characters(); it != NULL; it = it->_next) {
 		static char buf[2];
 		buf[0] = it->text + 'A'; buf[1] = 0;
+	//	Log("hererer!\n");
 		draw_string(buf, F2int(it->x), it->y, 15);
 	}
 
@@ -43,7 +44,6 @@ redraw_screen() {
 	draw_string(miss, SCR_HEIGHT - 8, SCR_WIDTH - strlen(miss) * 8, 12);
 	draw_string(itoa(get_fps()), 0, 0, 14);
 	draw_string("FPS", 0, strlen(itoa(get_fps())) * 8, 14);
-
 	display_buffer(); /* 绘制缓冲区 */
 }
 

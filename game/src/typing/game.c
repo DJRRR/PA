@@ -42,7 +42,7 @@ main_loop(void) {
 	while (true) {
 		wait_intr();
 		cli();
-		//Log("tick: %d, now: %d", tick, now);
+	//	Log("tick : %d, now : %d",tick,now);
 		if (now == tick) {
 			sti();
 			continue;

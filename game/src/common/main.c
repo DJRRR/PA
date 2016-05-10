@@ -13,11 +13,11 @@ game_init(void) {
 	init_timer();
 
 	add_irq_handle(0, timer_event);
-	add_irq_handle(1, keyboard_event);
+	add_irq_handle(1,keyboard_event);
 
 	Log("game start!");
+//	sti();
 
-	sti();
 	main_loop();
 
 	assert(0); /* main_loop是死循环，永远无法返回这里 */
