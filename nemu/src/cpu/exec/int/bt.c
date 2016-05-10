@@ -12,4 +12,4 @@
 #include "bt-template.h"
 #undef DATA_BYTE
 
-make_helper_v(bt_rm2r)
+make_helper_v(bt_r2rm)
