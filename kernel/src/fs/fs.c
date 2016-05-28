@@ -45,7 +45,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 void serial_printc(char);
 /* TODO: implement a simplified file system here. */
 int fs_open(const char *pathname,int flags){
-	Log("hererere!");
+//	Log("hererere!");
 	int i=0;
 	for(i=0;i<NR_FILES;i++){
 		if(strcmp(file_table[i].name,pathname)==0){
@@ -58,7 +58,22 @@ int fs_open(const char *pathname,int flags){
 	return 0;
 }
 int fs_read(int fd,void *buf,int len);
-int fs_write(int fd,void * buf,int len);
+int fs_write(int fd,void * buf,int len){
+	if(fd==1||fd==2){
+		int i;
+		for(i=0;i<len;i++){
+			serial_printc(((char*)buf)[i]);
+		}
+		return len;
+	}
+	Log("nemu-pal write!");
+	assert(file_sys[fd].opened==true);
+	if(file_sys[fd].offset+len>file_table[fd-3].size){
+		len=file_table[fd-3].size-file_sys[fd].offset;
+	}
+	ide_write(buf,file_table[fd-3].disk_offset+file_sys[fd].offset,len);
+	return len;
+}
 int fs_lseek(int fd,int offset,int whence);
 int fs_close(int fd);
 
