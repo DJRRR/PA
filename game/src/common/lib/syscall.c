@@ -31,9 +31,10 @@ int write(int fd, char *buf, int len) {
 }
 
 off_t lseek(int fd, off_t offset, int whence) {
-	Log("lseek not completed");
-	nemu_assert(0);
-	return 0; 
+//	Log("lseek not completed");
+//	nemu_assert(0);
+//	return 0; 
+	return syscall(SYS_lseek,fd,offset,whence);
 }
 
 void *sbrk(int incr) {
