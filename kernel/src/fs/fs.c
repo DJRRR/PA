@@ -105,5 +105,8 @@ int fs_lseek(int fd,int offset,int whence){
 	return file_sys[fd].offset;
 
 }
-int fs_close(int fd);
+int fs_close(int fd){
+	file_sys[fd].opened=false;
+	return 0;
+}
 

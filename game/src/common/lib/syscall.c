@@ -53,9 +53,10 @@ void *sbrk(int incr) {
 }
 
 int close(int fd) {
-	Log("close uncompleted!");
-	nemu_assert(0);
-	return 0; 
+//	Log("close uncompleted!");
+//	nemu_assert(0);
+//	return 0; 
+	return syscall(SYS_close,fd);
 }
 
 int fstat(int fd, struct stat *buf) {
