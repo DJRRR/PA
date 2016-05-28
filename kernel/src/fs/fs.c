@@ -6,6 +6,13 @@ typedef struct {
 	uint32_t disk_offset;
 } file_info;
 
+typedef struct{
+	bool opened;
+	uint32_t offset;
+}Fstate;
+
+static Fstate file_sys[NR_FILES+3];
+
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
 /* This is the information about all files in disk. */
@@ -29,6 +36,6 @@ static const file_info file_table[] = {
 
 void ide_read(uint8_t *, uint32_t, uint32_t);
 void ide_write(uint8_t *, uint32_t, uint32_t);
-
+void serial_printc(char);
 /* TODO: implement a simplified file system here. */
 
