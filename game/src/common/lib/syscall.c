@@ -21,6 +21,7 @@ int open(const char *pathname, int flags) {
 }
 
 int read(int fd, char *buf, int len) {
+	Log("fs_read not completed");
 	nemu_assert(0);
 	return 0; 
 }
@@ -30,6 +31,7 @@ int write(int fd, char *buf, int len) {
 }
 
 off_t lseek(int fd, off_t offset, int whence) {
+	Log("lseek not completed");
 	nemu_assert(0);
 	return 0; 
 }
