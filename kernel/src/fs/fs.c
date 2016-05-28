@@ -72,6 +72,7 @@ int fs_write(int fd,void * buf,int len){
 		len=file_table[fd-3].size-file_sys[fd].offset;
 	}
 	ide_write(buf,file_table[fd-3].disk_offset+file_sys[fd].offset,len);
+	file_sys[fd].offset+=len;
 	return len;
 }
 int fs_lseek(int fd,int offset,int whence);
