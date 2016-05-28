@@ -83,6 +83,27 @@ int fs_write(int fd,void * buf,int len){
 	file_sys[fd].offset+=len;
 	return len;
 }
-int fs_lseek(int fd,int offset,int whence);
+int fs_lseek(int fd,int offset,int whence){
+	assert(file_sys[fd].opened==true);
+	if(whence==SEEK_SET){
+		file_sys[fd].offset=offset;
+	}
+	else if(whence==SEEK_CUR){
+		file_sys[fd].offset+=offset;
+	}
+	else if(whence==SEEK_END){
+		file_sys[fd].offset=file_table[fd-3].size+offset;
+	}
+	else{
+		Log("error whence type!");
+		return 0;
+	}
+	if(file_sys[fd].offset>file_table[fd-3].size){
+		Log("fs_lseek error!");
+		assert(0);
+	}
+	return file_sys[fd].offset;
+
+}
 int fs_close(int fd);
 
