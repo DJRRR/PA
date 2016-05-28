@@ -15,8 +15,9 @@ void _exit(int status) {
 }
 
 int open(const char *pathname, int flags) {
-	nemu_assert(0);
-	return 0; 
+//	nemu_assert(0);
+	return syscall(SYS_open,pathname,flags);
+//	return 0; 
 }
 
 int read(int fd, char *buf, int len) {
