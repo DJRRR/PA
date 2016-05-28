@@ -57,7 +57,15 @@ int fs_open(const char *pathname,int flags){
 	Log("pathname error in fs_open!");
 	return 0;
 }
-int fs_read(int fd,void *buf,int len);
+int fs_read(int fd,void *buf,int len){
+	assert(file_sys[fd].opened==true);
+	if(file_sys[fd].offset+len>file_table[fd-3].size){
+		len=file_table[fd-3].size-file_sys[fd].offset;
+	}
+	ide_read(buf,file_table[fd-3].disk_offset+file_sys[fd].offset,len);
+	file_sys[fd].offset+=len;
+	return len;	
+}
 int fs_write(int fd,void * buf,int len){
 	if(fd==1||fd==2){
 		int i;
@@ -66,7 +74,7 @@ int fs_write(int fd,void * buf,int len){
 		}
 		return len;
 	}
-	Log("nemu-pal write!");
+//	Log("nemu-pal write!");
 	assert(file_sys[fd].opened==true);
 	if(file_sys[fd].offset+len>file_table[fd-3].size){
 		len=file_table[fd-3].size-file_sys[fd].offset;
