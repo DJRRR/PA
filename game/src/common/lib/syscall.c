@@ -21,9 +21,9 @@ int open(const char *pathname, int flags) {
 }
 
 int read(int fd, char *buf, int len) {
-	Log("fs_read not completed");
-	nemu_assert(0);
-	return 0; 
+//	Log("fs_read not completed");
+	return syscall(SYS_read,fd,buf,len);
+//	return 0; 
 }
 
 int write(int fd, char *buf, int len) {

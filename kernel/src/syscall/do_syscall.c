@@ -42,7 +42,7 @@ void do_syscall(TrapFrame *tf) {
 			add_irq_handle(tf->ebx, (void*)tf->ecx);
 			sti();
 			break;
-
+		case SYS_read: tf->eax=fs_read(tf->ebx,(void *)tf->ecx,tf->edx);break;
 		case SYS_brk: sys_brk(tf); break;
 		case SYS_open: tf->eax=fs_open((char *)tf->ebx,tf->ecx); break; 
 	//	case SYS_write: tf->eax=sys_write(tf->ebx,(void *)tf->ecx,tf->edx);break;
