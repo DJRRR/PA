@@ -6,6 +6,11 @@
 void add_irq_handle(int, void (*)(void));
 void mm_brk(uint32_t);
 
+int fs_open(const char*,int);
+int fs_read(int,void*,int);
+int fs_write(int,void*,int);
+int fs_lseek(int,int,int);
+int fs_close(int);
 static void sys_brk(TrapFrame *tf) {
 #ifdef IA32_PAGE
 	mm_brk(tf->ebx);
@@ -39,6 +44,7 @@ void do_syscall(TrapFrame *tf) {
 			break;
 
 		case SYS_brk: sys_brk(tf); break;
+		case SYS_open: tf->eax=fs_open((char *)tf->ebx,tf->ecx); break; 
 		case SYS_write: tf->eax=sys_write(tf->ebx,(void *)tf->ecx,tf->edx);break;
 
 		/* TODO: Add more system calls. */
