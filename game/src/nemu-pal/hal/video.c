@@ -78,9 +78,10 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
 	s->format->palette->ncolors = ncolors;
 	memcpy(s->format->palette->colors, colors, sizeof(SDL_Color) * ncolors);
 
-	if(s->flags & SDL_HWSURFACE) {
+	if(s->flags & SDL_HWSURFACE) {//surface has exclusive palette
 		/* TODO: Set the VGA palette by calling write_palette(). */
-		assert(0);
+		//assert(0);
+		write_palette(colors,ncolors);
 	}
 }
 
