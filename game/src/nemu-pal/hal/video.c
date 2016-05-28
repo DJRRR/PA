@@ -10,7 +10,7 @@ int get_fps();
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *scrrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
-
+	Log("SDL_BlitSurface not finished");
 	/* TODO: Performs a fast blit from the source surface to the 
 	 * destination surface. Only the position is used in the
 	 * ``dstrect'' (the width and height are ignored). If either
@@ -26,7 +26,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *scrrect,
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	assert(dst);
 	assert(color <= 0xff);
-
+	Log("SDL_FillRect not finished");
 	/* TODO: Fill the rectangle area described by ``dstrect''
 	 * in surface ``dst'' with color ``color''. If dstrect is
 	 * NULL, fill the whole surface.
