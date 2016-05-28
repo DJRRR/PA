@@ -45,6 +45,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 void serial_printc(char);
 /* TODO: implement a simplified file system here. */
 int fs_open(const char *pathname,int flags){
+	Log("hererere!");
 	int i=0;
 	for(i=0;i<NR_FILES;i++){
 		if(strcmp(file_table[i].name,pathname)==0){
