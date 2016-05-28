@@ -13,7 +13,12 @@ make_helper(int3) {
 
 	return 1;
 }
-
+make_helper(cwtl){
+	int32_t result=(int16_t)reg_w(R_AX);
+	reg_l(R_EAX)=result;
+	print_asm("cwtl");
+	return 1;
+}
 make_helper(lea) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);

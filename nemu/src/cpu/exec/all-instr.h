@@ -46,7 +46,12 @@
 #include "logic/test.h"//PA2.1
 #include "logic/seta.h"//PA2.3
 #include "logic/setne.h"//PA2.3
+#include "logic/setl.h"
 #include "logic/sete.h"
+#include "logic/setbe.h"
+#include "logic/setg.h"
+#include "logic/setge.h"
+#include "logic/setle.h"
 #include "logic/std.h"//PA3.3
 #include "logic/jcc.h"
 
