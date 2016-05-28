@@ -51,8 +51,8 @@ int fs_open(const char *pathname,int flags){
 	Log("pathname error in fs_open!");
 	return 0;
 }
-int fs_read(int fd,void *buf,int len){}
-int fs_write(int fd,void * buf,int len){}
-int fs_lseek(int fd,int offset,int whence){}
-int fs_close(int fd){}
+int fs_read(int fd,void *buf,int len);
+int fs_write(int fd,void * buf,int len);
+int fs_lseek(int fd,int offset,int whence);
+int fs_close(int fd);
 
