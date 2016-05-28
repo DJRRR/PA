@@ -7,12 +7,12 @@ typedef struct {
 	uint32_t disk_offset;
 } file_info;
 
-typedef struct{
-	bool opened;
-	uint32_t offset;
-}Fstate;
+//typedef struct{
+//	bool opened;
+//	uint32_t offset;
+//}Fstate;
 
-static Fstate file_sys[NR_FILES+3];
+//static Fstate file_sys[NR_FILES+3];
 
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 
@@ -35,6 +35,11 @@ static const file_info file_table[] = {
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
+typedef struct{
+	bool opened;
+	uint32_t offset;
+}Fstate;
+static Fstate file_sys[NR_FILES+3];
 void ide_read(uint8_t *, uint32_t, uint32_t);
 void ide_write(uint8_t *, uint32_t, uint32_t);
 void serial_printc(char);
