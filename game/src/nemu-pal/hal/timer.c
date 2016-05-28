@@ -25,11 +25,16 @@ timer_event(void) {
 
 uint32_t SDL_GetTicks() {
 	/* TODO: Return the time in millisecond. */
-	assert(0);
-	return 0;
+	//assert(0);
+	//return 0;
+	return 10*jiffy;
 }
 
 void SDL_Delay(uint32_t ms) {
 	/* TODO: Return from this function after waiting for `ms' milliseconds. */
-	assert(0);
+	uint32_t now=SDL_GetTicks();
+	uint32_t res=now;
+	while(res<now+ms){
+		res=SDL_GetTicks();
+	}
 }
