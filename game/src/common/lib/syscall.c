@@ -53,6 +53,7 @@ void *sbrk(int incr) {
 }
 
 int close(int fd) {
+	Log("close uncompleted!");
 	nemu_assert(0);
 	return 0; 
 }
