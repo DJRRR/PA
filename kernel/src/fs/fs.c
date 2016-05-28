@@ -1,4 +1,5 @@
 #include "common.h"
+#include "string.h"
 
 typedef struct {
 	char *name;
@@ -38,4 +39,20 @@ void ide_read(uint8_t *, uint32_t, uint32_t);
 void ide_write(uint8_t *, uint32_t, uint32_t);
 void serial_printc(char);
 /* TODO: implement a simplified file system here. */
+int fs_open(const char *pathname,int flags){
+	int i=0;
+	for(i=0;i<NR_FILES;i++){
+		if(strcmp(file_table[i].name,pathname)==0){
+			file_sys[i+3].opened=true;
+			file_sys[i+3].offset=0;
+			return (i+3);
+		}
+	}
+	Log("pathname error in fs_open!");
+	return 0;
+}
+int fs_read(int fd,void *buf,int len){}
+int fs_write(int fd,void * buf,int len){}
+int fs_lseek(int fd,int offset,int whence){}
+int fs_close(int fd){}
 
