@@ -10,7 +10,7 @@ int get_fps();
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *scrrect, 
 		SDL_Surface *dst, SDL_Rect *dstrect) {
 	assert(dst && src);
-	Log("SDL_BlitSurface not finished");
+//	Log("SDL_BlitSurface not finished");
 	/* TODO: Performs a fast blit from the source surface to the 
 	 * destination surface. Only the position is used in the
 	 * ``dstrect'' (the width and height are ignored). If either
@@ -19,8 +19,33 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *scrrect,
 	 * is saved in ``dstrect'' after all clipping is performed
 	 * (``srcrect'' is not modified).
 	 */
-
-	assert(0);
+	int srcx,srcy,srcw,srch,dstx,dsty;
+	if(scrrect==NULL){
+		srcx=0;
+		srcy=0;
+		srcw=src->w;
+		srch=src->h;
+	}
+	else{
+		srcx=scrrect->x;
+		srcy=scrrect->y;
+		srcw=scrrect->w;
+		srch=scrrect->h;
+	}
+	if(dstrect==NULL){
+		dstx=0;
+		dsty=0;
+	}
+	else{
+		dstx=dstrect->x;
+		dsty=dstrect->y;
+	}
+	int i=0;
+	//transfer src to dst
+	for(i=0;i<srch;i++){//not checked
+		memcpy(dst->pixels+dstx+(dsty+i)*dst->w,src->pixels+srcx+(srcy+i)*src->w,srcw);
+	}
+//	assert(0);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
