@@ -97,7 +97,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		Log("1");
 		switch(check){
 			case KEY_STATE_PRESS:
-				key_press_callback(check);
+				key_press_callback(get_keycode(i));
 				release_key(i);
 				res=true;
 				break;
@@ -106,7 +106,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 				res=true;
 				break;
 			case KEY_STATE_WAIT_RELEASE:
-				key_release_callback(check);
+				key_release_callback(get_keycode(i));
 				clear_key(i);
 				res=true;
 				break;
