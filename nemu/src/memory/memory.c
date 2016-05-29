@@ -37,11 +37,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
-	uint32_t offset=addr&0xfff;
-	if(len+offset>0x1000){
-		printf("page error!");
-		assert(0);
-	}
 	return read_page(addr);
 }
 
@@ -78,21 +73,50 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	//return hwaddr_read(addr, len);
 #ifdef DEBUG
 	assert(len==1 || len==2 ||len==4);
-#endif
+#endif	
+		uint32_t offset = addr & 0xfff;
+		uint32_t tem_len,tem1,tem2;
+		if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
+			return hwaddr_read(addr,len);
+		}
 		hwaddr_t hwaddr = page_translate(addr,len);
 //		hwaddr_t hwaddr = page_translate2(addr);
-		return hwaddr_read(hwaddr,len);
+		if(len+offset>0x1000){
+			tem_len=0x1000-offset;
+			tem1=hwaddr_read(hwaddr,tem_len);
+			addr += tem_len;
+			hwaddr = page_translate(addr,len);
+			tem2=hwaddr_read(hwaddr,len-tem_len);
+			return tem1+(tem2<<(tem_len*8));
+		}
+		else{
+			return hwaddr_read(hwaddr,len);
+		}
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 //	hwaddr_write(addr, len, data);
 #ifdef DEBUG
 	assert(len==1 || len==2 || len==4);
-#endif
+#endif	
+		uint32_t offset=addr&0xfff;
+		uint32_t tem_len;
+		if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
+			hwaddr_write(addr,len,data);
+			return;
+		}
 		hwaddr_t hwaddr = page_translate(addr,len);
 //		hwaddr_t hwaddr=page_translate(addr);
-
-		hwaddr_write(hwaddr,len,data);
+		if(len+offset>0x1000){
+			tem_len=0x1000-offset;
+			hwaddr_write(hwaddr,tem_len,data);
+			addr += tem_len;
+			hwaddr=page_translate(addr,len);
+			hwaddr_write(hwaddr,len-tem_len,data>>(tem_len*8));
+		}
+		else{
+			hwaddr_write(hwaddr,len,data);
+		}
 }
 
 lnaddr_t seg_translate(swaddr_t addr,size_t len,uint32_t current_sreg){
