@@ -37,6 +37,11 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 }
 hwaddr_t page_translate(lnaddr_t addr,size_t len){
+	uint32_t offset=addr&0xfff;
+	if(len+offset>0x1000){
+		printf("page error!");
+		assert(0);
+	}
 	return read_page(addr);
 }
 
