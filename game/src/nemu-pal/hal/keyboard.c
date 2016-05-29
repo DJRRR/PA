@@ -94,6 +94,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	bool res=false;
 	for(i=0;i<NR_KEYS;i++){
 		int check=query_key(i);
+		Log("1");
 		switch(check){
 			case KEY_STATE_PRESS:
 				key_press_callback(check);
