@@ -3,7 +3,7 @@
 #define instr jmp
 
 static void do_execute(){
-	if(ops_decoded.opcode==0xff){
+	if((ops_decoded.opcode&0xff)==0xff){
 			if(DATA_BYTE==2){
 				cpu.eip = op_src->val&0x0000ffff;
 			}
@@ -19,7 +19,7 @@ static void do_execute(){
 			}
 		
 	}
-	else if(ops_decoded.opcode==0xeb||ops_decoded.opcode==0xe9){
+	else if((ops_decoded.opcode&0xff)==0xeb||(ops_decoded.opcode&0xff)==0xe9){
 		cpu.eip += (DATA_TYPE_S)op_src->val;
 		if(DATA_BYTE==2){
 			cpu.eip &= 0x0000ffff;

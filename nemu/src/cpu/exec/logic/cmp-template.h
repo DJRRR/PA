@@ -15,7 +15,7 @@ static void do_execute(){
 	else{
 		cpu.OF=0;
 	}
-	if(op_src->val>op_dest->val){
+	if((DATA_TYPE)op_src->val>(DATA_TYPE)op_dest->val){
 		cpu.CF=1;
 	}
 	else{

@@ -13,14 +13,8 @@ static void do_execute () {
 //	int i=0;
 	cpu.ZF=!result;
 	cpu.SF=flag_res;
-	cpu.OF=(result==0x7fffffff)?1:0;
-/*	for(i=0;i<8;i++){
-		if(result&1){
-			num++;
-		}
-		result >>= 1;
-	}
-	cpu.PF=!(num%2);*/
+	cpu.OF=MSB(op_src->val)^MSB(result);
+	cpu.CF=!((DATA_TYPE)op_src->val);
 	DATA_TYPE res_t = result;
 	res_t = res_t & 0xff;
 	res_t ^= res_t>>4;

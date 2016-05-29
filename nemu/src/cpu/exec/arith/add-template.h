@@ -10,7 +10,7 @@ static void do_execute(){
 	OPERAND_W(op_dest,result);
 //	unsigned int num=0;
 //	int i=0;
-	if(result<op_src->val||result<op_dest->val){//unchecked
+	if((DATA_TYPE)op_dest->val>(DATA_TYPE)(~(op_src->val))){//unchecked
 		cpu.CF=1;
 	}
 	else{

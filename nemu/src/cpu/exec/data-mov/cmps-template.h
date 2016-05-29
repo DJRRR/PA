@@ -12,7 +12,7 @@ make_helper(concat(cmps_,SUFFIX)){
 		incdec=-DATA_BYTE;
 	}
 	cpu.SF=MSB(result);
-	cpu.CF=(result>swaddr_read(dest_index,DATA_BYTE,S_DS))?1:0;
+	cpu.CF=(swaddr_read(dest_index,DATA_BYTE,S_DS)<swaddr_read(src_index,DATA_BYTE,S_ES))?1:0;
 	cpu.ZF=!result;
 	DATA_TYPE p=result;
 	p &= 0xff;

@@ -3,28 +3,18 @@
 #define instr adc
 
 static void do_execute(){
-	DATA_TYPE result=op_dest->val+op_src->val+cpu.CF;
-//	OPERAND_W(op_dest,result);
-	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
-	DATA_TYPE flag_src=MSB(op_src->val)&1;
+	uint64_t result1=(uint64_t)op_dest->val+op_src->val+cpu.CF;
+	DATA_TYPE result=result1;
+//	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
+//	DATA_TYPE flag_src=MSB(op_src->val)&1;
 	DATA_TYPE flag_res=MSB(result)&1;
 	OPERAND_W(op_dest,result);
 //	unsigned int num=0;
 //	int i=0;
 	cpu.SF=flag_res;
 	cpu.ZF=!result;
-	if(result<op_src->val||result<op_dest->val){
-		cpu.CF=1;
-	}
-	else{
-		cpu.CF=0;
-	}
-	if(((flag_dest==flag_src)&&(flag_src!=flag_res))||(cpu.CF==1&&result==(1<<(DATA_BYTE*8-1)))){
-		cpu.OF=1;
-	}
-	else{
-		cpu.OF=0;
-	}
+	cpu.CF=(result1>>(DATA_BYTE<<3))&1;
+	cpu.OF=(MSB(op_dest->val)^MSB(result))&&!(MSB(op_dest->val)^MSB(op_src->val));
 /*	for(i=0;i<8;i++){
 		if(result&1){
 			num++;

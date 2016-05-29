@@ -12,29 +12,9 @@ static void do_execute () {
 	DATA_TYPE flag_res=MSB(result)&1;
 	cpu.ZF=!result;
 	cpu.SF=flag_res;
-//	unsigned int num=0;
-//	int i=0;
-/*	if(flag_src==0&&flag_res==1){
-		cpu.OF=1;
-	}
-	else{
-		cpu.OF=0;
-	}*/
-	cpu.OF=(result==0x80000000)?1:0;
-/*	if(result<op_src->val||result<1){
-		cpu.CF=1;
-	}
-	else{
-		cpu.CF=0;
-	}*/
+	cpu.OF=(result==(1<<(DATA_BYTE*8-1)));
+	cpu.CF=!result;
 
-/*	for(i=0;i<8;i++){
-		if(result&1){
-			num++;
-		}
-		result >>= 1;
-	}
-	cpu.PF=!(num%2);*/
 	DATA_TYPE res_t = result;
 	res_t = res_t &0xff;
 	res_t ^= res_t >> 4;

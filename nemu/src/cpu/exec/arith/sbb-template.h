@@ -1,58 +1,33 @@
 #include "cpu/exec/template-start.h"
-
 #define instr sbb
 
 static void do_execute(){
-	DATA_TYPE src=op_src->val;
-	if(ops_decoded.opcode==0x83){
-		src=(DATA_TYPE_S)op_src->val;
-	}
-	DATA_TYPE result=op_dest->val-(src+cpu.CF);
-	OPERAND_W(op_dest,result);
-//	DATA_TYPE temp=result;
-	DATA_TYPE flag_dest=MSB(op_dest->val)&1;
-	DATA_TYPE flag_src=MSB(src)&1;
-	DATA_TYPE flag_res=MSB(result)&1;
-//	unsigned int num=0;
-//	int i=0;
-	cpu.SF=flag_res;
+	uint64_t cfcf = (uint64_t)op_dest->val - op_src->val - cpu.CF;
+	DATA_TYPE result = op_dest->val - op_src->val;
+	OPERAND_W(op_dest, result-cpu.CF);
+	uint32_t CF,OF;
+	CF = ((cfcf>>(DATA_BYTE<<3))&1);
+	OF = (MSB(op_dest->val) ^ MSB(result)) && (MSB(op_dest->val) ^ MSB(op_src->val));
+//	cal_eflags();
+//	// 未实现eflags的功能
+	cpu.CF=CF;
+	cpu.OF=OF;
 	cpu.ZF=!result;
-/*	for(i=0;i<8;i++){
-		if(temp&1){
-			num++;
-		}
-		temp >>= 1;
-	}
-	cpu.PF=!(num%2);*/
-	DATA_TYPE res_t=result;
-	res_t = res_t &0xff;
-	res_t ^= res_t>>4;
-	res_t ^= res_t>>2;
-	res_t ^= res_t>>1;
-	cpu.PF=!res_t;
-	if(op_dest->val<src){
-		cpu.CF=1;
-	}
-	else{
-		cpu.CF=0;
-	}
-	if((flag_src==flag_res&&flag_dest!=flag_src)||(cpu.CF==1&&result==(1<<(DATA_BYTE*8-1)))){
-		cpu.OF=1;
-	}
-	else{
-		cpu.OF=0;
-	}
+	cpu.SF=MSB(result);
+	uint32_t r=result;
+	r ^= r>>4;
+	r ^= r>>2;
+	r ^= r>>1;
+	cpu.PF=!(r&1);
 	print_asm_template2();
 }
+#if DATA_BYTE == 2 || DATA_BYTE == 4
+make_instr_helper(si2rm)
+#endif
 
 make_instr_helper(i2a)
 make_instr_helper(i2rm)
-#if DATA_BYTE==2 || DATA_BYTE==4
-make_instr_helper(si2rm)
-#endif
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
 
 #include "cpu/exec/template-end.h"
-
-
