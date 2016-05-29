@@ -15,9 +15,38 @@ static const int keycode_array[] = {
 static int key_state[NR_KEYS];
 
 static volatile int key_code=0;
+
+
+
+static inline int
+get_keycode(int index) {
+	assert(index >= 0 && index < NR_KEYS);
+	return keycode_array[index];
+}
+
 void
 press_key(int scan_code){
+	bool press_flag=false;
+	if(scan_code>=128){
+		press_flag=true;
+		scan_code -= 128;
+	}
+	if(press_flag){
+		int i;
+		for(i=0;i<NR_KEYS;i++){
+			if(get_keycode(i)==scan_code){
+				if(key_state[i]==KEY_STATE_WAIT_RELEASE){
+					key_state[i]=KEY_STATE_RELEASE;			
+				}
+				else if(key_state[i]==KEY_STATE_EMPTY){
+					key_state[i]=KEY_STATE_PRESS;
+				}
+			}
+		}
+
+	}
 }
+
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
@@ -26,16 +55,9 @@ keyboard_event(void) {
 	//Log("Here in keyboard_event!");
 //	assert(0);
 	key_code=in_byte(0x60);
-	Log("%d",key_code);
+//	Log("%d",key_code);
 	press_key(key_code);
 
-}
-
-
-static inline int
-get_keycode(int index) {
-	assert(index >= 0 && index < NR_KEYS);
-	return keycode_array[index];
 }
 
 static inline int
