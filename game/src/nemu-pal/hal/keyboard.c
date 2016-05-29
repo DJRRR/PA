@@ -66,8 +66,8 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 * If no such key is found, the function return false.
 	 * Remember to enable interrupts before returning from the function.
 	 */
-	Log("process_keys not finished!");
-	assert(0);
+//	Log("process_keys not finished!");
+//	assert(0);
 	sti();
 	return false;
 }
