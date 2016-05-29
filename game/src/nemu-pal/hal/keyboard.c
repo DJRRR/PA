@@ -14,15 +14,23 @@ static const int keycode_array[] = {
 
 static int key_state[NR_KEYS];
 
+static volatile int key_code=0;
+void
+press_key(int scan_code){
+}
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
 //	assert(0);
 //	assert(index >= 0 && index < NR_KEYS);
-	Log("Here in keyboard_event!");
-	assert(0);
+	//Log("Here in keyboard_event!");
+//	assert(0);
+	key_code=in_byte(0x60);
+	Log("%d",key_code);
+	press_key(key_code);
 
 }
+
 
 static inline int
 get_keycode(int index) {
@@ -59,7 +67,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 * Remember to enable interrupts before returning from the function.
 	 */
 	Log("process_keys not finished!");
-	//assert(0);
+	assert(0);
 	sti();
 	return false;
 }
