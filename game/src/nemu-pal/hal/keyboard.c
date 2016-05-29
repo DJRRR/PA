@@ -90,6 +90,24 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 */
 //	Log("process_keys not finished!");
 //	assert(0);
+	int i;
+	bool res=false;
+	for(i=0;i<NR_KEYS;i++){
+		if(query_key(i)==KEY_STATE_PRESS){
+			key_press_callback(get_keycode(i));
+			release_key(i);
+			res=true;
+		}
+		else if(query_key(i)==KEY_STATE_RELEASE){
+			key_state[i]=KEY_STATE_WAIT_RELEASE;
+			res=true;
+		}
+		else if(query_key(i)==KEY_STATE_WAIT_RELEASE){
+			key_release_callback(get_keycode(i));
+			key_state[i]=KEY_STATE_EMPTY;
+			res=true;
+		}
+	}
 	sti();
-	return false;
+	return res;
 }
