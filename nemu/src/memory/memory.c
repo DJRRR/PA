@@ -40,34 +40,6 @@ hwaddr_t page_translate(lnaddr_t addr,size_t len){
 	return read_page(addr);
 }
 
-hwaddr_t page_translate2(lnaddr_t addr){
-	if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
-		return (hwaddr_t) addr;
-	}
-	int i,flag=0;
-	for(i=0;i<64;i++){
-		if(tlb[i].tag==(addr>>12)&&tlb[i].valid==1){
-			flag=1;
-			break;
-		}
-	}
-	if(flag==1){
-		uint32_t offset=addr&0xfff;
-		return offset+((tlb[i].page_data>>12)<<12);
-	}
-	else{
-		uint16_t dir=addr>>22;
-		uint16_t page=(addr>>12)&0x3ff;
-		uint16_t offset=addr&0xfff;
-		uint32_t page_base=hwaddr_read((cpu.cr3.page_directory_base<<12)+dir*4,4)>>12;
-		srand(time(0)+clock());
-		int no=rand()%64;
-		tlb[no].valid=1;
-		tlb[no].tag=addr>>12;
-		tlb[no].page_data=hwaddr_read((page_base<<12)+page*4,4);
-		return offset+((hwaddr_read((page_base<<12)+page*4,4)>>12)<<12);
-	}
-}
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	//return hwaddr_read(addr, len);
@@ -75,19 +47,20 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	assert(len==1 || len==2 ||len==4);
 #endif	
 		uint32_t offset = addr & 0xfff;
-		uint32_t tem_len,tem1,tem2;
+		uint32_t new_len,res1,res2;
 		if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
 			return hwaddr_read(addr,len);
 		}
 		hwaddr_t hwaddr = page_translate(addr,len);
 //		hwaddr_t hwaddr = page_translate2(addr);
 		if(len+offset>0x1000){
-			tem_len=0x1000-offset;
-			tem1=hwaddr_read(hwaddr,tem_len);
-			addr += tem_len;
-			hwaddr = page_translate(addr,len);
-			tem2=hwaddr_read(hwaddr,len-tem_len);
-			return tem1+(tem2<<(tem_len*8));
+			new_len=0x1000-offset;
+			res1=hwaddr_read(hwaddr,new_len);
+			addr+=new_len;
+			hwaddr=page_translate(addr,len);
+			res2=hwaddr_read(hwaddr,len-new_len);
+			res2=res2<<(new_len<<3);
+			return res1+res2;
 		}
 		else{
 			return hwaddr_read(hwaddr,len);
@@ -100,7 +73,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	assert(len==1 || len==2 || len==4);
 #endif	
 		uint32_t offset=addr&0xfff;
-		uint32_t tem_len;
+		uint32_t new_len;
 		if(cpu.cr0.protect_enable==0||cpu.cr0.paging==0){
 			hwaddr_write(addr,len,data);
 			return;
@@ -108,11 +81,12 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 		hwaddr_t hwaddr = page_translate(addr,len);
 //		hwaddr_t hwaddr=page_translate(addr);
 		if(len+offset>0x1000){
-			tem_len=0x1000-offset;
-			hwaddr_write(hwaddr,tem_len,data);
-			addr += tem_len;
+			new_len=0x1000-offset;
+			hwaddr_write(hwaddr,new_len,data);
+			addr+=new_len;
 			hwaddr=page_translate(addr,len);
-			hwaddr_write(hwaddr,len-tem_len,data>>(tem_len*8));
+			data=data>>(new_len<<3);
+			hwaddr_write(hwaddr,len-new_len,data);
 		}
 		else{
 			hwaddr_write(hwaddr,len,data);

@@ -3,11 +3,11 @@
 
 make_helper(in_i_b);
 make_helper(in_i_v);
-make_helper(in_b);
-make_helper(in_v);
+make_helper(in_d_b);
+make_helper(in_d_v);
 
 make_helper(out_i_b);
 make_helper(out_i_v);
-make_helper(out_b);
-make_helper(out_v);
+make_helper(out_d_b);
+make_helper(out_d_v);
 #endif
