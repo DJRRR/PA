@@ -51,13 +51,29 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *scrrect,
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	assert(dst);
 	assert(color <= 0xff);
-	Log("SDL_FillRect not finished");
+//	Log("SDL_FillRect not finished");
 	/* TODO: Fill the rectangle area described by ``dstrect''
 	 * in surface ``dst'' with color ``color''. If dstrect is
 	 * NULL, fill the whole surface.
 	 */
-
-	assert(0);
+	int dstx,dsty,dstw,dsth;
+	if(dstrect==NULL){
+		dstx=0;
+		dsty=0;
+		dstw=dst->w;
+		dsth=dst->h;
+	}
+	else{
+		dstx=dstrect->x;
+		dsty=dstrect->y;
+		dstw=dstrect->w;
+		dsth=dstrect->h;
+	}
+	int i=0;
+	for(i=0;i<dsth;i++){
+		memset(dst->pixels+(i+dsty)*dst->w+dstx,color,dstw);
+	}
+	//assert(0);
 }
 
 void SDL_UpdateRect(SDL_Surface *screen, int x, int y, int w, int h) {
