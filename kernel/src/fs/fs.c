@@ -54,7 +54,7 @@ int fs_open(const char *pathname,int flags){
 			return (i+3);
 		}
 	}
-	Log("pathname error in fs_open!");
+//	Log("pathname error in fs_open!");
 	return 0;
 }
 int fs_read(int fd,void *buf,int len){
