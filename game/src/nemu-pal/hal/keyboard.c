@@ -26,9 +26,9 @@ get_keycode(int index) {
 
 void
 press_key(int scan_code){
-	bool press_flag=false;
+	bool press_flag=true;
 	if(scan_code>=128){
-		press_flag=true;
+		press_flag=false;
 		scan_code -= 128;
 	}
 	if(press_flag){
@@ -55,7 +55,7 @@ keyboard_event(void) {
 	//Log("Here in keyboard_event!");
 //	assert(0);
 	key_code=in_byte(0x60);
-	Log("%d",key_code);
+//	Log("%d",key_code);
 	press_key(key_code);
 
 }
