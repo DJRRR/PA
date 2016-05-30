@@ -99,16 +99,16 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 			case KEY_STATE_PRESS:
 				key_press_callback(get_keycode(i));
 				release_key(i);
-				res=true;
+			//	res=true;
 				break;
 			case KEY_STATE_RELEASE:
 				release_key(i);
-				res=true;
+			//	res=true;
 				break;
 			case KEY_STATE_WAIT_RELEASE:
 				key_release_callback(get_keycode(i));
 				clear_key(i);
-				res=true;
+			//	res=true;
 				break;
 			default:
 			//	Log("process key error!");
